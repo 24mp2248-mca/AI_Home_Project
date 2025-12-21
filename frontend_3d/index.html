@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>3D House Visualization</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+
+<script>
+  // Scene
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xf0f0f0);
+
+  // Camera
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.set(8, 10, 12);
+camera.lookAt(0, 0, 0);
+
+
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+  const light = new THREE.DirectionalLight(0xffffff, 0.6);
+  light.position.set(5, 10, 7);
+  scene.add(light);
+
+  // Floor
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshStandardMaterial({ color: 0xdddddd })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  scene.add(floor);
+function createLabel(text, x, z) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 128;
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "black";
+  ctx.font = "bold 28px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText(text, canvas.width / 2, 75);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  const material = new THREE.SpriteMaterial({ map: texture });
+  const sprite = new THREE.Sprite(material);
+
+  sprite.scale.set(2, 1, 1);
+  sprite.position.set(x, wallHeight - 0.5, z);
+
+  house.add(sprite);
+}
+
+  // House group
+const house = new THREE.Group();
+scene.add(house);
+function createWall(width, height, depth, x, y, z) {
+  const geometry = new THREE.BoxGeometry(width, height, depth);
+  const material = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+  const wall = new THREE.Mesh(geometry, material);
+  wall.position.set(x, y, z);
+  house.add(wall);
+}
+const wallHeight = 3;
+const wallThickness = 0.15;
+const houseWidth = 4;
+const houseLength = 4;
+
+// Front wall
+createWall(houseWidth, wallHeight, wallThickness, 0, wallHeight / 2, houseLength / 2);
+
+// Back wall
+createWall(houseWidth, wallHeight, wallThickness, 0, wallHeight / 2, -houseLength / 2);
+
+// Left wall
+createWall(wallThickness, wallHeight, houseLength, -houseWidth / 2, wallHeight / 2, 0);
+
+// Right wall
+createWall(wallThickness, wallHeight, houseLength, houseWidth / 2, wallHeight / 2, 0);
+
+ // Room sizes (inside the house)
+const innerWallThickness = 0.12;
+
+// Vertical partition (left-right)
+createWall(
+  innerWallThickness,
+  wallHeight,
+  houseLength,
+  0,
+  wallHeight / 2,
+  0
+);
+
+// Horizontal partition (top-bottom)
+createWall(
+  houseWidth,
+  wallHeight,
+  innerWallThickness,
+  0,
+  wallHeight / 2,
+  0
+);
+function createRoomFloor(width, length, x, z, color) {
+  const geometry = new THREE.PlaneGeometry(width, length);
+  const material = new THREE.MeshStandardMaterial({
+    color: color,
+    side: THREE.DoubleSide
+  });
+  const floor = new THREE.Mesh(geometry, material);
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(x, 0.2, z);
+  house.add(floor);
+}
+const halfW = houseWidth / 4;
+const halfL = houseLength / 4;
+
+// Living Room (Top Left)
+createRoomFloor(houseWidth / 2, houseLength / 2, -halfW, halfL, 0x8ecae6);
+createLabel("Living Room", -halfW, halfL);
+
+// Bedroom (Top Right)
+createRoomFloor(houseWidth / 2, houseLength / 2, halfW, halfL, 0xb7e4c7);
+createLabel("Bedroom", halfW, halfL);
+
+// Kitchen (Bottom Left)
+createRoomFloor(houseWidth / 2, houseLength / 2, -halfW, -halfL, 0xffd166);
+createLabel("Kitchen", -halfW, -halfL);
+
+// Bathroom (Bottom Right)
+createRoomFloor(houseWidth / 2, houseLength / 2, halfW, -halfL, 0xd3d3d3);
+createLabel("Bathroom", halfW, -halfL);
+
+
+  // 🖱️ MANUAL MOUSE ROTATION (GUARANTEED)
+  let isDragging = false;
+  let previousMousePosition = { x: 0, y: 0 };
+
+  document.addEventListener("mousedown", () => isDragging = true);
+  document.addEventListener("mouseup", () => isDragging = false);
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    const deltaMove = {
+      x: e.offsetX - previousMousePosition.x,
+      y: e.offsetY - previousMousePosition.y
+    };
+
+    house.rotation.y += deltaMove.x * 0.005;
+
+
+    previousMousePosition = {
+      x: e.offsetX,
+      y: e.offsetY
+    };
+  });
+
+  // Animate
+  function animate() {
+  requestAnimationFrame(animate);
+
+  house.children.forEach(obj => {
+    if (obj.type === "Sprite") {
+      obj.lookAt(camera.position);
+    }
+  });
+
+  renderer.render(scene, camera);
+}
+  animate();
+</script>
+
+</body>
+</html>

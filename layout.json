@@ -1,0 +1,73 @@
+{
+    "total_rooms": 17,
+    "rooms": [
+        {
+            "room_id": 45,
+            "approx_area": 1229
+        },
+        {
+            "room_id": 64,
+            "approx_area": 4207
+        },
+        {
+            "room_id": 71,
+            "approx_area": 26479
+        },
+        {
+            "room_id": 84,
+            "approx_area": 2046
+        },
+        {
+            "room_id": 85,
+            "approx_area": 1030
+        },
+        {
+            "room_id": 86,
+            "approx_area": 5409
+        },
+        {
+            "room_id": 103,
+            "approx_area": 20234
+        },
+        {
+            "room_id": 111,
+            "approx_area": 792
+        },
+        {
+            "room_id": 121,
+            "approx_area": 956
+        },
+        {
+            "room_id": 123,
+            "approx_area": 550
+        },
+        {
+            "room_id": 124,
+            "approx_area": 2546
+        },
+        {
+            "room_id": 125,
+            "approx_area": 848
+        },
+        {
+            "room_id": 126,
+            "approx_area": 715
+        },
+        {
+            "room_id": 128,
+            "approx_area": 1100
+        },
+        {
+            "room_id": 131,
+            "approx_area": 16742
+        },
+        {
+            "room_id": 132,
+            "approx_area": 639
+        },
+        {
+            "room_id": 135,
+            "approx_area": 9109
+        }
+    ]
+}
