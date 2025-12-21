@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Home Planning System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>AI-Enabled Home Planning</h2>
+    <p>Upload a hand-sketched house plan</p>
+
+    <input type="file" id="sketchFile" accept="image/*">
+    <br>
+
+    <button onclick="uploadSketch()">Upload & View 3D</button>
+  </div>
+
+<script>
+  function uploadSketch() {
+    const file = document.getElementById("sketchFile").files[0];
+    if (!file) {
+      alert("Please select a sketch image");
+      return;
+    }
+
+    // For now, just move to viewer page
+    window.location.href = "viewer.html";
+  }
+</script>
+
+</body>
+</html>
