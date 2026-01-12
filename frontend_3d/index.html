@@ -58,10 +58,25 @@ const W = 4;
 const L = 4;
 
 /* OUTER WALLS */
-wall(W, H, T, 0, H/2,  L/2);
+//wall(W, H, T, 0, H/2,  L/2);
 wall(W, H, T, 0, H/2, -L/2);
 wall(T, H, L, -W/2, H/2, 0);
 wall(T, H, L,  W/2, H/2, 0);
+// =======================
+// INTERNAL ROOM PARTITIONS
+// =======================
+
+// Vertical partition (left-right)
+wall(0.12, H, L, 0, H/2, 0);
+
+// Horizontal partition (top-bottom)
+wall(W, H, 0.12, 0, H/2, 0);
+
+// Partition for car porch
+wall(0.12, H, L/2, -W/4, H/2, -L/4);
+
+// Partition for work area
+wall(0.12, H, L/2, W/4, H/2, -L/4);
 
 /* GRID (DEBUG HELPER) */
 scene.add(new THREE.GridHelper(10, 10));
