@@ -23,8 +23,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(5, 5, 5);
-camera.lookAt(0, 1.5, 0);
+camera.position.set(6, 8, 6);
+camera.lookAt(0, 0.8, 0);
 
 /* RENDERER */
 const renderer = new THREE.WebGLRenderer();
@@ -52,7 +52,7 @@ function wall(w, h, d, x, y, z) {
 }
 
 /* HOUSE SIZE */
-const H = 3;
+const H = 2.4;
 const T = 0.15;
 const W = 4;
 const L = 4;
@@ -77,6 +77,36 @@ wall(0.12, H, L/2, -W/4, H/2, -L/4);
 
 // Partition for work area
 wall(0.12, H, L/2, W/4, H/2, -L/4);
+function createRoomFloor(w, l, x, z, color) {
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, l),
+    new THREE.MeshStandardMaterial({
+      color: color,
+      side: THREE.DoubleSide
+    })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.set(x, 0.02, z);
+  house.add(floor);
+}
+/* ROOM FLOORS */
+const halfW = W / 4;
+const halfL = L / 4;
+
+// Living Room – Tiles
+createRoomFloor(W/2, L/2, -halfW,  halfL, 0xe0f2f1);
+
+// Bedroom – Wood
+createRoomFloor(W/2, L/2,  halfW,  halfL, 0xd7ccc8);
+
+// Kitchen – Ceramic
+createRoomFloor(W/2, L/2, -halfW, -halfL, 0xfff9c4);
+
+// Bathroom – Cement
+createRoomFloor(W/2, L/2,  halfW, -halfL, 0xe0e0e0);
+
+// Car Porch – Dark cement
+createRoomFloor(W/2, L/4,  0,     -L/2 + 0.5, 0xbdbdbd);
 
 /* GRID (DEBUG HELPER) */
 scene.add(new THREE.GridHelper(10, 10));
