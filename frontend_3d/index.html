@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>3D House Base</title>
+  <title>3D House – Stage 2</title>
   <style>
     body { margin: 0; overflow: hidden; }
   </style>
@@ -10,11 +10,12 @@
 <body>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/controls/OrbitControls.js"></script>
 
 <script>
 /* SCENE */
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xeeeeee);
+scene.background = new THREE.Color(0xf2f2f2);
 
 /* CAMERA */
 const camera = new THREE.PerspectiveCamera(
@@ -23,18 +24,24 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(6, 8, 6);
-camera.lookAt(0, 0.8, 0);
+camera.position.set(7, 7, 7);
+camera.lookAt(0, 1.5, 0);
 
 /* RENDERER */
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+/* CONTROLS – rotation & zoom */
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.enableZoom = true;
+controls.enableRotate = true;
 
 /* LIGHTS */
 scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 const sun = new THREE.DirectionalLight(0xffffff, 0.8);
-sun.position.set(10, 10, 10);
+sun.position.set(10, 15, 10);
 scene.add(sun);
 
 /* HOUSE GROUP */
@@ -43,77 +50,49 @@ scene.add(house);
 
 /* WALL FUNCTION */
 function wall(w, h, d, x, y, z) {
-  const m = new THREE.Mesh(
+  const mesh = new THREE.Mesh(
     new THREE.BoxGeometry(w, h, d),
-    new THREE.MeshStandardMaterial({ color: 0x999999 })
+    new THREE.MeshStandardMaterial({ color: 0xb0b0b0 })
   );
-  m.position.set(x, y, z);
-  house.add(m);
+  mesh.position.set(x, y, z);
+  house.add(mesh);
 }
 
-/* HOUSE SIZE */
-const H = 2.4;
+/* HOUSE DIMENSIONS */
+const H = 2.8;
 const T = 0.15;
-const W = 4;
-const L = 4;
+const W = 6;
+const L = 6;
 
 /* OUTER WALLS */
-//wall(W, H, T, 0, H/2,  L/2);
+wall(W, H, T, 0, H/2,  L/2);
 wall(W, H, T, 0, H/2, -L/2);
 wall(T, H, L, -W/2, H/2, 0);
 wall(T, H, L,  W/2, H/2, 0);
-// =======================
-// INTERNAL ROOM PARTITIONS
-// =======================
 
-// Vertical partition (left-right)
-wall(0.12, H, L, 0, H/2, 0);
+/* INNER PARTITIONS */
+wall(T, H, L, 0, H/2, 0);           // vertical
+wall(W, H, T, 0, H/2, 0);           // horizontal
 
-// Horizontal partition (top-bottom)
-wall(W, H, 0.12, 0, H/2, 0);
+/* EXTRA ROOMS */
+wall(T, H, L/2, -W/4, H/2, -L/4);   // car porch
+wall(T, H, L/2,  W/4, H/2, -L/4);   // work area
 
-// Partition for car porch
-wall(0.12, H, L/2, -W/4, H/2, -L/4);
+/* FLOOR BASE */
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(10, 10),
+  new THREE.MeshStandardMaterial({ color: 0xe0e0e0 })
+);
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
 
-// Partition for work area
-wall(0.12, H, L/2, W/4, H/2, -L/4);
-function createRoomFloor(w, l, x, z, color) {
-  const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(w, l),
-    new THREE.MeshStandardMaterial({
-      color: color,
-      side: THREE.DoubleSide
-    })
-  );
-  floor.rotation.x = -Math.PI / 2;
-  floor.position.set(x, 0.02, z);
-  house.add(floor);
-}
-/* ROOM FLOORS */
-const halfW = W / 4;
-const halfL = L / 4;
-
-// Living Room – Tiles
-createRoomFloor(W/2, L/2, -halfW,  halfL, 0xe0f2f1);
-
-// Bedroom – Wood
-createRoomFloor(W/2, L/2,  halfW,  halfL, 0xd7ccc8);
-
-// Kitchen – Ceramic
-createRoomFloor(W/2, L/2, -halfW, -halfL, 0xfff9c4);
-
-// Bathroom – Cement
-createRoomFloor(W/2, L/2,  halfW, -halfL, 0xe0e0e0);
-
-// Car Porch – Dark cement
-createRoomFloor(W/2, L/4,  0,     -L/2 + 0.5, 0xbdbdbd);
-
-/* GRID (DEBUG HELPER) */
+/* GRID (for demo clarity) */
 scene.add(new THREE.GridHelper(10, 10));
 
-/* ANIMATE */
+/* ANIMATION */
 function animate() {
   requestAnimationFrame(animate);
+  controls.update();
   renderer.render(scene, camera);
 }
 animate();
