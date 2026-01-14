@@ -28,11 +28,33 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(),
-  new THREE.MeshBasicMaterial({ color: 0xff0000 })
-);
-scene.add(cube);
+// Light (important for walls)
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+// House wall material
+const wallMaterial = new THREE.MeshBasicMaterial({ color: 0x999999 });
+
+// Wall function
+function wall(w, h, d, x, y, z) {
+  const m = new THREE.Mesh(
+    new THREE.BoxGeometry(w, h, d),
+    wallMaterial
+  );
+  m.position.set(x, y, z);
+  scene.add(m);
+}
+
+// House dimensions
+const H = 2.5;
+const T = 0.2;
+const SIZE = 4;
+
+// Outer walls only
+wall(SIZE, H, T, 0, H/2,  SIZE/2);  // front
+wall(SIZE, H, T, 0, H/2, -SIZE/2);  // back
+wall(T, H, SIZE, -SIZE/2, H/2, 0);  // left
+wall(T, H, SIZE,  SIZE/2, H/2, 0);  // right
+
 
 renderer.render(scene, camera);
 </script>
