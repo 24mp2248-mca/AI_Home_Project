@@ -1,10 +1,12 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import cv2
+import numpy as np
 
 app = FastAPI()
 
-# Allow frontend access
+# ------------------ CORS ------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,24 +15,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ------------------ FOLDERS ------------------
 UPLOAD_DIR = "uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+PROCESSED_DIR = "processed"
 
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(PROCESSED_DIR, exist_ok=True)
+
+# ------------------ ROOT ------------------
 @app.get("/")
 def read_root():
-    return {"message": "Backend running"}
+    return {"message": "Backend running successfully"}
 
+# ------------------ UPLOAD + AI PROCESS ------------------
 @app.post("/upload-sketch/")
 async def upload_sketch(file: UploadFile = File(...)):
-    print("UPLOAD REQUEST RECEIVED:", file.filename)
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-    print("Saving to:", file_path)
 
-    with open(file_path, "wb") as f:
+    # ---- Save original image ----
+    upload_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(upload_path, "wb") as f:
         f.write(await file.read())
 
-    return {
-        "message": "Sketch uploaded successfully",
-        "filename": file.filename
-    }
+    # ---- AI PROCESSING (Computer Vision) ----
+    image = cv2.imread(upload_path)
 
+    # Convert to grayscale
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Reduce noise
+    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+
+    # Edge detection (AI preprocessing)
+    edges = cv2.Canny(blurred, 50, 150)
+
+    # Save processed image
+    processed_path = os.path.join(PROCESSED_DIR, file.filename)
+    cv2.imwrite(processed_path, edges)
+
+    return {
+        "message": "Sketch uploaded and AI processed successfully",
+        "original_image": upload_path,
+        "processed_image": processed_path
+    }
+# ------------------ RUN SERVER ------------------
