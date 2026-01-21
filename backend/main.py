@@ -50,11 +50,10 @@ async def upload_sketch(file: UploadFile = File(...)):
 
     # Save processed image
     processed_path = os.path.join(PROCESSED_DIR, file.filename)
-    cv2.imwrite(processed_path, edges)
+    cv2.imwrite(processed_path, edges);
 
     return {
         "message": "Sketch uploaded and AI processed successfully",
         "original_image": upload_path,
         "processed_image": processed_path
     }
-# ------------------ RUN SERVER ------------------
