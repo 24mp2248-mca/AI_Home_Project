@@ -3,121 +3,417 @@
 <head>
 <meta charset="UTF-8">
 <title>Upload Floor Plan | AI Home Planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 body {
-  margin: 0;
-  height: 100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("house-bg.jpg") center/cover no-repeat;
+  min-height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background */
+body::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+  top: -300px;
+  right: -300px;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.12) 0%, transparent 70%);
+  bottom: -250px;
+  left: -250px;
+  animation: pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+}
+
+/* Main Card */
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  color: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 1;
+  animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card h1 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  text-align: center;
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+/* Upload Box */
+.upload-box {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 48px 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-box::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.upload-box:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.upload-box:hover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  transform: translateY(-2px);
+}
+
+.upload-box.dragover {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.upload-box span {
+  font-size: 1rem;
+  color: #d0d0d0;
+  display: block;
+  margin-top: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.upload-box small {
+  display: block;
+  margin-top: 8px;
+  color: #808080;
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 1;
+}
+
+.file-preview {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.file-preview.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-icon {
+  font-size: 2rem;
+}
+
+.file-details h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.file-details p {
+  font-size: 0.8rem;
+  color: #b0b0b0;
+}
+
+.remove-file {
+  margin-left: auto;
+  background: rgba(255, 0, 0, 0.2);
+  border: none;
+  color: #ff6b6b;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.card {
-  width: 420px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(14px);
-  border-radius: 22px;
-  padding: 32px;
-  color: #fff;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+.remove-file:hover {
+  background: rgba(255, 0, 0, 0.4);
+  transform: rotate(90deg);
 }
 
-.card h1 {
-  text-align: center;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  text-align: center;
-  opacity: 0.85;
-  font-size: 14px;
-  margin-bottom: 25px;
-}
-
-/* Upload Box */
-.upload-box {
-  border: 2px dashed rgba(255,255,255,0.5);
-  border-radius: 14px;
-  padding: 28px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.upload-box:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: #00c6ff;
-}
-
-.upload-box span {
-  font-size: 15px;
-  opacity: 0.9;
-}
-
-.file-name {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #a8e9ff;
-}
-
-/* Feature list */
+/* Features List */
 .features {
-  margin: 22px 0;
-  font-size: 14px;
+  margin: 28px 0;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.features p {
-  margin: 6px 0;
+.features h3 {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Button */
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+  color: #d0d0d0;
+}
+
+.feature-item::before {
+  content: '✓';
+  background: rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
 button {
-  width: 100%;
-  padding: 14px;
+  flex: 1;
+  padding: 16px;
   border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
-  font-size: 16px;
-  cursor: not-allowed;
-  opacity: 0.6;
-  transition: 0.3s;
-}
-
-button.active {
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary.active {
   opacity: 1;
+  cursor: pointer;
 }
 
-button.active:hover {
+.btn-primary.active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.btn-primary.active:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary.active:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0,198,255,0.4);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
 }
 
-/* Footer link */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress Bar */
+.progress-container {
+  display: none;
+  margin-top: 20px;
+}
+
+.progress-container.show {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.progress-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #b0b0b0;
+}
+
+/* Back Link */
 .back {
   text-align: center;
-  margin-top: 14px;
-  font-size: 13px;
-  opacity: 0.85;
+  margin-top: 24px;
+  font-size: 0.9rem;
 }
 
 .back a {
-  color: #fff;
+  color: #b0b0b0;
   text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.back a:hover {
+  color: #667eea;
+  transform: translateX(-4px);
 }
 
 input[type="file"] {
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .card h1 {
+    font-size: 1.6rem;
+  }
+
+  .upload-box {
+    padding: 36px 24px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
@@ -126,24 +422,46 @@ input[type="file"] {
 
 <div class="card">
   <h1>Upload Floor Plan</h1>
-  <div class="subtitle">Hand-drawn sketch or blueprint image</div>
+  <div class="subtitle">Hand-drawn sketch or blueprint image (JPG, PNG, PDF)</div>
 
-  <div class="upload-box" onclick="triggerUpload()">
-    📐 <br><br>
-    <span>Click to upload image</span>
-    <div class="file-name" id="fileName"></div>
+  <div class="upload-box" id="uploadBox" onclick="triggerUpload()">
+    <div class="upload-icon">📐</div>
+    <span>Click to upload or drag and drop</span>
+    <small>Maximum file size: 10MB</small>
   </div>
 
-  <input type="file" id="fileInput" accept="image/*" onchange="fileSelected()">
+  <div class="file-preview" id="filePreview">
+    <div class="file-info">
+      <div class="file-icon">📄</div>
+      <div class="file-details">
+        <h4 id="fileName">File name</h4>
+        <p id="fileSize">File size</p>
+      </div>
+      <button class="remove-file" onclick="removeFile()">×</button>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept="image/*,.pdf" onchange="fileSelected()">
 
   <div class="features">
-    <p>🧠 OpenCV Image Preprocessing</p>
-    <p>🧩 Deep Learning Segmentation (U-Net)</p>
-    <p>🏠 3D Home Reconstruction</p>
-    <p>💰 Cost Estimation + Chatbot Guidance</p>
+    <h3>Processing Pipeline</h3>
+    <div class="feature-item">OpenCV Image Preprocessing</div>
+    <div class="feature-item">Deep Learning Segmentation (U-Net)</div>
+    <div class="feature-item">3D Home Reconstruction</div>
+    <div class="feature-item">AI Cost Estimation & Guidance</div>
   </div>
 
-  <button id="startBtn">Start 3D Visualization</button>
+  <div class="progress-container" id="progressContainer">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText">Processing...</div>
+  </div>
+
+  <div class="button-group">
+    <button class="btn-secondary" onclick="location.href='index.html'">Cancel</button>
+    <button class="btn-primary" id="startBtn" onclick="startProcessing()">Start Analysis</button>
+  </div>
 
   <div class="back">
     <a href="index.html">← Back to Home</a>
@@ -151,21 +469,113 @@ input[type="file"] {
 </div>
 
 <script>
+let selectedFile = null;
+
 function triggerUpload() {
   document.getElementById("fileInput").click();
 }
 
 function fileSelected() {
   const fileInput = document.getElementById("fileInput");
+  const filePreview = document.getElementById("filePreview");
   const fileName = document.getElementById("fileName");
+  const fileSize = document.getElementById("fileSize");
   const startBtn = document.getElementById("startBtn");
 
   if (fileInput.files.length > 0) {
-    fileName.textContent = "Selected: " + fileInput.files[0].name;
+    selectedFile = fileInput.files[0];
+    
+    // Display file info
+    fileName.textContent = selectedFile.name;
+    fileSize.textContent = formatFileSize(selectedFile.size);
+    
+    // Show preview and enable button
+    filePreview.classList.add("show");
     startBtn.classList.add("active");
-    startBtn.style.cursor = "pointer";
   }
 }
+
+function removeFile() {
+  const fileInput = document.getElementById("fileInput");
+  const filePreview = document.getElementById("filePreview");
+  const startBtn = document.getElementById("startBtn");
+  
+  fileInput.value = "";
+  selectedFile = null;
+  filePreview.classList.remove("show");
+  startBtn.classList.remove("active");
+}
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+function startProcessing() {
+  if (!selectedFile) return;
+  
+  const progressContainer = document.getElementById("progressContainer");
+  const progressFill = document.getElementById("progressFill");
+  const progressText = document.getElementById("progressText");
+  const startBtn = document.getElementById("startBtn");
+  
+  // Show progress
+  progressContainer.classList.add("show");
+  startBtn.disabled = true;
+  startBtn.textContent = "Processing...";
+  
+  // Simulate processing stages
+  const stages = [
+    { percent: 20, text: "Uploading image..." },
+    { percent: 40, text: "OpenCV preprocessing..." },
+    { percent: 60, text: "Running deep learning model..." },
+    { percent: 80, text: "Generating 3D model..." },
+    { percent: 100, text: "Complete! Redirecting..." }
+  ];
+  
+  let currentStage = 0;
+  
+  const interval = setInterval(() => {
+    if (currentStage < stages.length) {
+      progressFill.style.width = stages[currentStage].percent + "%";
+      progressText.textContent = stages[currentStage].text;
+      currentStage++;
+    } else {
+      clearInterval(interval);
+      // Redirect to 3D visualization page
+      setTimeout(() => {
+        window.location.href = "visualization.html";
+      }, 500);
+    }
+  }, 1000);
+}
+
+// Drag and drop functionality
+const uploadBox = document.getElementById("uploadBox");
+
+uploadBox.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  uploadBox.classList.add("dragover");
+});
+
+uploadBox.addEventListener("dragleave", () => {
+  uploadBox.classList.remove("dragover");
+});
+
+uploadBox.addEventListener("drop", (e) => {
+  e.preventDefault();
+  uploadBox.classList.remove("dragover");
+  
+  const files = e.dataTransfer.files;
+  if (files.length > 0) {
+    const fileInput = document.getElementById("fileInput");
+    fileInput.files = files;
+    fileSelected();
+  }
+});
 </script>
 
 </body>
