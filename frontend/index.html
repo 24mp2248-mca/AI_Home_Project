@@ -2,54 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Home Planning System</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      text-align: center;
-      width: 350px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    button {
-      padding: 10px 20px;
-      margin-top: 15px;
-      cursor: pointer;
-    }
-  </style>
+  <title>AI-Enabled Home Planning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="card">
-    <h2>AI-Enabled Home Planning</h2>
-    <p>Upload a hand-sketched house plan</p>
+<!-- Navbar -->
+<nav class="navbar">
+  <h2>AI Home Planner</h2>
+  <ul>
+    <li><a href="#ai">AI Features</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a class="nav-btn" href="upload.html">Upload Plan</a></li>
+  </ul>
+</nav>
 
-    <input type="file" id="sketchFile" accept="image/*">
-    <br>
-
-    <button onclick="uploadSketch()">Upload & View 3D</button>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content fade-in">
+    <h1>Smart AI-Powered Home Planning</h1>
+    <p>
+      From hand-drawn sketches to intelligent 3D homes,
+      cost estimation, and AI design suggestions.
+    </p>
+    <button onclick="location.href='upload.html'">
+      Get Started
+    </button>
   </div>
+</section>
+
+<!-- AI Capabilities Section -->
+<section id="ai" class="ai-section">
+  <h2>AI & Deep Learning Capabilities</h2>
+
+  <div class="ai-grid">
+    <div class="ai-card">
+      <h3>🧠 Deep Learning</h3>
+      <p>U-Net model detects rooms, walls, doors, and layout structure.</p>
+    </div>
+
+    <div class="ai-card">
+      <h3>🤖 AI Chatbot</h3>
+      <p>Provides design tips, space optimization, and budget advice.</p>
+    </div>
+
+    <div class="ai-card">
+      <h3>🏠 3D Visualization</h3>
+      <p>Three.js renders an interactive 3D house with furniture.</p>
+    </div>
+
+    <div class="ai-card">
+      <h3>🧮 Cost Estimation</h3>
+      <p>Machine learning predicts approximate construction cost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Workflow Section -->
+<section id="workflow" class="features">
+  <h2>System Workflow</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">Sketch Upload</div>
+    <div class="feature-card">OpenCV Processing</div>
+    <div class="feature-card">DL Segmentation</div>
+    <div class="feature-card">3D Rendering</div>
+    <div class="feature-card">JSON Layout</div>
+    <div class="feature-card">Cost Estimation</div>
+    <div class="feature-card">AI Chatbot</div>
+    <div class="feature-card">User Interaction</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  © 2026 AI-Enabled Home Planning System
+</footer>
 
 <script>
-  function uploadSketch() {
-    const file = document.getElementById("sketchFile").files[0];
-    if (!file) {
-      alert("Please select a sketch image");
-      return;
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
     }
-
-    // For now, just move to viewer page
-    window.location.href = "viewer.html";
-  }
+  });
+});
+document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 </script>
 
 </body>

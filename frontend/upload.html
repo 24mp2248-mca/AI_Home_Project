@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Upload Floor Plan | AI Home Planner</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("house-bg.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  width: 420px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  padding: 32px;
+  color: #fff;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+}
+
+.card h1 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  text-align: center;
+  opacity: 0.85;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Upload Box */
+.upload-box {
+  border: 2px dashed rgba(255,255,255,0.5);
+  border-radius: 14px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-box:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #00c6ff;
+}
+
+.upload-box span {
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.file-name {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #a8e9ff;
+}
+
+/* Feature list */
+.features {
+  margin: 22px 0;
+  font-size: 14px;
+}
+
+.features p {
+  margin: 6px 0;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-size: 16px;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+button.active {
+  cursor: pointer;
+  opacity: 1;
+}
+
+button.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,198,255,0.4);
+}
+
+/* Footer link */
+.back {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.back a {
+  color: #fff;
+  text-decoration: none;
+}
+
+input[type="file"] {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Upload Floor Plan</h1>
+  <div class="subtitle">Hand-drawn sketch or blueprint image</div>
+
+  <div class="upload-box" onclick="triggerUpload()">
+    📐 <br><br>
+    <span>Click to upload image</span>
+    <div class="file-name" id="fileName"></div>
+  </div>
+
+  <input type="file" id="fileInput" accept="image/*" onchange="fileSelected()">
+
+  <div class="features">
+    <p>🧠 OpenCV Image Preprocessing</p>
+    <p>🧩 Deep Learning Segmentation (U-Net)</p>
+    <p>🏠 3D Home Reconstruction</p>
+    <p>💰 Cost Estimation + Chatbot Guidance</p>
+  </div>
+
+  <button id="startBtn">Start 3D Visualization</button>
+
+  <div class="back">
+    <a href="index.html">← Back to Home</a>
+  </div>
+</div>
+
+<script>
+function triggerUpload() {
+  document.getElementById("fileInput").click();
+}
+
+function fileSelected() {
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+  const startBtn = document.getElementById("startBtn");
+
+  if (fileInput.files.length > 0) {
+    fileName.textContent = "Selected: " + fileInput.files[0].name;
+    startBtn.classList.add("active");
+    startBtn.style.cursor = "pointer";
+  }
+}
+</script>
+
+</body>
+</html>
