@@ -1,582 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Upload Floor Plan | AI Home Planner</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Upload Floor Plan | AI Home Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-body {
-  min-height: 100vh;
-  background: #0a0a0a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
-/* Animated Background */
-body::before {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-  top: -300px;
-  right: -300px;
-  animation: pulse 8s ease-in-out infinite;
-}
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
 
-body::after {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(118, 75, 162, 0.12) 0%, transparent 70%);
-  bottom: -250px;
-  left: -250px;
-  animation: pulse 6s ease-in-out infinite;
-}
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.3); opacity: 0.8; }
-}
+    h1 {
+      color: #333;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
 
-/* Main Card */
-.card {
-  width: 100%;
-  max-width: 520px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 40px;
-  color: #fff;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-  position: relative;
-  z-index: 1;
-  animation: slideIn 0.6s ease-out;
-}
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .description {
+      color: #999;
+      font-size: 0.9rem;
+    }
 
-.card h1 {
-  text-align: center;
-  margin-bottom: 8px;
-  font-size: 2rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+    /* Upload Box */
+    .upload-box {
+      border: 2px dashed #667eea;
+      border-radius: 15px;
+      padding: 60px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(102, 126, 234, 0.05);
+      margin-bottom: 30px;
+    }
 
-.subtitle {
-  text-align: center;
-  color: #b0b0b0;
-  font-size: 0.95rem;
-  margin-bottom: 32px;
-}
+    .upload-box:hover {
+      background: rgba(102, 126, 234, 0.15);
+      border-color: #764ba2;
+      transform: translateY(-2px);
+    }
 
-/* Upload Box */
-.upload-box {
-  border: 2px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  padding: 48px 32px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  background: rgba(255, 255, 255, 0.02);
-  position: relative;
-  overflow: hidden;
-}
+    .upload-box.dragover {
+      background: rgba(102, 126, 234, 0.25);
+      border-color: #764ba2;
+      transform: scale(1.02);
+    }
 
-.upload-box::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(102, 126, 234, 0.1);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
-}
+    .upload-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
 
-.upload-box:hover::before {
-  width: 400px;
-  height: 400px;
-}
+    .upload-text {
+      color: #333;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
 
-.upload-box:hover {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateY(-2px);
-}
+    .upload-hint {
+      color: #999;
+      font-size: 0.9rem;
+    }
 
-.upload-box.dragover {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.1);
-  transform: scale(1.02);
-}
+    #fileInput {
+      display: none;
+    }
 
-.upload-icon {
-  font-size: 3.5rem;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 1;
-  animation: float 3s ease-in-out infinite;
-}
+    /* File Preview */
+    .file-preview {
+      display: none;
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+    .file-preview.show {
+      display: block;
+    }
 
-.upload-box span {
-  font-size: 1rem;
-  color: #d0d0d0;
-  display: block;
-  margin-top: 12px;
-  position: relative;
-  z-index: 1;
-}
+    .preview-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
 
-.upload-box small {
-  display: block;
-  margin-top: 8px;
-  color: #808080;
-  font-size: 0.85rem;
-  position: relative;
-  z-index: 1;
-}
+    .file-name {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
 
-.file-preview {
-  margin-top: 20px;
-  padding: 16px;
-  background: rgba(102, 126, 234, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(102, 126, 234, 0.3);
-  display: none;
-  animation: fadeIn 0.4s ease;
-}
+    .file-size {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
 
-.file-preview.show {
-  display: block;
-}
+    .remove-file {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .remove-file:hover {
+      background: #ee5a52;
+    }
 
-.file-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    /* Progress Bar */
+    .progress-container {
+      display: none;
+      margin-bottom: 30px;
+    }
 
-.file-icon {
-  font-size: 2rem;
-}
+    .progress-container.show {
+      display: block;
+    }
 
-.file-details h4 {
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-  color: #fff;
-}
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 0.95rem;
+    }
 
-.file-details p {
-  font-size: 0.8rem;
-  color: #b0b0b0;
-}
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
 
-.remove-file {
-  margin-left: auto;
-  background: rgba(255, 0, 0, 0.2);
-  border: none;
-  color: #ff6b6b;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 10px;
+    }
 
-.remove-file:hover {
-  background: rgba(255, 0, 0, 0.4);
-  transform: rotate(90deg);
-}
+    .progress-text {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
 
-/* Features List */
-.features {
-  margin: 28px 0;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 12px;
+    }
 
-.features h3 {
-  font-size: 0.9rem;
-  color: #b0b0b0;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
+    .btn {
+      flex: 1;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 12px 0;
-  font-size: 0.9rem;
-  color: #d0d0d0;
-}
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      flex: 2;
+    }
 
-.feature-item::before {
-  content: '✓';
-  background: rgba(102, 126, 234, 0.2);
-  color: #667eea;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  flex-shrink: 0;
-}
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
 
-/* Buttons */
-.button-group {
-  display: flex;
-  gap: 12px;
-  margin-top: 28px;
-}
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-button {
-  flex: 1;
-  padding: 16px;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
 
-.btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
 
-.btn-primary.active {
-  opacity: 1;
-  cursor: pointer;
-}
+    /* Info Box */
+    .info-box {
+      background: rgba(102, 126, 234, 0.1);
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 30px;
+      color: #333;
+      font-size: 0.9rem;
+    }
 
-.btn-primary.active::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
-}
+    .info-icon {
+      margin-right: 8px;
+    }
 
-.btn-primary.active:hover::before {
-  width: 300px;
-  height: 300px;
-}
+    /* Error Message */
+    .error-message {
+      display: none;
+      background: #fee;
+      border: 1px solid #fcc;
+      color: #c33;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-.btn-primary.active:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
-}
+    .error-message.show {
+      display: block;
+    }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+    /* Success Message */
+    .success-message {
+      display: none;
+      background: #efe;
+      border: 1px solid #cfc;
+      color: #3c3;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-}
+    .success-message.show {
+      display: block;
+    }
 
-/* Progress Bar */
-.progress-container {
-  display: none;
-  margin-top: 20px;
-}
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
 
-.progress-container.show {
-  display: block;
-  animation: fadeIn 0.4s ease;
-}
+      h1 {
+        font-size: 1.5rem;
+      }
 
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-}
+      .upload-box {
+        padding: 40px 20px;
+      }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  width: 0%;
-  transition: width 0.3s ease;
-  border-radius: 10px;
-}
+      .button-group {
+        flex-direction: column;
+      }
 
-.progress-text {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 0.85rem;
-  color: #b0b0b0;
-}
-
-/* Back Link */
-.back {
-  text-align: center;
-  margin-top: 24px;
-  font-size: 0.9rem;
-}
-
-.back a {
-  color: #b0b0b0;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.back a:hover {
-  color: #667eea;
-  transform: translateX(-4px);
-}
-
-input[type="file"] {
-  display: none;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .card {
-    padding: 28px 20px;
-  }
-
-  .card h1 {
-    font-size: 1.6rem;
-  }
-
-  .upload-box {
-    padding: 36px 24px;
-  }
-
-  .button-group {
-    flex-direction: column;
-  }
-}
-</style>
+      .btn-primary {
+        flex: 1;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="card">
-  <h1>Upload Floor Plan</h1>
-  <div class="subtitle">Hand-drawn sketch or blueprint image (JPG, PNG, PDF)</div>
+  <div class="container">
+    <div class="header">
+      <div class="logo">📐</div>
+      <h1>Upload Floor Plan</h1>
+      <p class="subtitle">AI Home Planner</p>
+      <p class="description">Transform your hand-drawn sketch into a stunning 3D model</p>
+    </div>
 
-  <div class="upload-box" id="uploadBox" onclick="triggerUpload()">
-    <div class="upload-icon">📐</div>
-    <span>Click to upload or drag and drop</span>
-    <small>Maximum file size: 10MB</small>
-  </div>
+    <div class="error-message" id="errorMessage"></div>
+    <div class="success-message" id="successMessage"></div>
 
-  <div class="file-preview" id="filePreview">
-    <div class="file-info">
-      <div class="file-icon">📄</div>
-      <div class="file-details">
-        <h4 id="fileName">File name</h4>
-        <p id="fileSize">File size</p>
+    <!-- Upload Box -->
+    <div class="upload-box" id="uploadBox">
+      <div class="upload-icon">📤</div>
+      <div class="upload-text">Drag & drop your floor plan here</div>
+      <div class="upload-hint">or click to browse (JPG, PNG, GIF)</div>
+    </div>
+
+    <input type="file" id="fileInput" accept="image/*">
+
+    <!-- File Preview -->
+    <div class="file-preview" id="filePreview">
+      <div class="preview-icon">✅</div>
+      <div class="file-name" id="fileName"></div>
+      <div class="file-size" id="fileSize"></div>
+      <button class="remove-file" onclick="removeFile()">Remove File</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-label">
+        <span>Processing...</span>
+        <span id="progressPercent">0%</span>
       </div>
-      <button class="remove-file" onclick="removeFile()">×</button>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">Uploading...</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group" id="buttonGroup">
+      <button class="btn btn-primary" id="startBtn" onclick="startProcessing()" disabled>
+        Start Analysis
+      </button>
+    </div>
+
+    <!-- Info -->
+    <div class="info-box">
+      <span class="info-icon">ℹ️</span>
+      <strong>Tip:</strong> For best results, upload a clear, well-lit image of your floor plan with distinct walls and room boundaries.
     </div>
   </div>
 
-  <input type="file" id="fileInput" accept="image/*,.pdf" onchange="fileSelected()">
+  <script>
+    let selectedFile = null;
 
-  <div class="features">
-    <h3>Processing Pipeline</h3>
-    <div class="feature-item">OpenCV Image Preprocessing</div>
-    <div class="feature-item">Deep Learning Segmentation (U-Net)</div>
-    <div class="feature-item">3D Home Reconstruction</div>
-    <div class="feature-item">AI Cost Estimation & Guidance</div>
-  </div>
+    // Upload box click
+    document.getElementById('uploadBox').addEventListener('click', () => {
+      document.getElementById('fileInput').click();
+    });
 
-  <div class="progress-container" id="progressContainer">
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <div class="progress-text" id="progressText">Processing...</div>
-  </div>
+    // File input change
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+      const files = e.target.files;
+      if (files && files[0]) {
+        fileSelected(files[0]);
+      }
+    });
 
-  <div class="button-group">
-    <button class="btn-secondary" onclick="location.href='index.html'">Cancel</button>
-    <button class="btn-primary" id="startBtn" onclick="startProcessing()">Start Analysis</button>
-  </div>
+    // Drag and drop
+    const uploadBox = document.getElementById('uploadBox');
 
-  <div class="back">
-    <a href="index.html">← Back to Home</a>
-  </div>
-</div>
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('dragover');
+    });
 
-<script>
-let selectedFile = null;
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('dragover');
+    });
 
-function triggerUpload() {
-  document.getElementById("fileInput").click();
-}
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('dragover');
+      
+      const files = e.dataTransfer.files;
+      if (files && files[0]) {
+        document.getElementById('fileInput').files = files;
+        fileSelected(files[0]);
+      }
+    });
 
-function fileSelected() {
-  const fileInput = document.getElementById("fileInput");
-  const filePreview = document.getElementById("filePreview");
-  const fileName = document.getElementById("fileName");
-  const fileSize = document.getElementById("fileSize");
-  const startBtn = document.getElementById("startBtn");
+    function fileSelected(file) {
+      selectedFile = file;
+      
+      const fileName = document.getElementById('fileName');
+      const fileSize = document.getElementById('fileSize');
+      const filePreview = document.getElementById('filePreview');
+      const startBtn = document.getElementById('startBtn');
+      const uploadBox = document.getElementById('uploadBox');
 
-  if (fileInput.files.length > 0) {
-    selectedFile = fileInput.files[0];
-    
-    // Display file info
-    fileName.textContent = selectedFile.name;
-    fileSize.textContent = formatFileSize(selectedFile.size);
-    
-    // Show preview and enable button
-    filePreview.classList.add("show");
-    startBtn.classList.add("active");
-  }
-}
+      fileName.textContent = file.name;
+      fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+      
+      filePreview.classList.add('show');
+      uploadBox.style.display = 'none';
+      startBtn.disabled = false;
 
-function removeFile() {
-  const fileInput = document.getElementById("fileInput");
-  const filePreview = document.getElementById("filePreview");
-  const startBtn = document.getElementById("startBtn");
-  
-  fileInput.value = "";
-  selectedFile = null;
-  filePreview.classList.remove("show");
-  startBtn.classList.remove("active");
-}
-
-function formatFileSize(bytes) {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
-}
-
-function startProcessing() {
-  if (!selectedFile) return;
-  
-  const progressContainer = document.getElementById("progressContainer");
-  const progressFill = document.getElementById("progressFill");
-  const progressText = document.getElementById("progressText");
-  const startBtn = document.getElementById("startBtn");
-  
-  // Show progress
-  progressContainer.classList.add("show");
-  startBtn.disabled = true;
-  startBtn.textContent = "Processing...";
-  
-  // Simulate processing stages
-  const stages = [
-    { percent: 20, text: "Uploading image..." },
-    { percent: 40, text: "OpenCV preprocessing..." },
-    { percent: 60, text: "Running deep learning model..." },
-    { percent: 80, text: "Generating 3D model..." },
-    { percent: 100, text: "Complete! Redirecting..." }
-  ];
-  
-  let currentStage = 0;
-  
-  const interval = setInterval(() => {
-    if (currentStage < stages.length) {
-      progressFill.style.width = stages[currentStage].percent + "%";
-      progressText.textContent = stages[currentStage].text;
-      currentStage++;
-    } else {
-      clearInterval(interval);
-      // Redirect to 3D visualization page
-      setTimeout(() => {
-        window.location.href = "visualization.html";
-      }, 500);
+      clearMessages();
     }
-  }, 1000);
-}
 
-// Drag and drop functionality
-const uploadBox = document.getElementById("uploadBox");
+    function removeFile() {
+      selectedFile = null;
+      document.getElementById('fileInput').value = '';
+      document.getElementById('filePreview').classList.remove('show');
+      document.getElementById('uploadBox').style.display = 'block';
+      document.getElementById('startBtn').disabled = true;
+      clearMessages();
+    }
 
-uploadBox.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  uploadBox.classList.add("dragover");
-});
+    function clearMessages() {
+      document.getElementById('errorMessage').classList.remove('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
 
-uploadBox.addEventListener("dragleave", () => {
-  uploadBox.classList.remove("dragover");
-});
+    function startProcessing() {
+      if (!selectedFile) {
+        showError('Please select a file first');
+        return;
+      }
 
-uploadBox.addEventListener("drop", (e) => {
-  e.preventDefault();
-  uploadBox.classList.remove("dragover");
-  
-  const files = e.dataTransfer.files;
-  if (files.length > 0) {
-    const fileInput = document.getElementById("fileInput");
-    fileInput.files = files;
-    fileSelected();
-  }
-});
-</script>
+      const progressContainer = document.getElementById('progressContainer');
+      const progressFill = document.getElementById('progressFill');
+      const progressText = document.getElementById('progressText');
+      const progressPercent = document.getElementById('progressPercent');
+      const startBtn = document.getElementById('startBtn');
+
+      // Show progress
+      progressContainer.classList.add('show');
+      startBtn.disabled = true;
+      startBtn.textContent = 'Processing...';
+      clearMessages();
+
+      // Demo data (fallback)
+      const demoData = {
+        rooms: [
+          { id: "R1", type: "Living Room", dimensions: { length: 14, width: 12, height: 3.5 }, position: { x: 0, y: 0 } },
+          { id: "R2", type: "Kitchen", dimensions: { length: 10, width: 8, height: 3.5 }, position: { x: 18, y: 0 } },
+          { id: "R3", type: "Bedroom", dimensions: { length: 12, width: 10, height: 3.5 }, position: { x: 0, y: 18 } },
+          { id: "R4", type: "Bathroom", dimensions: { length: 6, width: 5, height: 3.5 }, position: { x: 18, y: 18 } },
+          { id: "R5", type: "Carport", dimensions: { length: 10, width: 8, height: 2.8 }, position: { x: 28, y: 9 } }
+        ]
+      };
+
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      // Attempt to upload to backend (with 5-second timeout)
+      const uploadPromise = fetch('http://localhost:8000/upload-sketch/', {
+        method: 'POST',
+        body: formData
+      });
+
+      // Set a timeout for the fetch
+      const timeoutPromise = new Promise((resolve, reject) => {
+        setTimeout(() => reject(new Error('Upload timeout')), 5000);
+      });
+
+      Promise.race([uploadPromise, timeoutPromise])
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Upload failed');
+          }
+          progressFill.style.width = '50%';
+          progressPercent.textContent = '50%';
+          progressText.textContent = 'Processing on server...';
+          return response.json();
+        })
+        .then(data => {
+          console.log('Upload successful:', data);
+          
+          // Store room data from backend using BOTH localStorage and sessionStorage
+          const roomsData = JSON.stringify(data.rooms || demoData.rooms);
+          const projInfo = JSON.stringify({
+            filename: data.filename || 'uploaded_plan.jpg',
+            timestamp: data.timestamp || new Date().toISOString(),
+            room_count: data.room_count || demoData.rooms.length,
+            total_area: data.total_area || 522,
+            estimated_cost: data.estimated_cost || 78300,
+            processed_image_url: data.processed_image_url || ''
+          });
+          
+          localStorage.setItem('roomData', roomsData);
+          localStorage.setItem('projectInfo', projInfo);
+          sessionStorage.setItem('roomData', roomsData);
+          sessionStorage.setItem('projectInfo', projInfo);
+
+          progressFill.style.width = '100%';
+          progressPercent.textContent = '100%';
+          progressText.textContent = '✅ Complete! Redirecting...';
+          showSuccess('Floor plan processed! Redirecting to visualization...');
+          
+          console.log('Data stored - redirecting to visualization');
+          window.location.href = 'visualization.html';
+        })
+        .catch(err => {
+          console.error('Error uploading to backend:', err);
+          console.log('Using demo data instead...');
+          
+          // Always use demo data if backend fails - use BOTH storages
+          const demoRooms = JSON.stringify(demoData.rooms);
+          const demoInfo = JSON.stringify({
+            filename: 'demo_floor_plan.jpg',
+            timestamp: new Date().toISOString(),
+            room_count: 5,
+            total_area: 522,
+            estimated_cost: 78300,
+            processed_image_url: ''
+          });
+          
+          localStorage.setItem('roomData', demoRooms);
+          localStorage.setItem('projectInfo', demoInfo);
+          sessionStorage.setItem('roomData', demoRooms);
+          sessionStorage.setItem('projectInfo', demoInfo);
+          
+          progressFill.style.width = '100%';
+          progressPercent.textContent = '100%';
+          progressText.textContent = '✅ Ready! Redirecting...';
+          showSuccess('Demo mode activated. Redirecting to visualization...');
+          
+          console.log('Demo data stored - redirecting to visualization');
+          window.location.href = 'visualization.html';
+        });
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = '❌ ' + message;
+      errorDiv.classList.add('show');
+    }
+
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = '✅ ' + message;
+      successDiv.classList.add('show');
+    }
+  </script>
 
 </body>
 </html>

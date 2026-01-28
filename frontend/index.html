@@ -1,541 +1,629 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI-Enabled Home Planning</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<title>AI Home Planner - Transform Sketches into 3D Models</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      overflow-x: hidden;
-      background: #0a0a0a;
-      color: #fff;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
 
-    /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1.2rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
+body {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+  position: relative;
+}
 
-    .navbar h2 {
-      font-size: 1.5rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-    }
+/* Animated Background */
+.bg-gradient {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+}
 
-    .navbar ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-      align-items: center;
-    }
+.bg-gradient::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+  top: -400px;
+  right: -200px;
+  animation: pulse 8s ease-in-out infinite;
+}
 
-    .navbar a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      position: relative;
-    }
+.bg-gradient::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.15) 0%, transparent 70%);
+  bottom: -300px;
+  left: -200px;
+  animation: pulse 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
 
-    .navbar a:not(.nav-btn):hover {
-      color: #667eea;
-    }
+.bg-orb {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 60%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotate 20s linear infinite;
+}
 
-    .navbar a:not(.nav-btn)::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #667eea;
-      transition: width 0.3s ease;
-    }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+}
 
-    .navbar a:not(.nav-btn):hover::after {
-      width: 100%;
-    }
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
 
-    .nav-btn {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 0.6rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
+/* Container */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-    .nav-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-    }
+/* Header */
+header {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-      position: relative;
-      overflow: hidden;
-      padding: 0 5%;
-    }
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
-      top: -250px;
-      right: -250px;
-      animation: pulse 8s ease-in-out infinite;
-    }
+.logo-icon {
+  font-size: 2rem;
+}
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(118, 75, 162, 0.2) 0%, transparent 70%);
-      bottom: -200px;
-      left: -200px;
-      animation: pulse 6s ease-in-out infinite;
-    }
+nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.2); opacity: 0.8; }
-    }
+nav a {
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
 
-    .hero-content {
-      text-align: center;
-      max-width: 900px;
-      z-index: 1;
-    }
+nav a:hover {
+  color: #fff;
+}
 
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #fff 0%, #667eea 50%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeInUp 1s ease-out;
-    }
+.nav-btn {
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .hero p {
-      font-size: 1.3rem;
-      color: #b0b0b0;
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-      animation: fadeInUp 1s ease-out 0.2s backwards;
-    }
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
 
-    .hero button {
-      padding: 1rem 3rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 50px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      animation: fadeInUp 1s ease-out 0.4s backwards;
-      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
-    }
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+  animation: fadeInUp 0.8s ease-out;
+}
 
-    .hero button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5);
-    }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 20px;
+  color: #667eea;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
 
-    /* AI Section */
-    .ai-section {
-      padding: 8rem 5%;
-      background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
-      position: relative;
-    }
+h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #fff 0%, #667eea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
 
-    .ai-section h2 {
-      text-align: center;
-      font-size: 3rem;
-      margin-bottom: 4rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.hero p {
+  font-size: 1.25rem;
+  color: #b0b0b0;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
 
-    .ai-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+.cta-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.5s backwards;
+}
 
-    .ai-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 2.5rem;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
+.btn {
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
 
-    .ai-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
 
-    .ai-card:hover::before {
-      opacity: 1;
-    }
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
 
-    .ai-card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(102, 126, 234, 0.5);
-      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-    }
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
 
-    .ai-card h3 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-    }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
 
-    .ai-card p {
-      color: #b0b0b0;
-      line-height: 1.6;
-      font-size: 1rem;
-      position: relative;
-      z-index: 1;
-    }
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    /* Features Section */
-    .features {
-      padding: 8rem 5%;
-      background: #0a0a0a;
-    }
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
 
-    .features h2 {
-      text-align: center;
-      font-size: 3rem;
-      margin-bottom: 4rem;
-      color: #fff;
-    }
+/* Preview Section */
+.preview {
+  margin: 60px 0;
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+.preview-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
 
-    .feature-card {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-      border: 2px solid rgba(102, 126, 234, 0.3);
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+.preview-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.5), rgba(118, 75, 162, 0.5));
+  border-radius: 24px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(102, 126, 234, 0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.5s ease, height 0.5s ease;
-    }
+.preview-card:hover::before {
+  opacity: 1;
+}
 
-    .feature-card:hover::before {
-      width: 300px;
-      height: 300px;
-    }
+.preview-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    .feature-card:hover {
-      transform: scale(1.05);
-      border-color: #667eea;
-      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-    }
+/* Features Section */
+.features {
+  padding: 80px 0;
+}
 
-    /* Stats Section */
-    .stats-section {
-      padding: 6rem 5%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      text-align: center;
-    }
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+.section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
 
-    .stat-item h3 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
+.section-title p {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+}
 
-    .stat-item p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
 
-    /* Footer */
-    footer {
-      background: #0a0a0a;
-      padding: 3rem 5%;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #b0b0b0;
-      font-size: 0.95rem;
-    }
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
-      }
+.feature-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+}
 
-      .hero p {
-        font-size: 1.1rem;
-      }
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
 
-      .navbar ul {
-        gap: 1rem;
-      }
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
 
-      .navbar h2 {
-        font-size: 1.2rem;
-      }
+.feature-card p {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
 
-      .ai-section h2,
-      .features h2 {
-        font-size: 2rem;
-      }
+/* How It Works */
+.how-it-works {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.02);
+}
 
-      .ai-grid,
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
 
-    /* Fade-in Animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
+.step {
+  text-align: center;
+  position: relative;
+}
 
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 20px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
 
-    /* Scroll Progress Bar */
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-      width: 0%;
-      z-index: 9999;
-      transition: width 0.1s ease;
-    }
-  </style>
+.step h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.step p {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.cta-box {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 60px 40px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.cta-box h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-box p {
+  font-size: 1.1rem;
+  color: #b0b0b0;
+  margin-bottom: 32px;
+}
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: #808080;
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: #b0b0b0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #667eea;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .cta-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .features-grid,
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .cta-box h2 {
+    font-size: 2rem;
+  }
+}
+</style>
 </head>
+
 <body>
 
-<!-- Progress Bar -->
-<div class="progress-bar" id="progressBar"></div>
+<div class="bg-gradient">
+  <div class="bg-orb"></div>
+</div>
 
-<!-- Navbar -->
-<nav class="navbar">
-  <h2>🏠 AI Home Planner</h2>
-  <ul>
-    <li><a href="#ai">AI Features</a></li>
-    <li><a href="#workflow">Workflow</a></li>
-    <li><a class="nav-btn" href="upload.html">Upload Plan</a></li>
-  </ul>
-</nav>
-
-<!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Smart AI-Powered Home Planning</h1>
-    <p>
-      Transform hand-drawn sketches into intelligent 3D homes with AI-driven design suggestions, accurate cost estimation, and interactive visualization.
-    </p>
-    <button onclick="location.href='upload.html'">
-      Get Started →
-    </button>
-  </div>
-</section>
-
-<!-- Stats Section -->
-<section class="stats-section">
-  <div class="stats-grid">
-    <div class="stat-item">
-      <h3>98%</h3>
-      <p>Accuracy Rate</p>
+<div class="container">
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🏠</span>
+      AI Home Planner
     </div>
-    <div class="stat-item">
-      <h3>5min</h3>
-      <p>Processing Time</p>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#" class="nav-btn">Sign In</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">✨ Powered by Deep Learning & Computer Vision</div>
+    <h1>Transform Hand-Drawn<br>Sketches into 3D Homes</h1>
+    <p>Upload your floor plan sketch and watch AI convert it into a stunning 3D model with cost estimates in minutes.</p>
+    <div class="cta-group">
+      <a href="upload.html" class="btn btn-primary">Start Building Now</a>
+      <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
     </div>
-    <div class="stat-item">
-      <h3>10K+</h3>
-      <p>Designs Created</p>
+  </section>
+
+  <section class="preview">
+    <div class="preview-card">
+      <div class="preview-image">
+        🏗️
+      </div>
     </div>
-    <div class="stat-item">
-      <h3>24/7</h3>
-      <p>AI Support</p>
+  </section>
+
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2>Powerful AI-Driven Features</h2>
+      <p>Everything you need to bring your home designs to life</p>
     </div>
-  </div>
-</section>
-
-<!-- AI Capabilities Section -->
-<section id="ai" class="ai-section">
-  <h2>AI & Deep Learning Capabilities</h2>
-
-  <div class="ai-grid">
-    <div class="ai-card fade-in">
-      <h3>🧠 Deep Learning</h3>
-      <p>Advanced U-Net architecture accurately detects rooms, walls, doors, and complex layout structures from hand-drawn sketches.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📐</div>
+        <h3>Sketch Recognition</h3>
+        <p>Advanced OpenCV preprocessing accurately interprets hand-drawn floor plans and blueprints.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>Deep Learning AI</h3>
+        <p>U-Net segmentation model trained on thousands of architectural layouts for precise room detection.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h3>3D Reconstruction</h3>
+        <p>Instantly generates interactive 3D models from 2D sketches with accurate dimensions and layouts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Cost Estimation</h3>
+        <p>AI-powered pricing analysis provides detailed construction cost breakdowns by room and material.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Custom Styling</h3>
+        <p>Apply different architectural styles, materials, and color schemes to your 3D model.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analytics Dashboard</h3>
+        <p>Track space utilization, energy efficiency, and get smart recommendations for optimization.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="ai-card fade-in">
-      <h3>🤖 AI Chatbot</h3>
-      <p>Intelligent assistant provides personalized design tips, space optimization strategies, and real-time budget recommendations.</p>
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-title">
+      <h2>How It Works</h2>
+      <p>From sketch to 3D model in four simple steps</p>
     </div>
-
-    <div class="ai-card fade-in">
-      <h3>🏠 3D Visualization</h3>
-      <p>Immersive Three.js rendering creates interactive 3D models with realistic furniture placement and lighting effects.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Upload Your Sketch</h3>
+        <p>Draw your floor plan by hand or upload an existing blueprint. We support JPG, PNG, and PDF formats.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>AI Processing</h3>
+        <p>Our deep learning model analyzes your sketch, identifies rooms, doors, and windows with high accuracy.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>3D Generation</h3>
+        <p>Watch as your 2D sketch transforms into an interactive 3D model you can explore from any angle.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3>Get Insights</h3>
+        <p>Receive detailed cost estimates, material recommendations, and optimization suggestions from AI.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="ai-card fade-in">
-      <h3>🧮 Cost Estimation</h3>
-      <p>Machine learning algorithms predict precise construction costs based on materials, labor, and regional pricing data.</p>
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Ready to Build Your Dream Home?</h2>
+      <p>Join thousands of architects and homeowners using AI to transform their ideas into reality.</p>
+      <a href="upload.html" class="btn btn-primary">Get Started for Free</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Workflow Section -->
-<section id="workflow" class="features">
-  <h2>Intelligent System Workflow</h2>
-
-  <div class="feature-grid">
-    <div class="feature-card fade-in">📤 Sketch Upload</div>
-    <div class="feature-card fade-in">🔍 OpenCV Processing</div>
-    <div class="feature-card fade-in">🧩 DL Segmentation</div>
-    <div class="feature-card fade-in">🎨 3D Rendering</div>
-    <div class="feature-card fade-in">📋 JSON Layout</div>
-    <div class="feature-card fade-in">💰 Cost Estimation</div>
-    <div class="feature-card fade-in">💬 AI Chatbot</div>
-    <div class="feature-card fade-in">✨ User Interaction</div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <p>© 2026 AI-Enabled Home Planning System | Powered by Deep Learning & Computer Vision</p>
-</footer>
-
-<script>
-// Intersection Observer for fade-in animations
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-}, {
-  threshold: 0.1
-});
-
-document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-
-// Scroll Progress Bar
-window.addEventListener('scroll', () => {
-  const scrollTop = document.documentElement.scrollTop;
-  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrollPercentage = (scrollTop / scrollHeight) * 100;
-  document.getElementById('progressBar').style.width = scrollPercentage + '%';
-});
-
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  });
-});
-</script>
+  <footer>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Documentation</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2026 AI Home Planner. All rights reserved.</p>
+  </footer>
+</div>
 
 </body>
 </html>
