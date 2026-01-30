@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Upload Floor Plan | AI Home Planner</title>
@@ -303,6 +304,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="container">
@@ -355,7 +357,8 @@
     <!-- Info -->
     <div class="info-box">
       <span class="info-icon">ℹ️</span>
-      <strong>Tip:</strong> For best results, upload a clear, well-lit image of your floor plan with distinct walls and room boundaries.
+      <strong>Tip:</strong> For best results, upload a clear, well-lit image of your floor plan with distinct walls and
+      room boundaries.
     </div>
   </div>
 
@@ -390,7 +393,7 @@
     uploadBox.addEventListener('drop', (e) => {
       e.preventDefault();
       uploadBox.classList.remove('dragover');
-      
+
       const files = e.dataTransfer.files;
       if (files && files[0]) {
         document.getElementById('fileInput').files = files;
@@ -400,7 +403,7 @@
 
     function fileSelected(file) {
       selectedFile = file;
-      
+
       const fileName = document.getElementById('fileName');
       const fileSize = document.getElementById('fileSize');
       const filePreview = document.getElementById('filePreview');
@@ -409,7 +412,7 @@
 
       fileName.textContent = file.name;
       fileSize.textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-      
+
       filePreview.classList.add('show');
       uploadBox.style.display = 'none';
       startBtn.disabled = false;
@@ -464,14 +467,14 @@
       formData.append('file', selectedFile);
 
       // Attempt to upload to backend (with 5-second timeout)
-      const uploadPromise = fetch('http://localhost:8000/upload-sketch/', {
+      const uploadPromise = fetch('http://127.0.0.1:8000/upload-sketch/', {
         method: 'POST',
         body: formData
       });
 
       // Set a timeout for the fetch
       const timeoutPromise = new Promise((resolve, reject) => {
-        setTimeout(() => reject(new Error('Upload timeout')), 5000);
+        setTimeout(() => reject(new Error('Upload timeout')), 30000);
       });
 
       Promise.race([uploadPromise, timeoutPromise])
@@ -485,59 +488,46 @@
           return response.json();
         })
         .then(data => {
-          console.log('Upload successful:', data);
-          
-          // Store room data from backend using BOTH localStorage and sessionStorage
-          const roomsData = JSON.stringify(data.rooms || demoData.rooms);
-          const projInfo = JSON.stringify({
-            filename: data.filename || 'uploaded_plan.jpg',
-            timestamp: data.timestamp || new Date().toISOString(),
-            room_count: data.room_count || demoData.rooms.length,
-            total_area: data.total_area || 522,
-            estimated_cost: data.estimated_cost || 78300,
-            processed_image_url: data.processed_image_url || ''
-          });
-          
-          localStorage.setItem('roomData', roomsData);
-          localStorage.setItem('projectInfo', projInfo);
-          sessionStorage.setItem('roomData', roomsData);
-          sessionStorage.setItem('projectInfo', projInfo);
+          console.log('Upload successful. Received data:', data);
 
-          progressFill.style.width = '100%';
-          progressPercent.textContent = '100%';
-          progressText.textContent = '✅ Complete! Redirecting...';
-          showSuccess('Floor plan processed! Redirecting to visualization...');
-          
-          console.log('Data stored - redirecting to visualization');
-          window.location.href = 'visualization.html';
+          try {
+            // Store room data from backend using BOTH localStorage and sessionStorage
+            const roomsData = JSON.stringify(data.rooms || demoData.rooms);
+            const projInfo = JSON.stringify({
+              filename: data.filename || 'uploaded_plan.jpg',
+              timestamp: data.timestamp || new Date().toISOString(),
+              room_count: data.room_count || demoData.rooms.length,
+              total_area: data.total_area || 522,
+              estimated_cost: data.estimated_cost || 78300,
+              processed_image_url: data.processed_image_url || ''
+            });
+
+            localStorage.setItem('roomData', roomsData);
+            localStorage.setItem('projectInfo', projInfo);
+            sessionStorage.setItem('roomData', roomsData);
+            sessionStorage.setItem('projectInfo', projInfo);
+
+            progressFill.style.width = '100%';
+            progressPercent.textContent = '100%';
+            progressText.textContent = '✅ Complete! Redirecting...';
+            showSuccess('Floor plan processed! Redirecting to visualization...');
+
+            console.log('Data stored - redirecting to visualization');
+            setTimeout(() => {
+              window.location.href = 'visualization.html?t=' + Date.now();
+            }, 500);
+          } catch (e) {
+            console.error("Client Data Processing Error:", e);
+            alert("Error processing data: " + e.message);
+          }
         })
         .catch(err => {
           console.error('Error uploading to backend:', err);
-          console.log('Using demo data instead...');
-          
-          // Always use demo data if backend fails - use BOTH storages
-          const demoRooms = JSON.stringify(demoData.rooms);
-          const demoInfo = JSON.stringify({
-            filename: 'demo_floor_plan.jpg',
-            timestamp: new Date().toISOString(),
-            room_count: 5,
-            total_area: 522,
-            estimated_cost: 78300,
-            processed_image_url: ''
-          });
-          
-          localStorage.setItem('roomData', demoRooms);
-          localStorage.setItem('projectInfo', demoInfo);
-          sessionStorage.setItem('roomData', demoRooms);
-          sessionStorage.setItem('projectInfo', demoInfo);
-          
-          progressFill.style.width = '100%';
-          progressPercent.textContent = '100%';
-          progressText.textContent = '✅ Ready! Redirecting...';
-          showSuccess('Demo mode activated. Redirecting to visualization...');
-          
-          console.log('Demo data stored - redirecting to visualization');
-          window.location.href = 'visualization.html';
+          alert('Upload Error: ' + err.message + '\n\nPlease check console for details.');
+
+          startBtn.disabled = false;
+          startBtn.textContent = 'Start Analysis';
+          progressContainer.classList.remove('show');
         });
     }
 
@@ -555,4 +545,5 @@
   </script>
 
 </body>
+
 </html>

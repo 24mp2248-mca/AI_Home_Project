@@ -1,0 +1,82 @@
+{
+    "total_rooms": 7,
+    "rooms": [
+        {
+            "room_id": 1,
+            "approx_area": 141325,
+            "bbox": {
+                "x": 30,
+                "y": 23,
+                "w": 385,
+                "h": 394
+            },
+            "type": "Living Room"
+        },
+        {
+            "room_id": 2,
+            "approx_area": 12884,
+            "bbox": {
+                "x": 271,
+                "y": 144,
+                "w": 126,
+                "h": 149
+            },
+            "type": "Master Bedroom"
+        },
+        {
+            "room_id": 3,
+            "approx_area": 6395,
+            "bbox": {
+                "x": 144,
+                "y": 112,
+                "w": 115,
+                "h": 115
+            },
+            "type": "Kitchen"
+        },
+        {
+            "room_id": 4,
+            "approx_area": 5131,
+            "bbox": {
+                "x": 48,
+                "y": 265,
+                "w": 134,
+                "h": 95
+            },
+            "type": "Dining Room"
+        },
+        {
+            "room_id": 5,
+            "approx_area": 2113,
+            "bbox": {
+                "x": 70,
+                "y": 40,
+                "w": 99,
+                "h": 37
+            },
+            "type": "Bedroom"
+        },
+        {
+            "room_id": 6,
+            "approx_area": 2080,
+            "bbox": {
+                "x": 300,
+                "y": 98,
+                "w": 77,
+                "h": 32
+            },
+            "type": "Entrance"
+        },
+        {
+            "room_id": 7,
+            "approx_area": 2069,
+            "bbox": {
+                "x": 48,
+                "y": 135,
+                "w": 70,
+                "h": 38
+            },
+            "type": "Bathroom"
+        }
+    ]
+}
