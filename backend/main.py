@@ -46,7 +46,8 @@ os.makedirs(PROCESSED_DIR, exist_ok=True)
 # Load ML Cost Model
 cost_model = None
 try:
-    model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cost_model.pkl")
+    # Load from ROOT_DIR where train_model.py saves it
+    model_path = os.path.join(ROOT_DIR, "cost_model.pkl")
     cost_model = joblib.load(model_path)
     print("ML Cost Model loaded successfully.")
 except Exception as e:
