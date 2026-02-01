@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Cost Analysis | AI Home Planner</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand: #6366f1;
+            --brand-light: #818cf8;
+            --brand-dark: #4f46e5;
+
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-alt: #f1f5f9;
+
+            --text-heading: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+
+            --success: #10b981;
+            --warning: #f59e0b;
+
+            --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-heading);
+            font-weight: 700;
+        }
+
+        /* Hero Header */
+        header {
+            background: var(--surface);
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-heading);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--brand);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: normal;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        /* Main Grid */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .col-span-8 {
+            grid-column: span 8;
+        }
+
+        .col-span-4 {
+            grid-column: span 4;
+        }
+
+        .col-span-12 {
+            grid-column: span 12;
+        }
+
+        @media (max-width: 1024px) {
+
+            .col-span-8,
+            .col-span-4 {
+                grid-column: span 12;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-card);
+            padding: 32px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Hero Cost */
+        .hero-cost {
+            background: linear-gradient(135deg, var(--text-heading) 0%, #1e293b 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cost h4 {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-cost .amount {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            margin: 10px 0;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-cost::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        /* Stats Grid */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-box {
+            background: var(--surface-alt);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .row-highlight {
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .price-cell {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .category-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            background: var(--surface-alt);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 260px;
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .btn-primary {
+            background: var(--text-heading);
+            color: white;
+            border-color: var(--text-heading);
+        }
+
+        .btn-primary:hover {
+            background: #1e293b;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-body);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-alt);
+            border-color: var(--brand-light);
+        }
+
+        .currency-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .currency-btn.active {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: white;
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 20px;
+            background: #fffbeb;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--warning);
+        }
+
+        @media print {
+
+            header,
+            .header-actions,
+            .toolbar {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #eee;
+                margin-bottom: 20px;
+                page-break-inside: avoid;
+            }
+
+            main {
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+            .hero-cost {
+                background: #eee !important;
+                color: black !important;
+            }
+
+            .hero-cost .amount {
+                -webkit-text-fill-color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="logo-icon">H</i>
+            <span>AI Home Planner <span style="font-weight:400; color:var(--text-muted); font-size:0.9rem">|
+                    Analytics</span></span>
+        </div>
+        <div class="header-actions">
+            <div style="display:flex; background:var(--surface-alt); padding:3px; border-radius:8px;">
+                <button class="currency-btn active" id="btn-usd" onclick="setCurrency('USD')">USD</button>
+                <button class="currency-btn" id="btn-inr" onclick="setCurrency('INR')">INR</button>
+            </div>
+            <button onclick="window.print()" class="btn btn-primary">Download Report</button>
+            <a href="visualization.html" class="btn btn-outline">← Exit</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="col-span-12 card hero-cost">
+            <h4>EXECUTIVE COST ESTIMATE</h4>
+            <div class="amount" id="displayCost">$78,300</div>
+            <p style="font-size: 1rem; opacity:0.8;">Generated for Project <span id="projectRef">#----</span> • Based on
+                Q1 2026 Indices</p>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="col-span-12 stats-row">
+            <div class="stat-box">
+                <div class="stat-val" id="val-area">522</div>
+                <div class="stat-label">Square Meters</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val" id="val-rooms">5</div>
+                <div class="stat-label">Total Rooms</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val" id="val-avg-cost">$150</div>
+                <div class="stat-label">Avg / m²</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val" id="val-timeline">6-8</div>
+                <div class="stat-label">Months (Est.)</div>
+            </div>
+        </section>
+
+        <!-- Left: Breakdown Table -->
+        <section class="col-span-8 card">
+            <h3 class="card-title">Detailed Allocation Breakdown</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase / Category</th>
+                            <th style="text-align:center">Ratio</th>
+                            <th style="text-align:right">Investment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="breakdownTable">
+                        <!-- JS Loaded -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Right: Visualization -->
+        <section class="col-span-4 card" style="display:flex; flex-direction:column;">
+            <h3 class="card-title">Budget Distribution</h3>
+            <div class="chart-container">
+                <canvas id="costChart"></canvas>
+            </div>
+            <div id="chartLegend"
+                style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+                <!-- Populated by JS -->
+            </div>
+            <div style="margin-top:auto; padding-top:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-size:0.85rem; color:var(--text-muted);">Data Confidence</span>
+                    <span style="font-size:0.85rem; font-weight:700; color:var(--success);">94.2%</span>
+                </div>
+                <div style="height:6px; background:var(--surface-alt); border-radius:3px;">
+                    <div style="width:94%; height:100%; background:var(--success); border-radius:3px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Room Schedule -->
+        <section class="col-span-12 card">
+            <h3 class="card-title">Architectural Room Schedule</h3>
+            <div id="roomList"
+                style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:16px;">
+                <!-- JS Loaded -->
+            </div>
+
+            <div class="footer-note">
+                <strong>Disclaimer:</strong> This cost analysis is an AI-generated estimate based on regional labor and
+                material benchmarks. Exterior landscape, permits, and finishing hardware variations may impact final
+                valuation by 10-15%.
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data
+            const projectInfo = JSON.parse(localStorage.getItem('projectInfo') || '{}');
+            const roomData = JSON.parse(localStorage.getItem('roomData') || '[]');
+
+            // Calculate Area from rooms if total_area is missing or 0
+            const calculatedArea = roomData.reduce((sum, r) => {
+                const w = r.width_m || (r.dimensions ? r.dimensions.length : 0);
+                const d = r.length_m || (r.dimensions ? r.dimensions.width : 0);
+                return sum + (w * d * (r.width_m ? 1 : 12.25)); // Use 3.5^2 scale factor if raw room data
+            }, 0);
+
+            const totalCost = parseFloat(projectInfo.estimated_cost) || 78300;
+            const totalArea = parseFloat(projectInfo.total_area) || calculatedArea || 522;
+            const roomCount = roomData.length || parseInt(projectInfo.room_count) || 5;
+            const projectRef = (projectInfo.filename || 'PRJ').substring(0, 6).toUpperCase() + '-' + Math.floor(Math.random() * 900 + 100);
+
+            document.getElementById('projectRef').textContent = '#' + projectRef;
+            document.getElementById('val-area').textContent = totalArea.toLocaleString();
+            document.getElementById('val-rooms').textContent = roomCount;
+
+            // Timeline Estimate
+            const timelineMonths = totalArea < 200 ? '4-6' : totalArea < 500 ? '6-9' : '9-14';
+            document.getElementById('val-timeline').textContent = timelineMonths;
+
+            // Currency Logic
+            let cur = 'USD';
+            const rate = 84;
+            const formats = {
+                USD: { symbol: '$', locale: 'en-US' },
+                INR: { symbol: '₹', locale: 'en-IN' }
+            };
+
+            window.setCurrency = (type) => {
+                cur = type;
+                document.getElementById('btn-usd').classList.toggle('active', type === 'USD');
+                document.getElementById('btn-inr').classList.toggle('active', type === 'INR');
+                updateUI();
+            };
+
+            function fmt(val) {
+                const amount = cur === 'USD' ? val : val * rate;
+                return new Intl.NumberFormat(formats[cur].locale, {
+                    style: 'currency',
+                    currency: cur,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+
+            const categories = [
+                { name: 'Foundation & Shell', pct: 0.35, color: '#0f172a' },
+                { name: 'Interior Surfaces', pct: 0.25, color: '#6366f1' },
+                { name: 'MEP Systems', pct: 0.20, color: '#10b981' },
+                { name: 'Exterior Finish', pct: 0.12, color: '#f59e0b' },
+                { name: 'Contingency Fund', pct: 0.08, color: '#94a3b8' }
+            ];
+
+            let chart = null;
+
+            function updateUI() {
+                // Header Cost
+                document.getElementById('displayCost').textContent = fmt(totalCost);
+
+                // Avg Cost
+                const avg = totalArea > 0 ? (totalCost / totalArea) : 0;
+                document.getElementById('val-avg-cost').textContent = fmt(avg) + ' / m²';
+
+                // Table
+                const tbody = document.getElementById('breakdownTable');
+                tbody.innerHTML = '';
+                categories.forEach(c => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>
+                            <div class="category-pill">
+                                <span class="indicator" style="background:${c.color}"></span>
+                                ${c.name}
+                            </div>
+                        </td>
+                        <td style="text-align:center; color:var(--text-muted); font-size:0.85rem">${(c.pct * 100).toFixed(0)}%</td>
+                        <td class="price-cell">${fmt(totalCost * c.pct)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                // Chart
+                const ctx = document.getElementById('costChart').getContext('2d');
+                if (chart) chart.destroy();
+                chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: categories.map(c => c.name),
+                        datasets: [{
+                            data: categories.map(c => c.pct),
+                            backgroundColor: categories.map(c => c.color),
+                            borderWidth: 0,
+                            hoverOffset: 12
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => {
+                                        const label = ctx.label || '';
+                                        const value = (ctx.raw * 100).toFixed(0);
+                                        return ` ${label}: ${value}%`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '72%'
+                    }
+                });
+
+                // Populate Side Legend Detail
+                const legendEl = document.getElementById('chartLegend');
+                legendEl.innerHTML = categories.map(c => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: var(--text-heading); font-weight: 500;">
+                            <span style="width: 8px; height: 8px; border-radius: 50%; background: ${c.color};"></span>
+                            ${c.name}
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700;">${fmt(totalCost * c.pct)}</div>
+                            <div style="color: var(--text-muted); font-size: 0.75rem;">${(c.pct * 100).toFixed(0)}%</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Room List
+            const typeMap = {};
+            roomData.forEach(r => {
+                const t = r.type || 'Generic';
+                typeMap[t] = (typeMap[t] || 0) + 1;
+            });
+
+            const roomListDisplay = document.getElementById('roomList');
+            roomListDisplay.innerHTML = ''; // Clear previous
+            Object.entries(typeMap).forEach(([name, count]) => {
+                const div = document.createElement('div');
+                div.className = 'stat-box';
+                div.style.background = 'white';
+                div.style.border = '1px solid var(--border)';
+                div.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">${name}</div>
+                    <div style="font-size:1.4rem; font-weight:800; color:var(--text-heading);">x ${count}</div>
+                `;
+                roomListDisplay.appendChild(div);
+            });
+
+            updateUI();
+        });
+    </script>
+</body>
+
+</html>

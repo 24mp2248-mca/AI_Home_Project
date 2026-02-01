@@ -1,0 +1,36 @@
+{
+    "house": {
+        "width_m": 5.67,
+        "length_m": 4.82,
+        "height_m": 3.0
+    },
+    "total_rooms": 2,
+    "rooms": [
+        {
+            "room_id": 1,
+            "x_m": 0.0,
+            "y_m": 0.0,
+            "width_m": 5.67,
+            "length_m": 4.82,
+            "height_m": 3.0,
+            "area_m2": 27.329,
+            "type": "Living Room",
+            "neighbors": [
+                2
+            ]
+        },
+        {
+            "room_id": 2,
+            "x_m": 3.32,
+            "y_m": 0.08,
+            "width_m": 0.7,
+            "length_m": 0.46,
+            "height_m": 3.0,
+            "area_m2": 0.322,
+            "type": "Kitchen",
+            "neighbors": [
+                1
+            ]
+        }
+    ]
+}

@@ -469,9 +469,11 @@
       <button class="btn btn-primary" onclick="downloadVisualization()">📥 Download</button>
     </div>
   </div>
+  </div>
 
   <div class="sidebar">
     <h3>🎨 Display Options</h3>
+
     <button class="btn btn-primary" onclick="showInstructions()" style="width: 100%; margin: 0 0 10px 0;">🚶 Walk
       Inside</button>
     <button class="btn btn-secondary" onclick="startTour()"
@@ -479,6 +481,9 @@
     <button class="btn btn-secondary" onclick="toggleTime()"
       style="width: 100%; margin: 0 0 15px 0; background: #f59e0b; border:none; color:black;">☀️ / 🌙 Toggle
       Day/Night</button>
+    <button class="btn btn-primary" onclick="window.location.href='cost_estimation.html'"
+      style="width: 100%; margin: 0 0 10px 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border:none;">💰
+      Cost Estimate</button>
     <div class="control-group">
       <label><input type="checkbox" id="toggle-labels" checked> Room Labels</label>
       <label><input type="checkbox" id="toggle-furniture" checked> Furniture</label>
@@ -497,14 +502,14 @@
     <div class="view-buttons">
       <button class="view-btn active" data-view="iso">3D View</button>
       <button class="view-btn" data-view="top">Top Down</button>
-      <button class="view-btn" data-view="front">Front</button>
+      <button class="view-btn" data-view="front">Entrance</button>
       <button class="view-btn" data-view="interior">Interior</button>
     </div>
 
     <div class="info-panel">
       <div class="info-item"><span>Rooms:</span><strong id="room-count">0</strong></div>
       <div class="info-item"><span>Total Area:</span><strong id="total-area">0</strong> m²</div>
-      <div class="info-item"><span>Est. Cost:</span><strong id="est-cost">$0</strong></div>
+
     </div>
 
     <div class="room-list">
@@ -552,7 +557,7 @@
       const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 1000);
       camera.position.set(50, 40, 50);
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
       renderer.setSize(w, h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.shadowMap.enabled = true;
@@ -1354,11 +1359,17 @@
 
       function updateUI() {
         const totalArea = houseLayout.rooms.reduce((sum, r) => sum + (r.width * r.depth), 0);
-        const estCost = Math.round(totalArea * 150);
-
         document.getElementById('room-count').textContent = houseLayout.rooms.length;
         document.getElementById('total-area').textContent = totalArea.toFixed(0);
-        document.getElementById('est-cost').textContent = '$' + estCost.toLocaleString();
+
+        // Sync back to localStorage so cost estimation uses correct area
+        try {
+          const projectInfo = JSON.parse(localStorage.getItem('projectInfo') || '{}');
+          projectInfo.total_area = totalArea;
+          projectInfo.room_count = houseLayout.rooms.length;
+          localStorage.setItem('projectInfo', JSON.stringify(projectInfo));
+          sessionStorage.setItem('projectInfo', JSON.stringify(projectInfo));
+        } catch (e) { console.error("Sync error:", e); }
 
         const roomList = document.getElementById('room-list');
         roomList.innerHTML = houseLayout.rooms.map(room => {
@@ -1766,7 +1777,7 @@
         const views = {
           'iso': { pos: [50, 40, 50], target: [12, 0, 10] },
           'top': { pos: [12, 80, 10], target: [12, 0, 10] },
-          'front': { pos: [12, 12, 60], target: [12, 3, 10] },
+          'front': { pos: [12, 2, -18], target: [12, 1.5, 0] },
           'interior': { pos: [12, 6, 8], target: [12, 2, 10] }
         };
 

@@ -1,0 +1,49 @@
+{
+    "total_rooms": 4,
+    "rooms": [
+        {
+            "room_id": 1,
+            "approx_area": 17608,
+            "bbox": {
+                "x": 52,
+                "y": 25,
+                "w": 110,
+                "h": 355
+            },
+            "type": "Living Room"
+        },
+        {
+            "room_id": 2,
+            "approx_area": 6702,
+            "bbox": {
+                "x": 132,
+                "y": 112,
+                "w": 144,
+                "h": 169
+            },
+            "type": "Master Bedroom"
+        },
+        {
+            "room_id": 3,
+            "approx_area": 4051,
+            "bbox": {
+                "x": 172,
+                "y": 25,
+                "w": 103,
+                "h": 73
+            },
+            "type": "Entrance"
+        },
+        {
+            "room_id": 4,
+            "approx_area": 2172,
+            "bbox": {
+                "x": 217,
+                "y": 303,
+                "w": 59,
+                "h": 78
+            },
+            "type": "Bathroom"
+        }
+    ]
+}

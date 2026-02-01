@@ -1,5 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 import shutil
+import pandas as pd
+import joblib
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -40,6 +42,17 @@ PROCESSED_DIR = os.path.join(ROOT_DIR, "processed")
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)
+
+# Load ML Cost Model
+cost_model = None
+try:
+    model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cost_model.pkl")
+    cost_model = joblib.load(model_path)
+    print("ML Cost Model loaded successfully.")
+except Exception as e:
+    print(f"Warning: Could not load cost model: {e}")
+
+
 def get_standard_5room_layout(processed_image_path):
     """
     Returns a standard 5-room layout for consistent testing.
@@ -264,8 +277,47 @@ async def upload_sketch(file: UploadFile = File(...)):
         log(f"3D layout generated successfully")
 
         # ---- Compute statistics ----
-        total_area = sum(r.get('area_m2', 0) for r in layout_3d_data['rooms'])
-        estimated_cost = round(total_area * 150, 2)  # $150 per m²
+        raw_area = sum(r.get('area_m2', 0) for r in layout_3d_data['rooms'])
+        num_rooms_detected = len(layout_3d_data['rooms'])
+        
+        # SAFEGUARD: Ensure area is realistic for the room count
+        min_expected_area = num_rooms_detected * 15
+        total_area = max(raw_area, min_expected_area)
+        
+        log(f"Area Check: Raw={raw_area:.2f}, MinExpected={min_expected_area}, Used={total_area:.2f}")
+
+        # ML Cost Estimation
+        estimated_cost = 0.0
+        if cost_model:
+            try:
+                rooms_list = layout_3d_data['rooms']
+                types = [r.get('type', 'Unknown') for r in rooms_list]
+                
+                num_bedrooms = sum(1 for t in types if 'Bedroom' in t)
+                num_bathrooms = sum(1 for t in types if 'Bathroom' in t)
+                num_living_rooms = sum(1 for t in types if 'Living' in t)
+                num_kitchens = sum(1 for t in types if 'Kitchen' in t)
+                
+                features = pd.DataFrame([{
+                    'total_area': total_area,
+                    'num_rooms': num_rooms_detected,
+                    'num_bedrooms': num_bedrooms,
+                    'num_bathrooms': num_bathrooms,
+                    'num_living_rooms': num_living_rooms,
+                    'num_kitchens': num_kitchens,
+                    'quality_score': 5,
+                    'complexity_score': 5
+                }])
+                
+                predicted_cost = cost_model.predict(features)[0]
+                estimated_cost = round(predicted_cost, 2)
+                log(f"ML Cost Prediction: ${estimated_cost}")
+
+            except Exception as e:
+                log(f"ML Prediction Error: {e}")
+                estimated_cost = round(total_area * 1500, 2)
+        else:
+             estimated_cost = round(total_area * 1500, 2)
 
         # ---- FINAL RESPONSE ----
         processed_filename = os.path.basename(processed_path)
@@ -278,6 +330,7 @@ async def upload_sketch(file: UploadFile = File(...)):
                 "timestamp": datetime.utcnow().isoformat() + 'Z',
                 "filename": unique_name,
                 "room_count": len(layout_3d_data['rooms']),
+                "total_area": round(total_area, 2),
                 "total_area": round(total_area, 2),
                 "estimated_cost": estimated_cost,
                 "rooms": layout_3d_data['rooms'],
@@ -293,6 +346,17 @@ async def upload_sketch(file: UploadFile = File(...)):
         import traceback
         log(traceback.format_exc())
         raise HTTPException(status_code=500, detail=error_msg)
+    
+    finally:
+        # Cleanup temporary files
+        try:
+            if os.path.exists(layout_path):
+                os.remove(layout_path)
+            if os.path.exists(layout_3d_path):
+                os.remove(layout_3d_path)
+            log("Temporary layout files cleaned up.")
+        except Exception as cleanup_err:
+            log(f"Warning: Failed to cleanup temp files: {cleanup_err}")
 
 
 @app.get('/processed/{fname}')

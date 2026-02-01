@@ -544,3 +544,328 @@ Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_
 
 [2026-01-31 10:48:13.769554] 3D layout generated successfully
 [2026-01-31 10:48:13.771462] Sending success response
+[2026-01-31 21:11:59.650800] --- START UPLOAD: home.png ---
+[2026-01-31 21:11:59.654022] Saved upload to: D:\AI_Home_Project\uploads\69bf56b70da349389722c49a02f48df7_home.png
+[2026-01-31 21:11:59.827628] Preprocessed image to: D:\AI_Home_Project\processed\69bf56b70da349389722c49a02f48df7_home.png
+[2026-01-31 21:11:59.829926] Layout Path: D:\AI_Home_Project\temp_layout_69bf56b70da349389722c49a02f48df7.json
+[2026-01-31 21:11:59.832149] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_69bf56b70da349389722c49a02f48df7.json
+[2026-01-31 21:11:59.833812] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\69bf56b70da349389722c49a02f48df7_home.png', 'D:\\AI_Home_Project\\temp_layout_69bf56b70da349389722c49a02f48df7.json']
+[2026-01-31 21:12:00.426328] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_69bf56b70da349389722c49a02f48df7.json
+
+[2026-01-31 21:12:00.428346] Layout extracted: 7 rooms
+[2026-01-31 21:12:00.429323] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_69bf56b70da349389722c49a02f48df7.json', 'D:\\AI_Home_Project\\temp_layout_3d_69bf56b70da349389722c49a02f48df7.json']
+[2026-01-31 21:12:00.515255] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_69bf56b70da349389722c49a02f48df7.json
+
+[2026-01-31 21:12:00.517479] 3D layout generated successfully
+[2026-01-31 21:12:00.519600] Sending success response
+[2026-01-31 21:17:12.628384] --- START UPLOAD: home.png ---
+[2026-01-31 21:17:12.638201] Saved upload to: D:\AI_Home_Project\uploads\3639ccdbc1b441419b920cde18019e95_home.png
+[2026-01-31 21:17:12.806002] Preprocessed image to: D:\AI_Home_Project\processed\3639ccdbc1b441419b920cde18019e95_home.png
+[2026-01-31 21:17:12.807404] Layout Path: D:\AI_Home_Project\temp_layout_3639ccdbc1b441419b920cde18019e95.json
+[2026-01-31 21:17:12.808411] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_3639ccdbc1b441419b920cde18019e95.json
+[2026-01-31 21:17:12.809045] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\3639ccdbc1b441419b920cde18019e95_home.png', 'D:\\AI_Home_Project\\temp_layout_3639ccdbc1b441419b920cde18019e95.json']
+[2026-01-31 21:17:13.368436] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_3639ccdbc1b441419b920cde18019e95.json
+
+[2026-01-31 21:17:13.374404] Layout extracted: 7 rooms
+[2026-01-31 21:17:13.377117] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_3639ccdbc1b441419b920cde18019e95.json', 'D:\\AI_Home_Project\\temp_layout_3d_3639ccdbc1b441419b920cde18019e95.json']
+[2026-01-31 21:17:13.547976] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_3639ccdbc1b441419b920cde18019e95.json
+
+[2026-01-31 21:17:13.553932] 3D layout generated successfully
+[2026-01-31 21:17:13.555253] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 21:17:13.578218] ML Cost Prediction: $356970.36
+[2026-01-31 21:17:13.580904] Sending success response
+[2026-01-31 21:22:18.942106] --- START UPLOAD: img.png ---
+[2026-01-31 21:22:18.947065] Saved upload to: D:\AI_Home_Project\uploads\cf1df540cded4cafaf20595210c780d7_img.png
+[2026-01-31 21:22:19.043371] Preprocessed image to: D:\AI_Home_Project\processed\cf1df540cded4cafaf20595210c780d7_img.png
+[2026-01-31 21:22:19.044034] Layout Path: D:\AI_Home_Project\temp_layout_cf1df540cded4cafaf20595210c780d7.json
+[2026-01-31 21:22:19.044314] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_cf1df540cded4cafaf20595210c780d7.json
+[2026-01-31 21:22:19.044618] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\cf1df540cded4cafaf20595210c780d7_img.png', 'D:\\AI_Home_Project\\temp_layout_cf1df540cded4cafaf20595210c780d7.json']
+[2026-01-31 21:22:19.524628] Extraction STDOUT: DEBUG: Found 10 contours. Filtered down to 4 rooms.
+  - Contour 4 kept: Area 2172.0
+  - Contour 7 kept: Area 6702.0
+  - Contour 8 kept: Area 4051.0
+  - Contour 9 kept: Area 17608.5
+Layout extraction completed successfully. Detected rooms: 4, Output: D:\AI_Home_Project\temp_layout_cf1df540cded4cafaf20595210c780d7.json
+
+[2026-01-31 21:22:19.530704] Layout extracted: 4 rooms
+[2026-01-31 21:22:19.533619] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_cf1df540cded4cafaf20595210c780d7.json', 'D:\\AI_Home_Project\\temp_layout_3d_cf1df540cded4cafaf20595210c780d7.json']
+[2026-01-31 21:22:19.740724] 3D Gen STDOUT: 3D layout generation completed. House size (m): 2.24 x 3.56, Output: D:\AI_Home_Project\temp_layout_3d_cf1df540cded4cafaf20595210c780d7.json
+
+[2026-01-31 21:22:19.742867] 3D layout generated successfully
+[2026-01-31 21:22:19.743322] Area Check: Raw=7.55, MinExpected=60, Used=60.00
+[2026-01-31 21:22:19.754515] ML Cost Prediction: $225932.49
+[2026-01-31 21:22:19.762089] ML Tier Prediction: Standard
+[2026-01-31 21:22:19.762823] Sending success response
+[2026-01-31 21:25:02.467113] --- START UPLOAD: home.png ---
+[2026-01-31 21:25:02.472299] Saved upload to: D:\AI_Home_Project\uploads\9cd5944a71564e7a9aa2b8d87b2e974a_home.png
+[2026-01-31 21:25:02.617276] Preprocessed image to: D:\AI_Home_Project\processed\9cd5944a71564e7a9aa2b8d87b2e974a_home.png
+[2026-01-31 21:25:02.618758] Layout Path: D:\AI_Home_Project\temp_layout_9cd5944a71564e7a9aa2b8d87b2e974a.json
+[2026-01-31 21:25:02.619308] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_9cd5944a71564e7a9aa2b8d87b2e974a.json
+[2026-01-31 21:25:02.619600] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\9cd5944a71564e7a9aa2b8d87b2e974a_home.png', 'D:\\AI_Home_Project\\temp_layout_9cd5944a71564e7a9aa2b8d87b2e974a.json']
+[2026-01-31 21:25:03.179689] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_9cd5944a71564e7a9aa2b8d87b2e974a.json
+
+[2026-01-31 21:25:03.190591] Layout extracted: 7 rooms
+[2026-01-31 21:25:03.193960] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_9cd5944a71564e7a9aa2b8d87b2e974a.json', 'D:\\AI_Home_Project\\temp_layout_3d_9cd5944a71564e7a9aa2b8d87b2e974a.json']
+[2026-01-31 21:25:03.277313] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_9cd5944a71564e7a9aa2b8d87b2e974a.json
+
+[2026-01-31 21:25:03.280137] 3D layout generated successfully
+[2026-01-31 21:25:03.281138] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 21:25:03.299577] ML Cost Prediction: $362907.05
+[2026-01-31 21:25:03.318014] ML Tier Prediction: Standard
+[2026-01-31 21:25:03.320522] Sending success response
+[2026-01-31 21:32:31.002803] --- START UPLOAD: img.png ---
+[2026-01-31 21:32:31.008218] Saved upload to: D:\AI_Home_Project\uploads\7d92e3cad88a472a9c5fa061eff1866f_img.png
+[2026-01-31 21:32:31.112292] Preprocessed image to: D:\AI_Home_Project\processed\7d92e3cad88a472a9c5fa061eff1866f_img.png
+[2026-01-31 21:32:31.113049] Layout Path: D:\AI_Home_Project\temp_layout_7d92e3cad88a472a9c5fa061eff1866f.json
+[2026-01-31 21:32:31.114031] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_7d92e3cad88a472a9c5fa061eff1866f.json
+[2026-01-31 21:32:31.114864] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\7d92e3cad88a472a9c5fa061eff1866f_img.png', 'D:\\AI_Home_Project\\temp_layout_7d92e3cad88a472a9c5fa061eff1866f.json']
+[2026-01-31 21:32:31.680791] Extraction STDOUT: DEBUG: Found 10 contours. Filtered down to 4 rooms.
+  - Contour 4 kept: Area 2172.0
+  - Contour 7 kept: Area 6702.0
+  - Contour 8 kept: Area 4051.0
+  - Contour 9 kept: Area 17608.5
+Layout extraction completed successfully. Detected rooms: 4, Output: D:\AI_Home_Project\temp_layout_7d92e3cad88a472a9c5fa061eff1866f.json
+
+[2026-01-31 21:32:31.685741] Layout extracted: 4 rooms
+[2026-01-31 21:32:31.686941] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_7d92e3cad88a472a9c5fa061eff1866f.json', 'D:\\AI_Home_Project\\temp_layout_3d_7d92e3cad88a472a9c5fa061eff1866f.json']
+[2026-01-31 21:32:31.801662] 3D Gen STDOUT: 3D layout generation completed. House size (m): 2.24 x 3.56, Output: D:\AI_Home_Project\temp_layout_3d_7d92e3cad88a472a9c5fa061eff1866f.json
+
+[2026-01-31 21:32:31.808027] 3D layout generated successfully
+[2026-01-31 21:32:31.809655] Area Check: Raw=7.55, MinExpected=60, Used=60.00
+[2026-01-31 21:32:31.830467] ML Cost Prediction: $225932.49
+[2026-01-31 21:32:31.844934] ML Tier Prediction: Standard
+[2026-01-31 21:32:31.846832] Sending success response
+[2026-01-31 21:38:28.078861] --- START UPLOAD: home.png ---
+[2026-01-31 21:38:28.084340] Saved upload to: D:\AI_Home_Project\uploads\ea99ba7008d647a9b3132a980963c151_home.png
+[2026-01-31 21:38:28.228217] Preprocessed image to: D:\AI_Home_Project\processed\ea99ba7008d647a9b3132a980963c151_home.png
+[2026-01-31 21:38:28.229564] Layout Path: D:\AI_Home_Project\temp_layout_ea99ba7008d647a9b3132a980963c151.json
+[2026-01-31 21:38:28.230662] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_ea99ba7008d647a9b3132a980963c151.json
+[2026-01-31 21:38:28.231663] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\ea99ba7008d647a9b3132a980963c151_home.png', 'D:\\AI_Home_Project\\temp_layout_ea99ba7008d647a9b3132a980963c151.json']
+[2026-01-31 21:38:28.811418] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_ea99ba7008d647a9b3132a980963c151.json
+
+[2026-01-31 21:38:28.816964] Layout extracted: 7 rooms
+[2026-01-31 21:38:28.819133] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_ea99ba7008d647a9b3132a980963c151.json', 'D:\\AI_Home_Project\\temp_layout_3d_ea99ba7008d647a9b3132a980963c151.json']
+[2026-01-31 21:38:28.964321] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_ea99ba7008d647a9b3132a980963c151.json
+
+[2026-01-31 21:38:28.968841] 3D layout generated successfully
+[2026-01-31 21:38:28.970447] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 21:38:28.992267] ML Cost Prediction: $361601.75
+[2026-01-31 21:38:28.994316] Sending success response
+[2026-01-31 21:38:28.997334] Temporary layout files cleaned up.
+[2026-01-31 21:38:47.736711] --- START UPLOAD: img.png ---
+[2026-01-31 21:38:47.741771] Saved upload to: D:\AI_Home_Project\uploads\03d6084b0dd14c73b45450d430c1eab4_img.png
+[2026-01-31 21:38:47.840486] Preprocessed image to: D:\AI_Home_Project\processed\03d6084b0dd14c73b45450d430c1eab4_img.png
+[2026-01-31 21:38:47.841193] Layout Path: D:\AI_Home_Project\temp_layout_03d6084b0dd14c73b45450d430c1eab4.json
+[2026-01-31 21:38:47.841853] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_03d6084b0dd14c73b45450d430c1eab4.json
+[2026-01-31 21:38:47.842333] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\03d6084b0dd14c73b45450d430c1eab4_img.png', 'D:\\AI_Home_Project\\temp_layout_03d6084b0dd14c73b45450d430c1eab4.json']
+[2026-01-31 21:38:48.274416] Extraction STDOUT: DEBUG: Found 10 contours. Filtered down to 4 rooms.
+  - Contour 4 kept: Area 2172.0
+  - Contour 7 kept: Area 6702.0
+  - Contour 8 kept: Area 4051.0
+  - Contour 9 kept: Area 17608.5
+Layout extraction completed successfully. Detected rooms: 4, Output: D:\AI_Home_Project\temp_layout_03d6084b0dd14c73b45450d430c1eab4.json
+
+[2026-01-31 21:38:48.277256] Layout extracted: 4 rooms
+[2026-01-31 21:38:48.278129] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_03d6084b0dd14c73b45450d430c1eab4.json', 'D:\\AI_Home_Project\\temp_layout_3d_03d6084b0dd14c73b45450d430c1eab4.json']
+[2026-01-31 21:38:48.429164] 3D Gen STDOUT: 3D layout generation completed. House size (m): 2.24 x 3.56, Output: D:\AI_Home_Project\temp_layout_3d_03d6084b0dd14c73b45450d430c1eab4.json
+
+[2026-01-31 21:38:48.431682] 3D layout generated successfully
+[2026-01-31 21:38:48.432420] Area Check: Raw=7.55, MinExpected=60, Used=60.00
+[2026-01-31 21:38:48.465286] ML Cost Prediction: $234916.64
+[2026-01-31 21:38:48.471658] Sending success response
+[2026-01-31 21:38:48.477373] Temporary layout files cleaned up.
+[2026-01-31 22:13:13.318070] --- START UPLOAD: home.png ---
+[2026-01-31 22:13:13.331683] Saved upload to: D:\AI_Home_Project\uploads\ab82268c33da418cbb755f8ff95362d3_home.png
+[2026-01-31 22:13:13.500662] Preprocessed image to: D:\AI_Home_Project\processed\ab82268c33da418cbb755f8ff95362d3_home.png
+[2026-01-31 22:13:13.502040] Layout Path: D:\AI_Home_Project\temp_layout_ab82268c33da418cbb755f8ff95362d3.json
+[2026-01-31 22:13:13.502938] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_ab82268c33da418cbb755f8ff95362d3.json
+[2026-01-31 22:13:13.504587] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\ab82268c33da418cbb755f8ff95362d3_home.png', 'D:\\AI_Home_Project\\temp_layout_ab82268c33da418cbb755f8ff95362d3.json']
+[2026-01-31 22:13:15.425741] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_ab82268c33da418cbb755f8ff95362d3.json
+
+[2026-01-31 22:13:15.441648] Layout extracted: 7 rooms
+[2026-01-31 22:13:15.442626] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_ab82268c33da418cbb755f8ff95362d3.json', 'D:\\AI_Home_Project\\temp_layout_3d_ab82268c33da418cbb755f8ff95362d3.json']
+[2026-01-31 22:13:15.571121] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_ab82268c33da418cbb755f8ff95362d3.json
+
+[2026-01-31 22:13:15.589319] 3D layout generated successfully
+[2026-01-31 22:13:15.590051] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 22:13:15.602708] ML Cost Prediction: $361601.75
+[2026-01-31 22:13:15.603576] Sending success response
+[2026-01-31 22:13:15.605304] Temporary layout files cleaned up.
+[2026-01-31 22:14:55.532543] --- START UPLOAD: home.png ---
+[2026-01-31 22:14:55.536342] Saved upload to: D:\AI_Home_Project\uploads\928ef5bd06744eb3b7b7c64283ca6085_home.png
+[2026-01-31 22:14:55.685682] Preprocessed image to: D:\AI_Home_Project\processed\928ef5bd06744eb3b7b7c64283ca6085_home.png
+[2026-01-31 22:14:55.687162] Layout Path: D:\AI_Home_Project\temp_layout_928ef5bd06744eb3b7b7c64283ca6085.json
+[2026-01-31 22:14:55.688022] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_928ef5bd06744eb3b7b7c64283ca6085.json
+[2026-01-31 22:14:55.689138] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\928ef5bd06744eb3b7b7c64283ca6085_home.png', 'D:\\AI_Home_Project\\temp_layout_928ef5bd06744eb3b7b7c64283ca6085.json']
+[2026-01-31 22:14:56.214300] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_928ef5bd06744eb3b7b7c64283ca6085.json
+
+[2026-01-31 22:14:56.217969] Layout extracted: 7 rooms
+[2026-01-31 22:14:56.219288] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_928ef5bd06744eb3b7b7c64283ca6085.json', 'D:\\AI_Home_Project\\temp_layout_3d_928ef5bd06744eb3b7b7c64283ca6085.json']
+[2026-01-31 22:14:56.379749] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_928ef5bd06744eb3b7b7c64283ca6085.json
+
+[2026-01-31 22:14:56.384475] 3D layout generated successfully
+[2026-01-31 22:14:56.385560] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 22:14:56.397687] ML Cost Prediction: $361601.75
+[2026-01-31 22:14:56.398868] Sending success response
+[2026-01-31 22:14:56.400967] Temporary layout files cleaned up.
+[2026-01-31 22:33:51.308451] --- START UPLOAD: img.png ---
+[2026-01-31 22:33:51.310971] Saved upload to: D:\AI_Home_Project\uploads\8606c76518c642dd8d7d1c4d5e9a987c_img.png
+[2026-01-31 22:33:51.371414] Preprocessed image to: D:\AI_Home_Project\processed\8606c76518c642dd8d7d1c4d5e9a987c_img.png
+[2026-01-31 22:33:51.372390] Layout Path: D:\AI_Home_Project\temp_layout_8606c76518c642dd8d7d1c4d5e9a987c.json
+[2026-01-31 22:33:51.372873] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_8606c76518c642dd8d7d1c4d5e9a987c.json
+[2026-01-31 22:33:51.373354] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\8606c76518c642dd8d7d1c4d5e9a987c_img.png', 'D:\\AI_Home_Project\\temp_layout_8606c76518c642dd8d7d1c4d5e9a987c.json']
+[2026-01-31 22:33:51.654346] Extraction STDOUT: DEBUG: Found 10 contours. Filtered down to 4 rooms.
+  - Contour 4 kept: Area 2172.0
+  - Contour 7 kept: Area 6702.0
+  - Contour 8 kept: Area 4051.0
+  - Contour 9 kept: Area 17608.5
+Layout extraction completed successfully. Detected rooms: 4, Output: D:\AI_Home_Project\temp_layout_8606c76518c642dd8d7d1c4d5e9a987c.json
+
+[2026-01-31 22:33:51.666142] Layout extracted: 4 rooms
+[2026-01-31 22:33:51.667225] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_8606c76518c642dd8d7d1c4d5e9a987c.json', 'D:\\AI_Home_Project\\temp_layout_3d_8606c76518c642dd8d7d1c4d5e9a987c.json']
+[2026-01-31 22:33:51.741063] 3D Gen STDOUT: 3D layout generation completed. House size (m): 2.24 x 3.56, Output: D:\AI_Home_Project\temp_layout_3d_8606c76518c642dd8d7d1c4d5e9a987c.json
+
+[2026-01-31 22:33:51.752157] 3D layout generated successfully
+[2026-01-31 22:33:51.753806] Area Check: Raw=7.55, MinExpected=60, Used=60.00
+[2026-01-31 22:33:51.766588] ML Cost Prediction: $234916.64
+[2026-01-31 22:33:51.767838] Sending success response
+[2026-01-31 22:33:51.770024] Temporary layout files cleaned up.
+[2026-01-31 22:34:06.974010] --- START UPLOAD: home.png ---
+[2026-01-31 22:34:06.979097] Saved upload to: D:\AI_Home_Project\uploads\d33ec329c0bd4a4b8a570914c9d056d7_home.png
+[2026-01-31 22:34:07.127030] Preprocessed image to: D:\AI_Home_Project\processed\d33ec329c0bd4a4b8a570914c9d056d7_home.png
+[2026-01-31 22:34:07.130266] Layout Path: D:\AI_Home_Project\temp_layout_d33ec329c0bd4a4b8a570914c9d056d7.json
+[2026-01-31 22:34:07.131279] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_d33ec329c0bd4a4b8a570914c9d056d7.json
+[2026-01-31 22:34:07.132204] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\d33ec329c0bd4a4b8a570914c9d056d7_home.png', 'D:\\AI_Home_Project\\temp_layout_d33ec329c0bd4a4b8a570914c9d056d7.json']
+[2026-01-31 22:34:07.635758] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_d33ec329c0bd4a4b8a570914c9d056d7.json
+
+[2026-01-31 22:34:07.638561] Layout extracted: 7 rooms
+[2026-01-31 22:34:07.639511] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_d33ec329c0bd4a4b8a570914c9d056d7.json', 'D:\\AI_Home_Project\\temp_layout_3d_d33ec329c0bd4a4b8a570914c9d056d7.json']
+[2026-01-31 22:34:07.756041] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_d33ec329c0bd4a4b8a570914c9d056d7.json
+
+[2026-01-31 22:34:07.759202] 3D layout generated successfully
+[2026-01-31 22:34:07.760721] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 22:34:07.776930] ML Cost Prediction: $361601.75
+[2026-01-31 22:34:07.778787] Sending success response
+[2026-01-31 22:34:07.782250] Temporary layout files cleaned up.
+[2026-01-31 22:35:57.667224] --- START UPLOAD: model.png ---
+[2026-01-31 22:35:57.672641] Saved upload to: D:\AI_Home_Project\uploads\7ed8c97d239b462bbd7db973f38a247c_model.png
+[2026-01-31 22:35:57.788584] Preprocessed image to: D:\AI_Home_Project\processed\7ed8c97d239b462bbd7db973f38a247c_model.png
+[2026-01-31 22:35:57.790140] Layout Path: D:\AI_Home_Project\temp_layout_7ed8c97d239b462bbd7db973f38a247c.json
+[2026-01-31 22:35:57.791247] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_7ed8c97d239b462bbd7db973f38a247c.json
+[2026-01-31 22:35:57.792102] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\7ed8c97d239b462bbd7db973f38a247c_model.png', 'D:\\AI_Home_Project\\temp_layout_7ed8c97d239b462bbd7db973f38a247c.json']
+[2026-01-31 22:35:58.321820] Extraction STDOUT: DEBUG: Found 6 contours. Filtered down to 2 rooms.
+  - Contour 4 kept: Area 2069.0
+  - Contour 5 kept: Area 208484.0
+Layout extraction completed successfully. Detected rooms: 2, Output: D:\AI_Home_Project\temp_layout_7ed8c97d239b462bbd7db973f38a247c.json
+
+[2026-01-31 22:35:58.339844] Layout extracted: 2 rooms
+[2026-01-31 22:35:58.341815] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_7ed8c97d239b462bbd7db973f38a247c.json', 'D:\\AI_Home_Project\\temp_layout_3d_7ed8c97d239b462bbd7db973f38a247c.json']
+[2026-01-31 22:35:58.468601] 3D Gen STDOUT: 3D layout generation completed. House size (m): 5.67 x 4.82, Output: D:\AI_Home_Project\temp_layout_3d_7ed8c97d239b462bbd7db973f38a247c.json
+
+[2026-01-31 22:35:58.489947] 3D layout generated successfully
+[2026-01-31 22:35:58.491592] Area Check: Raw=27.65, MinExpected=30, Used=30.00
+[2026-01-31 22:35:58.512438] ML Cost Prediction: $178873.6
+[2026-01-31 22:35:58.513970] Sending success response
+[2026-01-31 22:35:58.515528] Temporary layout files cleaned up.
+[2026-01-31 22:36:24.354984] --- START UPLOAD: home.png ---
+[2026-01-31 22:36:24.357724] Saved upload to: D:\AI_Home_Project\uploads\2cd1b57164784f1c979a00634ef70b48_home.png
+[2026-01-31 22:36:24.486387] Preprocessed image to: D:\AI_Home_Project\processed\2cd1b57164784f1c979a00634ef70b48_home.png
+[2026-01-31 22:36:24.487945] Layout Path: D:\AI_Home_Project\temp_layout_2cd1b57164784f1c979a00634ef70b48.json
+[2026-01-31 22:36:24.489038] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_2cd1b57164784f1c979a00634ef70b48.json
+[2026-01-31 22:36:24.490129] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\2cd1b57164784f1c979a00634ef70b48_home.png', 'D:\\AI_Home_Project\\temp_layout_2cd1b57164784f1c979a00634ef70b48.json']
+[2026-01-31 22:36:24.999393] Extraction STDOUT: DEBUG: Found 38 contours. Filtered down to 7 rooms.
+  - Contour 14 kept: Area 5131.0
+  - Contour 19 kept: Area 12884.0
+  - Contour 21 kept: Area 2069.5
+  - Contour 24 kept: Area 6395.5
+  - Contour 26 kept: Area 2080.5
+  - Contour 33 kept: Area 2113.0
+  - Contour 37 kept: Area 141325.5
+Layout extraction completed successfully. Detected rooms: 7, Output: D:\AI_Home_Project\temp_layout_2cd1b57164784f1c979a00634ef70b48.json
+
+[2026-01-31 22:36:25.005220] Layout extracted: 7 rooms
+[2026-01-31 22:36:25.007498] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_2cd1b57164784f1c979a00634ef70b48.json', 'D:\\AI_Home_Project\\temp_layout_3d_2cd1b57164784f1c979a00634ef70b48.json']
+[2026-01-31 22:36:25.105605] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: D:\AI_Home_Project\temp_layout_3d_2cd1b57164784f1c979a00634ef70b48.json
+
+[2026-01-31 22:36:25.108419] 3D layout generated successfully
+[2026-01-31 22:36:25.109640] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-01-31 22:36:25.126779] ML Cost Prediction: $361601.75
+[2026-01-31 22:36:25.129393] Sending success response
+[2026-01-31 22:36:25.131824] Temporary layout files cleaned up.
+[2026-01-31 22:47:50.559753] --- START UPLOAD: sample.png ---
+[2026-01-31 22:47:50.563047] Saved upload to: D:\AI_Home_Project\uploads\ceb9d0f243334143997020f593e4548e_sample.png
+[2026-01-31 22:47:50.679600] Preprocessed image to: D:\AI_Home_Project\processed\ceb9d0f243334143997020f593e4548e_sample.png
+[2026-01-31 22:47:50.680362] Layout Path: D:\AI_Home_Project\temp_layout_ceb9d0f243334143997020f593e4548e.json
+[2026-01-31 22:47:50.680759] Layout 3D Path: D:\AI_Home_Project\temp_layout_3d_ceb9d0f243334143997020f593e4548e.json
+[2026-01-31 22:47:50.681099] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_extraction.py', 'D:\\AI_Home_Project\\processed\\ceb9d0f243334143997020f593e4548e_sample.png', 'D:\\AI_Home_Project\\temp_layout_ceb9d0f243334143997020f593e4548e.json']
+[2026-01-31 22:47:51.174225] Extraction STDOUT: DEBUG: Found 10 contours. Filtered down to 3 rooms.
+  - Contour 5 kept: Area 10597.0
+  - Contour 6 kept: Area 12960.5
+  - Contour 9 kept: Area 63427.0
+Layout extraction completed successfully. Detected rooms: 3, Output: D:\AI_Home_Project\temp_layout_ceb9d0f243334143997020f593e4548e.json
+
+[2026-01-31 22:47:51.188369] Layout extracted: 3 rooms
+[2026-01-31 22:47:51.189227] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'D:\\AI_Home_Project\\layout_to_3d.py', 'D:\\AI_Home_Project\\temp_layout_ceb9d0f243334143997020f593e4548e.json', 'D:\\AI_Home_Project\\temp_layout_3d_ceb9d0f243334143997020f593e4548e.json']
+[2026-01-31 22:47:51.310985] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: D:\AI_Home_Project\temp_layout_3d_ceb9d0f243334143997020f593e4548e.json
+
+[2026-01-31 22:47:51.315303] 3D layout generated successfully
+[2026-01-31 22:47:51.316783] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-01-31 22:47:51.341575] ML Cost Prediction: $188182.3
+[2026-01-31 22:47:51.343640] Sending success response
+[2026-01-31 22:47:51.346091] Temporary layout files cleaned up.

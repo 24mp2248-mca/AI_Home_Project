@@ -1,0 +1,114 @@
+{
+    "house": {
+        "width_m": 9.24,
+        "length_m": 9.24,
+        "height_m": 3.0
+    },
+    "total_rooms": 8,
+    "rooms": [
+        {
+            "room_id": 1,
+            "x_m": 0.0,
+            "y_m": 0.0,
+            "width_m": 4.24,
+            "length_m": 4.24,
+            "height_m": 3.0,
+            "area_m2": 17.978,
+            "type": "Living Room",
+            "neighbors": [
+                6
+            ]
+        },
+        {
+            "room_id": 2,
+            "x_m": 5.0,
+            "y_m": 5.0,
+            "width_m": 4.24,
+            "length_m": 4.24,
+            "height_m": 3.0,
+            "area_m2": 17.978,
+            "type": "Master Bedroom",
+            "neighbors": [
+                5
+            ]
+        },
+        {
+            "room_id": 3,
+            "x_m": 5.0,
+            "y_m": 0.0,
+            "width_m": 4.24,
+            "length_m": 4.24,
+            "height_m": 3.0,
+            "area_m2": 17.978,
+            "type": "Kitchen",
+            "neighbors": [
+                4
+            ]
+        },
+        {
+            "room_id": 4,
+            "x_m": 5.23,
+            "y_m": 0.22,
+            "width_m": 3.8,
+            "length_m": 3.8,
+            "height_m": 3.0,
+            "area_m2": 14.44,
+            "type": "Dining Room",
+            "neighbors": [
+                3
+            ]
+        },
+        {
+            "room_id": 5,
+            "x_m": 5.21,
+            "y_m": 5.23,
+            "width_m": 3.8,
+            "length_m": 3.78,
+            "height_m": 3.0,
+            "area_m2": 14.364,
+            "type": "Bedroom",
+            "neighbors": [
+                2
+            ]
+        },
+        {
+            "room_id": 6,
+            "x_m": 0.23,
+            "y_m": 0.23,
+            "width_m": 3.78,
+            "length_m": 3.78,
+            "height_m": 3.0,
+            "area_m2": 14.288,
+            "type": "Bedroom",
+            "neighbors": [
+                1
+            ]
+        },
+        {
+            "room_id": 7,
+            "x_m": 0.0,
+            "y_m": 5.0,
+            "width_m": 4.24,
+            "length_m": 3.24,
+            "height_m": 3.0,
+            "area_m2": 13.738,
+            "type": "Entrance",
+            "neighbors": [
+                8
+            ]
+        },
+        {
+            "room_id": 8,
+            "x_m": 0.21,
+            "y_m": 5.21,
+            "width_m": 3.8,
+            "length_m": 2.8,
+            "height_m": 3.0,
+            "area_m2": 10.64,
+            "type": "Bathroom",
+            "neighbors": [
+                7
+            ]
+        }
+    ]
+}

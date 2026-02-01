@@ -1,0 +1,93 @@
+{
+    "total_rooms": 8,
+    "rooms": [
+        {
+            "room_id": 1,
+            "approx_area": 178484,
+            "bbox": {
+                "x": 38,
+                "y": 38,
+                "w": 424,
+                "h": 424
+            },
+            "type": "Living Room"
+        },
+        {
+            "room_id": 2,
+            "approx_area": 178441,
+            "bbox": {
+                "x": 538,
+                "y": 538,
+                "w": 424,
+                "h": 424
+            },
+            "type": "Master Bedroom"
+        },
+        {
+            "room_id": 3,
+            "approx_area": 177683,
+            "bbox": {
+                "x": 538,
+                "y": 38,
+                "w": 424,
+                "h": 424
+            },
+            "type": "Kitchen"
+        },
+        {
+            "room_id": 4,
+            "approx_area": 143305,
+            "bbox": {
+                "x": 561,
+                "y": 60,
+                "w": 380,
+                "h": 380
+            },
+            "type": "Dining Room"
+        },
+        {
+            "room_id": 5,
+            "approx_area": 142363,
+            "bbox": {
+                "x": 559,
+                "y": 561,
+                "w": 380,
+                "h": 378
+            },
+            "type": "Bedroom"
+        },
+        {
+            "room_id": 6,
+            "approx_area": 142129,
+            "bbox": {
+                "x": 61,
+                "y": 61,
+                "w": 378,
+                "h": 378
+            },
+            "type": "Bedroom"
+        },
+        {
+            "room_id": 7,
+            "approx_area": 136329,
+            "bbox": {
+                "x": 38,
+                "y": 538,
+                "w": 424,
+                "h": 324
+            },
+            "type": "Entrance"
+        },
+        {
+            "room_id": 8,
+            "approx_area": 104867,
+            "bbox": {
+                "x": 59,
+                "y": 559,
+                "w": 380,
+                "h": 280
+            },
+            "type": "Bathroom"
+        }
+    ]
+}
