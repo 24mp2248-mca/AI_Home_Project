@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from pydantic import BaseModel
 import shutil
 import pandas as pd
 import joblib
@@ -21,6 +22,8 @@ try:
 except ImportError:
     # Fallback for running script directly
     from image_processing import preprocess_image
+
+from .chatbot import get_response as get_bot_response
 
 app = FastAPI()
 
@@ -215,9 +218,31 @@ async def upload_sketch(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Failed to save upload: {e}")
 
     try:
+        try:
+            from dl_inference import segment_walls
+        except ImportError:
+            segment_walls = None
+
         # ---- STEP 1: PREPROCESS IMAGE ----
-        processed_path = preprocess_image(upload_path)
-        log(f"Preprocessed image to: {processed_path}")
+        # Try Deep Learning first
+        processed_path = None
+        if segment_walls:
+            try:
+                log("Attempting Deep Learning Segmentation...")
+                dl_mask = segment_walls(upload_path)
+                if dl_mask is not None:
+                    # Save the DL output
+                    processed_path = upload_path.replace("uploads", "processed").replace(".jpg", "_dl.png").replace(".png", "_dl.png")
+                    cv2.imwrite(processed_path, dl_mask)
+                    log(f"DL Segmentation successful. Saved to: {processed_path}")
+            except Exception as dl_err:
+                log(f"DL Segmentation failed: {dl_err}")
+
+        # Fallback to OpenCV if DL failed or didn't run
+        if not processed_path:
+            log("Falling back to OpenCV Preprocessing...")
+            processed_path = preprocess_image(upload_path)
+            log(f"Preprocessed image (OpenCV) to: {processed_path}")
 
         # Create unique layout files
         unique_id = unique_name.split('_')[0]
@@ -366,6 +391,20 @@ def get_processed_image(fname: str):
     if not os.path.exists(path):
         raise HTTPException(status_code=404, detail='Processed image not found')
     return FileResponse(path, media_type='image/png')
+
+# ------------------ CHATBOT ------------------
+class ChatRequest(BaseModel):
+    message: str
+    context: dict
+
+@app.post("/chat/")
+async def chat_endpoint(request: ChatRequest):
+    try:
+        response = get_bot_response(request.message, request.context)
+        return response
+    except Exception as e:
+        print(f"Chat Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # ==================== RUN INSTRUCTIONS ====================

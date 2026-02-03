@@ -1,0 +1,172 @@
+{
+    "flooring": {
+        "keywords": [
+            "floor",
+            "tiles",
+            "hardwood",
+            "carpet",
+            "marble",
+            "granite"
+        ],
+        "answer": "For flooring, Hardwood fits classic styles but scratches easily. Porcelain Tiles are durable and water-resistant, ideal for Indian climates. Marble offers luxury but needs maintenance. What specific room are you looking for?"
+    },
+    "insulation": {
+        "keywords": [
+            "insulation",
+            "heat",
+            "cool",
+            "temperature",
+            "thermal"
+        ],
+        "answer": "Proper insulation reduces energy costs by up to 30%. I recommend PUF (Polyurethane Foam) panels or Glass Wool for roof insulation. Double-glazed windows are also essential for thermal control."
+    },
+    "solar": {
+        "keywords": [
+            "solar",
+            "energy",
+            "panel",
+            "electricity",
+            "power"
+        ],
+        "answer": "Installing Solar Panels is a great long-term investment. A 5kW system typically requires 500 sq.ft of roof space and costs roughly \u20b92.5-3 Lakhs, with an ROI of 4-5 years."
+    },
+    "permits": {
+        "keywords": [
+            "permit",
+            "permission",
+            "legal",
+            "municipal",
+            "approval"
+        ],
+        "answer": "You typically need: 1) Land Title Clearance, 2) Zonal Plan Approval, 3) Building Plan Sanction form the local municipality, and 4) Utility connection permits. Always consult a local architect for compliance."
+    },
+    "connectivity": {
+        "keywords": [
+            "smart home",
+            "wifi",
+            "automation",
+            "alexa",
+            "google"
+        ],
+        "answer": "For a Smart Home, plan for neutral wiring in switchboards for automation modules. Consider a mesh WiFi system for covering adequate area in a concrete structure."
+    },
+    "foundation": {
+        "keywords": [
+            "foundation",
+            "structure",
+            "soil",
+            "pillar",
+            "column"
+        ],
+        "answer": "The foundation type depends on your soil report. Isolated footings are common for firm soil, while pile foundations are needed for loose/sandy soil. Never compromise on structural grade steel (Fe550 is recommended)."
+    },
+    "paint": {
+        "keywords": [
+            "paint",
+            "color",
+            "exterior",
+            "interior",
+            "weather",
+            "coat"
+        ],
+        "answer": "For exteriors, use 100% acrylic latex paint or weather-shield emulsions to resist algae and fading. For interiors, 'Royal' or 'Velvet' finishes offer washability and a premium look."
+    },
+    "kitchen": {
+        "keywords": [
+            "kitchen",
+            "modular",
+            "cabinet",
+            "chimney",
+            "countertop"
+        ],
+        "answer": "A modular kitchen maximizes utility. The 'Golden Triangle' rule (Sink-Stove-Fridge placement) is key. For countertops, Quartz is harder and less porous than Granite, making it stain-resistant."
+    },
+    "bathroom": {
+        "keywords": [
+            "bathroom",
+            "toilet",
+            "plumbing",
+            "faucet",
+            "shower"
+        ],
+        "answer": "Use anti-skid tiles for safety. Concealed flush tanks give a modern look. Ensure proper slope (1:100) in the shower area to prevent water logging."
+    },
+    "roof": {
+        "keywords": [
+            "roof",
+            "terrace",
+            "waterproofing",
+            "leak",
+            "ceiling"
+        ],
+        "answer": "Waterproofing is critical. apply a brick-bat coba layer or modern chemical waterproofing membranes on the terrace. Ensure rain water harvest pipes are sufficient for peak monsoon rain."
+    },
+    "hvac": {
+        "keywords": [
+            "ac",
+            "air conditioner",
+            "ventilation",
+            "fan",
+            "cooling"
+        ],
+        "answer": "Plan AC piping during the brickwork stage to avoid messy external pipes later. VRV systems are efficient for multi-room cooling but have a higher upfront cost."
+    },
+    "security": {
+        "keywords": [
+            "security",
+            "camera",
+            "cctv",
+            "lock",
+            "safety"
+        ],
+        "answer": "Layer your security: 1) Video Door Phone, 2) CCTV at perimeter, 3) Motion sensors for backyard. Smart locks are convenient but ensure they have a mechanical override key."
+    },
+    "lighting": {
+        "keywords": [
+            "light",
+            "led",
+            "chandelier",
+            "lamp",
+            "ambience"
+        ],
+        "answer": "Layer your lighting: Ambient (general), Task (reading/cooking), and Accent (highlighting art). Use Warm White (3000K) for living areas and Natural White (4000K) for kitchens/offices."
+    },
+    "living room": {
+        "keywords": [
+            "living room",
+            "hall",
+            "lounge",
+            "tv room",
+            "drawing room"
+        ],
+        "answer": "For the Living Room, focus on flow and conversation areas. An L-shaped sofa saves space. Use a Rug to define the seating zone. Warm lighting and an accent wall can instantly lift the mood."
+    },
+    "renovation": {
+        "keywords": [
+            "improve",
+            "renovate",
+            "upgrade",
+            "remodel",
+            "makeover"
+        ],
+        "answer": "To improve a space without heavy construction: 1) Change the lighting temperature, 2) Add a fresh coat of paint (lighter colors open up space), 3) Update hardware like handles and faucets, 4) Add indoor plants."
+    },
+    "bedroom": {
+        "keywords": [
+            "bedroom",
+            "sleeping",
+            "master room"
+        ],
+        "answer": "Bedrooms should be sanctuaries. Use blackout curtains for better sleep. Position the bed to face the door but not align directly with it. Soft, breathable linen and neutral colors promote rest."
+    },
+    "contingency": {
+        "keywords": [
+            "contingency",
+            "fund",
+            "extra cost",
+            "buffer",
+            "safety"
+        ],
+        "answer": "A Contingency Fund is a financial safety net (typically 5-10% of total budget) set aside for unforeseen construction costs like material price hikes, delays, or design changes."
+    }
+}

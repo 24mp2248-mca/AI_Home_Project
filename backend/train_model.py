@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
+import json
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.metrics import r2_score, mean_absolute_error, accuracy_score
-from sklearn.metrics import r2_score, mean_absolute_error
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 import joblib
 
 def train_model():
@@ -21,23 +22,48 @@ def train_model():
     # Split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Train Random Forest
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
-    model.fit(X_train, y_train)
+    # Models to compare
+    models = {
+        "Linear Regression": LinearRegression(),
+        "Random Forest": RandomForestRegressor(n_estimators=100, random_state=42),
+        "Gradient Boosting": GradientBoostingRegressor(n_estimators=100, random_state=42)
+    }
 
-    # Evaluate
-    y_pred = model.predict(X_test)
-    r2 = r2_score(y_test, y_pred)
-    mae = mean_absolute_error(y_test, y_pred)
+    best_model = None
+    best_r2 = -float("inf")
+    metrics_data = {}
 
-    print(f"Model Trained using Random Forest Regressor")
-    print(f"R2 Score: {r2:.4f}")
-    print(f"MAE: ${mae:.2f}")
+    print(f"{'Model':<20} | {'R2 Score':<10} | {'MAE':<10} | {'MSE':<10}")
+    print("-" * 60)
 
-    # Save model
-    joblib.dump(model, "cost_model.pkl")
-    print("Model saved to cost_model.pkl")
+    for name, model in models.items():
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+        
+        r2 = r2_score(y_test, y_pred)
+        mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        
+        metrics_data[name] = {
+            "R2": round(r2, 4),
+            "MAE": round(mae, 2),
+            "MSE": round(mse, 2)
+        }
 
+        print(f"{name:<20} | {r2:.4f}     | ${mae:.2f}    | {mse:.2f}")
+
+        if r2 > best_r2:
+            best_r2 = r2
+            best_model = model
+
+    # Save best model
+    joblib.dump(best_model, "cost_model.pkl")
+    print(f"\nBest Model Saved: {best_model.__class__.__name__} (R2: {best_r2:.4f})")
+
+    # Save metrics for frontend
+    with open("model_metrics.json", "w") as f:
+        json.dump(metrics_data, f, indent=4)
+    print("Metrics saved to model_metrics.json")
 
 if __name__ == "__main__":
     train_model()
