@@ -497,7 +497,8 @@
     <div class="logo">🏠 AI Home Planner Pro</div>
     <div>
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="downloadVisualization()">📥 Download</button>
+      <button class="btn btn-secondary" onclick="export3DModel()">📦 Export 3D</button>
+      <button class="btn btn-primary" onclick="downloadVisualization()">📸 Screenshot</button>
     </div>
   </div>
   </div>
@@ -533,6 +534,14 @@
         <input type="color" id="wall-color-picker" value="#f5f5dc"
           style="width: 100%; height: 35px; border: none; padding: 0; background: none;">
       </label>
+    </div>
+
+    <h3>🧠 AI Vision</h3>
+    <div class="control-group" style="text-align: center;">
+      <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 8px;">What the AI sees (Segmentation Mask)</p>
+      <img id="ai-vision-debug" src="" alt="AI Vision Output"
+        style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); display: none;">
+      <p id="ai-vision-status" style="font-size: 0.8rem; color: #aaa; margin-top: 5px;">No AI data found</p>
     </div>
 
     <h3 style="margin-top: 20px;">📷 Camera Views</h3>
@@ -716,6 +725,7 @@
     const scripts = [
       'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js',
       'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/PointerLockControls.js',
+      'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js',
       'https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js'
     ];
 
@@ -910,6 +920,40 @@
         }
       } catch (e) {
         console.error('Storage error:', e);
+      }
+
+      // --- LOAD AI VISION IMAGE ---
+      try {
+        const pInfoStr = sessionStorage.getItem('projectInfo') || localStorage.getItem('projectInfo');
+        if (pInfoStr) {
+          const pInfo = JSON.parse(pInfoStr);
+          if (pInfo.processed_image_url) {
+            const imgEl = document.getElementById('ai-vision-debug');
+            const statusEl = document.getElementById('ai-vision-status');
+            // Check if URL is absolute or relative. Backend returns /processed/filename
+            // Needs backend base URL if on different port, but here likely same origin or proxy
+            // Backend is 8000. Frontend static? Usually main.py serves static.
+            // main.py mounts /static. 
+            // Wait, main.py processes upload and returns URL relative to /processed/...
+            // The file response endpoint is @app.get('/processed/{fname}').
+            // If we access simple static HTML file, we might be on file:// or port 5500.
+            // Assuming localhost:8000 for full stack.
+            // If separate, need http://127.0.0.1:8000 prefix.
+
+            // Let's assume absolute path if starts with /, else add prefix
+            let finalUrl = pInfo.processed_image_url;
+            if (!finalUrl.startsWith('http')) {
+              finalUrl = 'http://127.0.0.1:8000' + finalUrl;
+            }
+
+            imgEl.src = finalUrl;
+            imgEl.style.display = 'block';
+            statusEl.textContent = 'Segmentation Mask (U-Net)';
+            statusEl.style.color = '#66bb6a'; // Green
+          }
+        }
+      } catch (e) {
+        console.log("No AI image info found", e);
       }
 
       function convertToLayout(rooms) {
@@ -2025,6 +2069,28 @@
         } catch (e) {
           alert('Screenshot captured!');
         }
+      };
+
+      window.export3DModel = () => {
+        const exporter = new THREE.GLTFExporter();
+        // Parse the scene
+        exporter.parse(scene, function (result) {
+          const output = JSON.stringify(result, null, 2);
+          const blob = new Blob([output], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.href = url;
+          link.download = `my-dream-house.gltf`;
+          link.click();
+
+          URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+        }, {
+          binary: false // .gltf (text)
+        });
       };
 
       buildHouse();

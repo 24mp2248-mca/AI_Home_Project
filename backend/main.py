@@ -254,7 +254,8 @@ async def upload_sketch(file: UploadFile = File(...)):
         log(f"Layout 3D Path: {layout_3d_path}")
 
         # ---- STEP 2: EXTRACT LAYOUT (via subprocess) ----
-        cmd_extract = [sys.executable, os.path.join(ROOT_DIR, "layout_extraction.py"), processed_path, layout_path]
+        # Pass extract_layout.py: [processed_path, layout_path, original_upload_path]
+        cmd_extract = [sys.executable, os.path.join(ROOT_DIR, "layout_extraction.py"), processed_path, layout_path, upload_path]
         log(f"Running Extraction: {cmd_extract}")
         
         result = subprocess.run(

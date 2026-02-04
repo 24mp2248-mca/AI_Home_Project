@@ -19,7 +19,7 @@ class AIChatbot {
                 </div>
                 <div class="chat-messages" id="chatMessages">
                     <div class="chat-msg bot">
-                        Hello! I can help with cost estimates, design advice, or gardening ideas. How can I assist?
+                        Hello! 👋 I'm your AI design consultant. I can help you with cost estimates, design advice, or gardening inspiration. How can I help you today?
                     </div>
                 </div>
                 <div class="chat-input-area">

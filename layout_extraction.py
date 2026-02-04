@@ -4,8 +4,29 @@ import os
 import sys
 import glob
 import numpy as np
+import google.generativeai as genai
+from dotenv import load_dotenv
+import time
 
-# Determine processed image path: prefer CLI arg, else pick newest file in processed/
+# Load Environment for API Key
+env_path = os.path.join(os.path.dirname(__file__), 'backend', '.env')
+if not os.path.exists(env_path):
+    env_path = os.path.join(os.path.dirname(__file__), '.env') # Fallback
+load_dotenv(env_path)
+
+api_key = os.getenv("GEMINI_API_KEY")
+if api_key:
+    genai.configure(api_key=api_key)
+    # Use Flash for speed
+    model = genai.GenerativeModel('gemini-1.5-flash')
+else:
+    model = None
+    print("WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.")
+
+# Determine paths
+# Arg 1: Processed Image (Binary mask)
+# Arg 2: Output JSON Path
+# Arg 3: Original Image (Color, for AI Vision)
 if len(sys.argv) > 1:
     IMAGE_PATH = sys.argv[1]
 else:
@@ -14,13 +35,18 @@ else:
         raise FileNotFoundError('No files found in processed/; run preprocessing first')
     IMAGE_PATH = candidates[0]
 
-# Determine output layout path: prefer 2nd CLI arg, else use default layout.json
 OUTPUT_LAYOUT = sys.argv[2] if len(sys.argv) > 2 else "layout.json"
+ORIGINAL_PATH = sys.argv[3] if len(sys.argv) > 3 else None
 
 # Read processed image
 image = cv2.imread(IMAGE_PATH, cv2.IMREAD_GRAYSCALE)
 if image is None:
     raise FileNotFoundError(f"Processed image not readable: {IMAGE_PATH}")
+
+# Read Original Image for AI
+original_img = None
+if ORIGINAL_PATH and os.path.exists(ORIGINAL_PATH):
+    original_img = cv2.imread(ORIGINAL_PATH)
 
 # Ensure a clean binary image (use Otsu to adapt to varying brightness)
 _, thresh = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
@@ -36,90 +62,126 @@ kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
 clean = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
 clean = cv2.morphologyEx(clean, cv2.MORPH_OPEN, kernel)
 
-# Find contours using CCOMP to get both external contours and holes
-# NOTE: Y-axis coordinates are preserved from input image (no flipping)
+# Find contours
 contours, hierarchy = cv2.findContours(clean, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
 rooms = []
-
 if contours is None:
     contours = []
 
+def identify_room_with_ai(crop_img):
+    """
+    Sends a cropped room image to Gemini Vision to identify the room type.
+    """
+    if model is None or crop_img is None:
+        return None
+    
+    try:
+        # Convert BGR to RGB
+        rgb_crop = cv2.cvtColor(crop_img, cv2.COLOR_BGR2RGB)
+        from PIL import Image
+        pil_img = Image.fromarray(rgb_crop)
+        
+        prompt = "Look at this floor plan room crop. Identify the room type based on furniture (bed/table/toilet) or text labels. Return ONLY one of these words: Bedroom, Bathroom, Kitchen, Living Room, Dining Room, Garage, Entrance. If unsure, say Unknown."
+        
+        # Determine strict list for robustness
+        response = model.generate_content([prompt, pil_img])
+        text = response.text.strip().replace('.','').replace('"','')
+        
+        valid_types = ["Bedroom", "Bathroom", "Kitchen", "Living Room", "Dining Room", "Garage", "Entrance"]
+        for t in valid_types:
+            if t.lower() in text.lower():
+                return t
+        return None
+    except Exception as e:
+        print(f"AI Vision Error: {e}")
+        return None
+
+print(f"DEBUG: Found {len(contours)} contours.")
+
+# Extract Rooms
 for i, contour in enumerate(contours):
     area = cv2.contourArea(contour)
 
-    # Ignore very small areas (noise) and extremely large (whole image)
+    # Ignore noise
     if area < 2000 or area > (image.shape[0] * image.shape[1] * 0.95):
         continue
 
     x, y, w, h = cv2.boundingRect(contour)
+    
+    # --- AI RECOGNITION UPGRADE ---
+    room_type = "Unknown"
+    
+    # Only try AI if we have the original image and API key
+    if original_img is not None and model is not None:
+        # Crop with some padding
+        pad = 10
+        cy1 = max(0, y - pad)
+        cy2 = min(original_img.shape[0], y + h + pad)
+        cx1 = max(0, x - pad)
+        cx2 = min(original_img.shape[1], x + w + pad)
+        
+        crop = original_img[cy1:cy2, cx1:cx2]
+        
+        print(f" Asking AI about Room {len(rooms)+1}...")
+        ai_label = identify_room_with_ai(crop)
+        if ai_label:
+            room_type = ai_label
+            print(f" -> AI says: {ai_label}")
+        else:
+            print(" -> AI unsure.")
+        
+        # Rate limit protection (Free tier 15 RPM = 1 req / 4s)
+        # We'll sleep a bit to be safe, though 1s might be enough if not many rooms
+        time.sleep(1.5) 
+    
+    # -----------------------------
+
     room_data = {
         "room_id": len(rooms) + 1,
+        "type": room_type, # Placeholder, will be filled by AI or Heuristic
         "approx_area": int(area),
         "bbox": {"x": int(x), "y": int(y), "w": int(w), "h": int(h)}
     }
     rooms.append(room_data)
 
-# --- Heuristic Room Labeling ---
-# Sort rooms by area descending
+# --- Fallback Heuristics for 'Unknown' Rooms ---
+# Use the old logic to fill in gaps if AI failed or Key missing
 rooms.sort(key=lambda r: r['approx_area'], reverse=True)
-
 total_rooms = len(rooms)
-if total_rooms > 0:
-    # 1. Largest is Living Room
-    rooms[0]['type'] = 'Living Room'
-    
-    # 2. Assign others
-    for i in range(1, total_rooms):
-        r = rooms[i]
-        
-        # Smallest usually Bathroom
-        if i == total_rooms - 1 and total_rooms > 2:
-            r['type'] = 'Bathroom'
-            
-        elif i == 1:
-            # Second largest
-            if total_rooms >= 4:
-                r['type'] = 'Master Bedroom'
-            else:
-                r['type'] = 'Kitchen'
-                
-        elif i == total_rooms - 2 and total_rooms >= 4:
-            # 2nd smallest is often Entrance/Foyer
-            r['type'] = 'Entrance'
-            
-        else:
-            # Middle rooms
-            existing_types = [rm.get('type') for rm in rooms]
-            if 'Kitchen' not in existing_types:
-                r['type'] = 'Kitchen'
-            elif 'Dining Room' not in existing_types and total_rooms >= 3:
-                r['type'] = 'Dining Room'
-            else:
-                r['type'] = 'Bedroom'
 
-# Reset room_ids to match new sorted order (optional, but cleaner)
+# If mostly unknown, apply heuristics
+unknowns = [r for r in rooms if r['type'] == "Unknown"]
+
+if len(unknowns) > 0:
+    print("Applying heuristics to unknown rooms...")
+    for i, r in enumerate(rooms):
+        if r['type'] != "Unknown":
+            continue
+            
+        # Logic based on rank in size sorted list
+        # We need the index 'i' to be the rank in the SORTED list
+        
+        if i == 0:
+            r['type'] = 'Living Room'
+        elif i == total_rooms - 1 and total_rooms > 2:
+            r['type'] = 'Bathroom'
+        elif i == 1:
+             if total_rooms >= 4: r['type'] = 'Master Bedroom'
+             else: r['type'] = 'Kitchen'
+        else:
+             r['type'] = 'Bedroom'
+
+# Reset ID
 for i, r in enumerate(rooms):
     r['room_id'] = i + 1
-
-# -------------------------------
-
-print(f"DEBUG: Found {len(contours)} contours. Filtered down to {len(rooms)} rooms.")
-for i, c in enumerate(contours):
-    area = cv2.contourArea(c)
-    if area >= 2000 and area <= (image.shape[0] * image.shape[1] * 0.95):
-        print(f"  - Contour {i} kept: Area {area}")
-    else:
-        # print(f"  - Contour {i} skipped: Area {area}")
-        pass
 
 layout_data = {
     "total_rooms": len(rooms),
     "rooms": rooms
 }
 
-# Save layout as JSON (use unique output path if provided, else default)
 with open(OUTPUT_LAYOUT, "w") as f:
     json.dump(layout_data, f, indent=4)
 
-print(f"Layout extraction completed successfully. Detected rooms: {len(rooms)}, Output: {OUTPUT_LAYOUT}")
+print(f"Layout extraction completed. Output: {OUTPUT_LAYOUT}")

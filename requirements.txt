@@ -1,0 +1,20 @@
+# Deep Learning
+torch
+torchvision
+numpy
+opencv-python
+
+# Backend / API
+fastapi
+uvicorn
+python-multipart
+pydantic
+
+# Machine Learning (Cost Model)
+pandas
+scikit-learn
+joblib
+
+# Chatbot
+google-generativeai
+python-dotenv
