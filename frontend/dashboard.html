@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AI Home Planner - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card h3 {
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .project-meta {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-gradient">
+        <div class="bg-orb"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🏠</span>
+                Dashboard
+            </div>
+            <nav>
+                <a href="upload.html" class="nav-btn">+ New Project</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </header>
+
+        <section class="hero" style="padding: 40px 0; text-align: left;">
+            <h1 id="welcome-msg" style="font-size: 2.5rem;">My Projects</h1>
+        </section>
+
+        <div class="dashboard-grid" id="project-list">
+            <!-- Projects injected here -->
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        async function loadDashboard() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                // Get User Info
+                const userRes = await fetch(`${API_URL}/users/me/`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!userRes.ok) throw new Error('Auth failed');
+                const user = await userRes.json();
+                document.getElementById('welcome-msg').innerText = `Welcome, ${user.username}`;
+
+                // Get Projects
+                const projRes = await fetch(`${API_URL}/projects/`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const projects = await projRes.json();
+
+                const list = document.getElementById('project-list');
+                list.innerHTML = projects.length ? '' : '<p style="color:#b0b0b0">No projects yet. Start a new one!</p>';
+
+                projects.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <h3>${p.name}</h3>
+                        <div class="project-meta">ID: ${p.id}</div>
+                        <button class="btn btn-secondary" onclick="loadProject(${p.id})">Open 3D Model</button>
+                    `;
+                    list.appendChild(card);
+                });
+
+            } catch (err) {
+                console.error(err);
+                logout();
+            }
+        }
+
+        function loadProject(id) {
+            // Future: Load specific project into visualization
+            alert("Loading project " + id);
+            // window.location.href = `visualization.html?id=${id}`;
+        }
+
+        loadDashboard();
+    </script>
+</body>
+
+</html>

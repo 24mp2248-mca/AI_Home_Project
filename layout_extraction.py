@@ -15,12 +15,33 @@ if not os.path.exists(env_path):
 load_dotenv(env_path)
 
 api_key = os.getenv("GEMINI_API_KEY")
+model = None
+
 if api_key:
     genai.configure(api_key=api_key)
-    # Use Flash for speed
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    
+    # Try to find a working vision model
+    # Note: gemini-pro-vision is safer for older keys/libs
+    candidates = ['gemini-1.5-flash-latest', 'gemini-1.5-flash', 'gemini-pro-vision', 'gemini-1.5-pro-latest']
+    
+    for m_name in candidates:
+        try:
+            print(f"DEBUG: Testing model {m_name}...")
+            test_model = genai.GenerativeModel(m_name)
+            
+            # VALIDATE by generating simple text
+            # This ensures the model name exists and API key has access
+            test_model.generate_content("Hello")
+            
+            model = test_model
+            print(f"DEBUG: Selected and Validated model {m_name}")
+            break
+        except Exception as e:
+            print(f"DEBUG: Model {m_name} failed validation: {e}")
+            
+    if model is None:
+         print("WARNING: No working Gemini Vision model found. AI features disabled.")
 else:
-    model = None
     print("WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.")
 
 # Determine paths
@@ -73,6 +94,7 @@ def identify_room_with_ai(crop_img):
     """
     Sends a cropped room image to Gemini Vision to identify the room type.
     """
+    global model
     if model is None or crop_img is None:
         return None
     
@@ -95,6 +117,9 @@ def identify_room_with_ai(crop_img):
         return None
     except Exception as e:
         print(f"AI Vision Error: {e}")
+        # If model not found or huge error, disable it for future calls
+        if "404" in str(e) or "not found" in str(e).lower():
+            model = None
         return None
 
 print(f"DEBUG: Found {len(contours)} contours.")
@@ -130,10 +155,13 @@ for i, contour in enumerate(contours):
             print(f" -> AI says: {ai_label}")
         else:
             print(" -> AI unsure.")
-        
+            # If AI failed with critical error (model is None now), stop trying
+            if model is None: 
+                print("Stopping AI extraction due to previous errors.")
+    
         # Rate limit protection (Free tier 15 RPM = 1 req / 4s)
         # We'll sleep a bit to be safe, though 1s might be enough if not many rooms
-        time.sleep(1.5) 
+        time.sleep(1.0) 
     
     # -----------------------------
 

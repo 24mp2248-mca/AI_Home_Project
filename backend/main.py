@@ -25,7 +25,26 @@ except ImportError:
 
 from .chatbot import get_response as get_bot_response
 
+# --- Auth & DB Imports ---
+from fastapi import Depends, status, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlmodel import Session, select
+from .database import create_db_and_tables, get_session
+from .models import User, Project
+from .auth import (
+    get_password_hash,
+    verify_password,
+    create_access_token,
+    get_current_user,
+    ACCESS_TOKEN_EXPIRE_MINUTES,
+    timedelta
+)
+
 app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 app.add_middleware(
     CORSMiddleware,
@@ -392,6 +411,66 @@ def get_processed_image(fname: str):
     if not os.path.exists(path):
         raise HTTPException(status_code=404, detail='Processed image not found')
     return FileResponse(path, media_type='image/png')
+
+# ------------------ AUTHENTICATION ------------------
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+@app.post("/users/", response_model=User)
+def create_user(user: UserCreate, session: Session = Depends(get_session)):
+    db_user = session.exec(select(User).where(User.username == user.username)).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    
+    hashed_password = get_password_hash(user.password)
+    new_user = User(username=user.username, email=user.email, password_hash=hashed_password)
+    session.add(new_user)
+    session.commit()
+    session.refresh(new_user)
+    return new_user
+
+@app.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
+    user = session.exec(select(User).where(User.username == form_data.username)).first()
+    if not user or not verify_password(form_data.password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.get("/users/me/", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+# ------------------ PROJECTS ------------------
+class ProjectCreate(BaseModel):
+    name: str
+    data: dict
+
+@app.post("/projects/", response_model=Project)
+def create_project(project: ProjectCreate, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    new_project = Project(name=project.name, data=project.data, owner=current_user)
+    session.add(new_project)
+    session.commit()
+    session.refresh(new_project)
+    return new_project
+
+@app.get("/projects/", response_model=list[Project])
+def read_projects(session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    return current_user.projects
+
 
 # ------------------ CHATBOT ------------------
 class ChatRequest(BaseModel):

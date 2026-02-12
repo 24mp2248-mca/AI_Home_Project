@@ -53,11 +53,13 @@ class HomePlannerChatbot:
             
             AVAILABLE ACTIONS:
             - change_color (value: hex_code/name, target: walls/roof)
+            - apply_theme (value: modern/rustic/cyberpunk/luxury)
             - add_furniture (value: sofa/table/bed/chair)
             - add_feature (value: garden/pool)
             
             INSTRUCTIONS:
             - If user asks to change design (e.g. "blue walls", "add sofa"), generate the ACTION.
+            - If user asks for a style (e.g. "make it rustic", "cyberpunk theme"), use 'apply_theme'.
             - If user asks about cost ("how much is this?", "budget?"), REPLY: "I specialize in design here. Please visit the Cost Estimation page for pricing details."
             - Be concise and helpful.
             

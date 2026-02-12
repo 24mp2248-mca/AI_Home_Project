@@ -4,7 +4,9 @@ import numpy as np
 import os
 from dl_model import UNet
 
-def segment_walls(image_path, model_path="wall_segmentation_model.pth"):
+def segment_walls(image_path, model_path=None):
+    if model_path is None:
+        model_path = os.path.join(os.path.dirname(__file__), "wall_segmentation_model.pth")
     """
     Uses the U-Net model to segment walls from the floor plan sketch.
     If model weights are not found, falls back to OpenCV heuristic.

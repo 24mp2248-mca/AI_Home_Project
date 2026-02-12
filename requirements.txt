@@ -18,3 +18,13 @@ joblib
 # Chatbot
 google-generativeai
 python-dotenv
+Pillow
+
+# Database & Auth
+sqlmodel
+sqlmodel
+passlib
+bcrypt==3.2.0
+python-jose[cryptography]
+python-jose[cryptography]
+python-multipart
