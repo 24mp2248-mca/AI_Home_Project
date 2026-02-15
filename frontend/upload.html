@@ -487,7 +487,7 @@
           progressText.textContent = 'Processing on server...';
           return response.json();
         })
-        .then(data => {
+        .then(async data => {
           console.log('Upload successful. Received data:', data);
 
           try {
@@ -507,6 +507,49 @@
             sessionStorage.setItem('roomData', roomsData);
             sessionStorage.setItem('projectInfo', projInfo);
 
+            // --- AUTO SAVE TO DASHBOARD ---
+            const token = localStorage.getItem('token');
+            if (token) {
+              try {
+                progressText.textContent = 'Saving to Dashboard...';
+                const saveRes = await fetch('http://127.0.0.1:8000/projects/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                  },
+                  body: JSON.stringify({
+                    name: "Project " + new Date().toLocaleString(),
+                    data: {
+                      house: data.house,
+                      rooms: data.rooms,
+                      filename: data.filename,
+                      timestamp: data.timestamp,
+                      total_area: data.total_area,
+                      estimated_cost: data.estimated_cost,
+                      processed_image_url: data.processed_image_url
+                    }
+                  })
+                });
+
+                if (!saveRes.ok) {
+                  const errText = await saveRes.text();
+                  console.error("Auto-save failed server-side:", errText);
+                  showError("Warning: Project verified but NOT saved to dashboard. " + errText);
+                  // We still allow redirect after a delay so they can see the 3D model
+                  await new Promise(r => setTimeout(r, 2000));
+                } else {
+                  console.log("Project saved to dashboard!");
+                }
+              } catch (saveErr) {
+                console.error("Auto-save failed network/client:", saveErr);
+                showError("Warning: Could not save to dashboard. " + saveErr.message);
+                await new Promise(r => setTimeout(r, 2000));
+              }
+            } else {
+              console.warn("No token found, skipping auto-save.");
+            }
+
             progressFill.style.width = '100%';
             progressPercent.textContent = '100%';
             progressText.textContent = '✅ Complete! Redirecting...';
@@ -515,7 +558,7 @@
             console.log('Data stored - redirecting to visualization');
             setTimeout(() => {
               window.location.href = 'visualization.html?t=' + Date.now();
-            }, 500);
+            }, 1000); // Increased delay slightly to ensure user sees success message
           } catch (e) {
             console.error("Client Data Processing Error:", e);
             alert("Error processing data: " + e.message);

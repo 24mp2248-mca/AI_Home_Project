@@ -469,7 +469,9 @@ def create_project(project: ProjectCreate, session: Session = Depends(get_sessio
 
 @app.get("/projects/", response_model=list[Project])
 def read_projects(session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
-    return current_user.projects
+    statement = select(Project).where(Project.user_id == current_user.id)
+    results = session.exec(statement).all()
+    return results
 
 
 # ------------------ CHATBOT ------------------

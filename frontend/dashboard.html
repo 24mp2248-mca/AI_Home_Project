@@ -117,10 +117,63 @@
             }
         }
 
-        function loadProject(id) {
-            // Future: Load specific project into visualization
-            alert("Loading project " + id);
-            // window.location.href = `visualization.html?id=${id}`;
+        async function loadProject(id) {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            try {
+                // 1. Fetch project details
+                // Note: We need an endpoint to get a single project, or we can find it in the list if we store it.
+                // For now, let's fetch the list again or finding it if we have it. 
+                // BETTER: Let's assume we can pass the data directly or fetch it.
+                // The current API /projects/ returns the full list with data.
+
+                // Let's iterate the 'projects' list we already fetched? 
+                // Actually, to be safe, let's just fetch the list again and find it, or simply pass the data object if we had it in memory.
+                // But efficient way: The projects list response contained the 'data' field.
+
+                // Let's refactor to fetch the specific project if we add a GET /projects/{id} endpoint, 
+                // but since we don't have that yet, let's find it in the DOM or re-fetch list.
+
+                // Simplest approach without changing backend: Re-fetch list and find by ID.
+                const res = await fetch(`${API_URL}/projects/`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const projects = await res.json();
+                const project = projects.find(p => p.id === id);
+
+                if (project && project.data) {
+                    // 2. Store in localStorage (matching upload.html behavior)
+                    // The backend stores the 'data' dict which contains 'rooms' etc.
+
+                    // layout_3d_data structure from backend: { house: {}, rooms: [...] }
+                    // We need to map this to what 'visualization.html' expects.
+                    // visualization.html reads 'roomData' (rooms array) and 'projectInfo'.
+
+                    // user project.data usually contains the full JSON from layout_to_3d
+                    const layoutData = project.data; // This should be the 3D layout
+
+                    if (layoutData.rooms) {
+                        localStorage.setItem('roomData', JSON.stringify(layoutData.rooms));
+                    }
+
+                    // Create project info
+                    const projInfo = {
+                        filename: project.name,
+                        timestamp: new Date().toISOString(),
+                        // Add other fields if missing
+                    };
+                    localStorage.setItem('projectInfo', JSON.stringify(projInfo));
+
+                    // 3. Redirect
+                    window.location.href = 'visualization.html';
+                } else {
+                    alert("Project data not found!");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Failed to load project");
+            }
         }
 
         loadDashboard();
