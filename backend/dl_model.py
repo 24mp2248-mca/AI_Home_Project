@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class UNet(nn.Module):
     def __init__(self, n_channels=1, n_classes=1):
-        super(UNet, self).__init__()
+        super(UNet, self).__init__() #parent class constructor
         self.n_channels = n_channels
         self.n_classes = n_classes
 
@@ -22,7 +22,7 @@ class UNet(nn.Module):
         self.up4 = Up(128, 128)
         self.outc = OutConv(64, n_classes)
 
-    def forward(self, x):
+    def forward(self, x):#def data flow through the network
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)
@@ -79,7 +79,7 @@ class Up(nn.Module):
 
         x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,
                         diffY // 2, diffY - diffY // 2])
-        x = torch.cat([x2, x1], dim=1)
+        x = torch.cat([x2, x1], dim=1)#skip connection
         return self.conv(x)
 
 class OutConv(nn.Module):

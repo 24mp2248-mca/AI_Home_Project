@@ -127,7 +127,7 @@ class HomePlannerChatbot:
                 "action": None
             }
 
-chatbot = HomePlannerChatbot()
+chatbot = HomePlannerChatbot() #create a single instance of the chatbot to maintain session state if needed
 
 def get_response(message, context):
     return chatbot.process_message(message, context)

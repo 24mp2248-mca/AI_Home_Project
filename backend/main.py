@@ -344,26 +344,33 @@ async def upload_sketch(file: UploadFile = File(...)):
                 num_living_rooms = sum(1 for t in types if 'Living' in t)
                 num_kitchens = sum(1 for t in types if 'Kitchen' in t)
                 
-                features = pd.DataFrame([{
-                    'total_area': total_area,
-                    'num_rooms': num_rooms_detected,
-                    'num_bedrooms': num_bedrooms,
-                    'num_bathrooms': num_bathrooms,
-                    'num_living_rooms': num_living_rooms,
-                    'num_kitchens': num_kitchens,
-                    'quality_score': 5,
-                    'complexity_score': 5
+                # Map quality_score (1-10) to LuxuryTier (0, 1, 2)
+                # 1-4 -> 0 (Economy)
+                # 5-7 -> 1 (Standard)
+                # 8-10 -> 2 (Premium/Luxury)
+                quality = features.get('quality_score', 5)
+                if quality < 5:
+                    tier = 0
+                elif quality < 8:
+                    tier = 1
+                else:
+                    tier = 2
+                
+                features_df = pd.DataFrame([{
+                    "TotalArea": total_area,
+                    "RoomCount": num_rooms_detected,
+                    "LuxuryTier": tier
                 }])
                 
-                predicted_cost = cost_model.predict(features)[0]
+                predicted_cost = cost_model.predict(features_df)[0]
                 estimated_cost = round(predicted_cost, 2)
                 log(f"ML Cost Prediction: ${estimated_cost}")
 
             except Exception as e:
                 log(f"ML Prediction Error: {e}")
-                estimated_cost = round(total_area * 1500, 2)
+                estimated_cost = round(total_area * 2500, 2) # Fallback to base rate
         else:
-             estimated_cost = round(total_area * 1500, 2)
+             estimated_cost = round(total_area * 2500, 2)
 
         # ---- FINAL RESPONSE ----
         processed_filename = os.path.basename(processed_path)

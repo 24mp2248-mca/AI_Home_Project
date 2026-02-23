@@ -20,7 +20,7 @@ def segment_walls(image_path, model_path=None):
     # 2. Check for DL Model
     if os.path.exists(model_path):
         print(f"Loading Deep Learning model from {model_path}...")
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') #smart device handling
         model = UNet(n_channels=1, n_classes=1).to(device)
         model.load_state_dict(torch.load(model_path, map_location=device))
         model.eval()
