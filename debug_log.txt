@@ -317,3 +317,835 @@ Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_a76a
 [2026-02-27 09:25:25.316920] ML Prediction Error: name 'features' is not defined
 [2026-02-27 09:25:25.317587] Sending success response
 [2026-02-27 09:25:25.320642] Temporary layout files cleaned up.
+[2026-02-27 12:24:18.746893] --- START UPLOAD: sample.png ---
+[2026-02-27 12:24:18.752153] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\a5f897a9bab844a7a8675941ff219994_sample.png
+[2026-02-27 12:24:18.754078] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:24:18.870811] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\a5f897a9bab844a7a8675941ff219994_sample.png
+[2026-02-27 12:24:18.871857] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_a5f897a9bab844a7a8675941ff219994.json
+[2026-02-27 12:24:18.872449] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_a5f897a9bab844a7a8675941ff219994.json
+[2026-02-27 12:24:18.873274] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\a5f897a9bab844a7a8675941ff219994_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_a5f897a9bab844a7a8675941ff219994.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\a5f897a9bab844a7a8675941ff219994_sample.png']
+[2026-02-27 12:24:25.471331] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_a5f897a9bab844a7a8675941ff219994.json
+
+[2026-02-27 12:24:25.472746] Layout extracted: 3 rooms
+[2026-02-27 12:24:25.473689] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_a5f897a9bab844a7a8675941ff219994.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_a5f897a9bab844a7a8675941ff219994.json']
+[2026-02-27 12:24:25.609827] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_a5f897a9bab844a7a8675941ff219994.json
+
+[2026-02-27 12:24:25.613424] 3D layout generated successfully
+[2026-02-27 12:24:25.614381] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 12:24:25.615682] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:24:25.616738] Sending success response
+[2026-02-27 12:24:25.619557] Temporary layout files cleaned up.
+[2026-02-27 12:25:30.972341] --- START UPLOAD: sample.png ---
+[2026-02-27 12:25:30.974709] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\4bf63ae67ea1489db1c05cd85718bb14_sample.png
+[2026-02-27 12:25:30.977181] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:25:31.094906] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\4bf63ae67ea1489db1c05cd85718bb14_sample.png
+[2026-02-27 12:25:31.097374] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_4bf63ae67ea1489db1c05cd85718bb14.json
+[2026-02-27 12:25:31.099241] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_4bf63ae67ea1489db1c05cd85718bb14.json
+[2026-02-27 12:25:31.100663] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\4bf63ae67ea1489db1c05cd85718bb14_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_4bf63ae67ea1489db1c05cd85718bb14.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\4bf63ae67ea1489db1c05cd85718bb14_sample.png']
+[2026-02-27 12:25:37.498036] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_4bf63ae67ea1489db1c05cd85718bb14.json
+
+[2026-02-27 12:25:37.499440] Layout extracted: 3 rooms
+[2026-02-27 12:25:37.501200] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_4bf63ae67ea1489db1c05cd85718bb14.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_4bf63ae67ea1489db1c05cd85718bb14.json']
+[2026-02-27 12:25:37.586558] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_4bf63ae67ea1489db1c05cd85718bb14.json
+
+[2026-02-27 12:25:37.589673] 3D layout generated successfully
+[2026-02-27 12:25:37.590360] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 12:25:37.591152] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:25:37.592142] Sending success response
+[2026-02-27 12:25:37.594696] Temporary layout files cleaned up.
+[2026-02-27 12:25:48.824900] --- START UPLOAD: sample.png ---
+[2026-02-27 12:25:48.827799] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\1ee0a6d1aea34987abf7f2544ee350db_sample.png
+[2026-02-27 12:25:48.830299] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:25:48.954348] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\1ee0a6d1aea34987abf7f2544ee350db_sample.png
+[2026-02-27 12:25:48.955632] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_1ee0a6d1aea34987abf7f2544ee350db.json
+[2026-02-27 12:25:48.956920] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_1ee0a6d1aea34987abf7f2544ee350db.json
+[2026-02-27 12:25:48.958191] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\1ee0a6d1aea34987abf7f2544ee350db_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_1ee0a6d1aea34987abf7f2544ee350db.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\1ee0a6d1aea34987abf7f2544ee350db_sample.png']
+[2026-02-27 12:25:54.935729] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_1ee0a6d1aea34987abf7f2544ee350db.json
+
+[2026-02-27 12:25:54.939358] Layout extracted: 3 rooms
+[2026-02-27 12:25:54.940628] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_1ee0a6d1aea34987abf7f2544ee350db.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_1ee0a6d1aea34987abf7f2544ee350db.json']
+[2026-02-27 12:25:55.184509] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_1ee0a6d1aea34987abf7f2544ee350db.json
+
+[2026-02-27 12:25:55.195133] 3D layout generated successfully
+[2026-02-27 12:25:55.196670] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 12:25:55.198067] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:25:55.199872] Sending success response
+[2026-02-27 12:25:55.204784] Temporary layout files cleaned up.
+[2026-02-27 12:26:31.356038] --- START UPLOAD: sample.png ---
+[2026-02-27 12:26:31.364451] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\562556665d9b4c3aa7362b1d2eda3994_sample.png
+[2026-02-27 12:26:31.366064] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:26:31.479852] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\562556665d9b4c3aa7362b1d2eda3994_sample.png
+[2026-02-27 12:26:31.480886] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_562556665d9b4c3aa7362b1d2eda3994.json
+[2026-02-27 12:26:31.481698] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_562556665d9b4c3aa7362b1d2eda3994.json
+[2026-02-27 12:26:31.482723] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\562556665d9b4c3aa7362b1d2eda3994_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_562556665d9b4c3aa7362b1d2eda3994.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\562556665d9b4c3aa7362b1d2eda3994_sample.png']
+[2026-02-27 12:26:37.751715] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_562556665d9b4c3aa7362b1d2eda3994.json
+
+[2026-02-27 12:26:37.753283] Layout extracted: 3 rooms
+[2026-02-27 12:26:37.754725] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_562556665d9b4c3aa7362b1d2eda3994.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_562556665d9b4c3aa7362b1d2eda3994.json']
+[2026-02-27 12:26:37.842687] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_562556665d9b4c3aa7362b1d2eda3994.json
+
+[2026-02-27 12:26:37.845885] 3D layout generated successfully
+[2026-02-27 12:26:37.846655] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 12:26:37.847364] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:26:37.847857] Sending success response
+[2026-02-27 12:26:37.849568] Temporary layout files cleaned up.
+[2026-02-27 12:27:10.708245] --- START UPLOAD: sample.png ---
+[2026-02-27 12:27:10.711605] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\5b291541f6e34059be7b17fb50a7e27f_sample.png
+[2026-02-27 12:27:10.714089] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:27:10.818976] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\5b291541f6e34059be7b17fb50a7e27f_sample.png
+[2026-02-27 12:27:10.820084] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_5b291541f6e34059be7b17fb50a7e27f.json
+[2026-02-27 12:27:10.821078] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_5b291541f6e34059be7b17fb50a7e27f.json
+[2026-02-27 12:27:10.821707] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\5b291541f6e34059be7b17fb50a7e27f_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5b291541f6e34059be7b17fb50a7e27f.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\5b291541f6e34059be7b17fb50a7e27f_sample.png']
+[2026-02-27 12:27:16.881806] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_5b291541f6e34059be7b17fb50a7e27f.json
+
+[2026-02-27 12:27:16.883313] Layout extracted: 3 rooms
+[2026-02-27 12:27:16.884249] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5b291541f6e34059be7b17fb50a7e27f.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_5b291541f6e34059be7b17fb50a7e27f.json']
+[2026-02-27 12:27:16.961711] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_5b291541f6e34059be7b17fb50a7e27f.json
+
+[2026-02-27 12:27:16.964874] 3D layout generated successfully
+[2026-02-27 12:27:16.966774] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 12:27:16.968284] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:27:16.969838] Sending success response
+[2026-02-27 12:27:16.971978] Temporary layout files cleaned up.
+[2026-02-27 12:27:59.192767] --- START UPLOAD: home.png ---
+[2026-02-27 12:27:59.197803] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\825c08d250c942248fda0a010dd08da5_home.png
+[2026-02-27 12:27:59.200360] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:27:59.346371] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\825c08d250c942248fda0a010dd08da5_home.png
+[2026-02-27 12:27:59.346877] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_825c08d250c942248fda0a010dd08da5.json
+[2026-02-27 12:27:59.347585] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_825c08d250c942248fda0a010dd08da5.json
+[2026-02-27 12:27:59.348953] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\825c08d250c942248fda0a010dd08da5_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_825c08d250c942248fda0a010dd08da5.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\825c08d250c942248fda0a010dd08da5_home.png']
+[2026-02-27 12:28:05.533943] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_825c08d250c942248fda0a010dd08da5.json
+
+[2026-02-27 12:28:05.535259] Layout extracted: 7 rooms
+[2026-02-27 12:28:05.536509] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_825c08d250c942248fda0a010dd08da5.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_825c08d250c942248fda0a010dd08da5.json']
+[2026-02-27 12:28:05.616432] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_825c08d250c942248fda0a010dd08da5.json
+
+[2026-02-27 12:28:05.634859] 3D layout generated successfully
+[2026-02-27 12:28:05.636445] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-27 12:28:05.637302] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:28:05.637813] Sending success response
+[2026-02-27 12:28:05.639866] Temporary layout files cleaned up.
+[2026-02-27 12:56:05.416321] --- START UPLOAD: home.png ---
+[2026-02-27 12:56:05.420497] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\10ee20dadc114056ba35ff18987f83a5_home.png
+[2026-02-27 12:56:05.422035] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:56:05.537024] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\10ee20dadc114056ba35ff18987f83a5_home.png
+[2026-02-27 12:56:05.537576] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_10ee20dadc114056ba35ff18987f83a5.json
+[2026-02-27 12:56:05.538783] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_10ee20dadc114056ba35ff18987f83a5.json
+[2026-02-27 12:56:05.539987] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\10ee20dadc114056ba35ff18987f83a5_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_10ee20dadc114056ba35ff18987f83a5.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\10ee20dadc114056ba35ff18987f83a5_home.png']
+[2026-02-27 12:56:58.573828] Extraction FAILED: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177167.759838    8004 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 332, in _with_call
+    return call.result(), call
+           ~~~~~~~~~~~^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 440, in result
+    raise self
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1195, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1009, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream", grpc_status:14}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ServiceUnavailable: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 167, in retry_target
+    time.sleep(next_sleep)
+    ~~~~~~~~~~^^^^^^^^^^^^
+KeyboardInterrupt
+
+[2026-02-27 12:56:58.575637] EXCEPTION: Failed to process image: Layout extraction failed: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177167.759838    8004 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 332, in _with_call
+    return call.result(), call
+           ~~~~~~~~~~~^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 440, in result
+    raise self
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1195, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1009, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream", grpc_status:14}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ServiceUnavailable: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 167, in retry_target
+    time.sleep(next_sleep)
+    ~~~~~~~~~~^^^^^^^^^^^^
+KeyboardInterrupt
+
+[2026-02-27 12:56:58.576512] Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\backend\main.py", line 288, in upload_sketch
+    raise Exception(f"Layout extraction failed: {result.stderr}")
+Exception: Layout extraction failed: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177167.759838    8004 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 332, in _with_call
+    return call.result(), call
+           ~~~~~~~~~~~^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 440, in result
+    raise self
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1195, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1009, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream", grpc_status:14}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ServiceUnavailable: 503 failed to connect to all addresses; last error: UNAVAILABLE: ipv4:216.239.36.223:443: End of TCP stream
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 167, in retry_target
+    time.sleep(next_sleep)
+    ~~~~~~~~~~^^^^^^^^^^^^
+KeyboardInterrupt
+
+
+[2026-02-27 12:56:58.576868] Temporary layout files cleaned up.
+[2026-02-27 12:56:58.581578] --- START UPLOAD: home.png ---
+[2026-02-27 12:56:58.582742] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\311f0bb28c0f4e38a8ae9767f534da21_home.png
+[2026-02-27 12:56:58.583297] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:56:58.633264] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\311f0bb28c0f4e38a8ae9767f534da21_home.png
+[2026-02-27 12:56:58.633569] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_311f0bb28c0f4e38a8ae9767f534da21.json
+[2026-02-27 12:56:58.633751] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_311f0bb28c0f4e38a8ae9767f534da21.json
+[2026-02-27 12:56:58.633932] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\311f0bb28c0f4e38a8ae9767f534da21_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_311f0bb28c0f4e38a8ae9767f534da21.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\311f0bb28c0f4e38a8ae9767f534da21_home.png']
+[2026-02-27 12:57:03.707138] Extraction FAILED: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177220.965373   19396 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 329, in _with_call
+    call = self._interceptor.intercept_unary_unary(
+        continuation, client_call_details, request
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 79, in intercept_unary_unary
+    response = continuation(client_call_details, request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1192, in with_call
+    state, call = self._blocking(
+                  ~~~~~~~~~~~~~~^
+        request, timeout, metadata, credentials, wait_for_ready, compression
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1165, in _blocking
+    event = call.next_event()
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 388, in grpc._cython.cygrpc.SegregatedCall.next_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 211, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 205, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 97, in grpc._cython.cygrpc._latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 81, in grpc._cython.cygrpc._internal_latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 77, in grpc._cython.cygrpc._interpret_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/tag.pyx.pxi", line 71, in grpc._cython.cygrpc._BatchOperationTag.event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/operation.pyx.pxi", line 138, in grpc._cython.cygrpc.ReceiveInitialMetadataOperation.un_c
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 69, in grpc._cython.cygrpc._metadata
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 70, in genexpr
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 64, in grpc._cython.cygrpc._metadatum
+  File "<string>", line 1, in <lambda>
+KeyboardInterrupt
+
+[2026-02-27 12:57:03.708752] EXCEPTION: Failed to process image: Layout extraction failed: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177220.965373   19396 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 329, in _with_call
+    call = self._interceptor.intercept_unary_unary(
+        continuation, client_call_details, request
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 79, in intercept_unary_unary
+    response = continuation(client_call_details, request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1192, in with_call
+    state, call = self._blocking(
+                  ~~~~~~~~~~~~~~^
+        request, timeout, metadata, credentials, wait_for_ready, compression
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1165, in _blocking
+    event = call.next_event()
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 388, in grpc._cython.cygrpc.SegregatedCall.next_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 211, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 205, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 97, in grpc._cython.cygrpc._latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 81, in grpc._cython.cygrpc._internal_latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 77, in grpc._cython.cygrpc._interpret_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/tag.pyx.pxi", line 71, in grpc._cython.cygrpc._BatchOperationTag.event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/operation.pyx.pxi", line 138, in grpc._cython.cygrpc.ReceiveInitialMetadataOperation.un_c
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 69, in grpc._cython.cygrpc._metadata
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 70, in genexpr
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 64, in grpc._cython.cygrpc._metadatum
+  File "<string>", line 1, in <lambda>
+KeyboardInterrupt
+
+[2026-02-27 12:57:03.710019] Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\backend\main.py", line 288, in upload_sketch
+    raise Exception(f"Layout extraction failed: {result.stderr}")
+Exception: Layout extraction failed: C:\lekshmi\AI_Home_Project\layout_extraction.py:7: FutureWarning: 
+
+All support for the `google.generativeai` package has ended. It will no longer be receiving 
+updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+
+  import google.generativeai as genai
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772177220.965373   19396 alts_credentials.cc:93] ALTS creds ignored. Not running on GCP and untrusted ALTS is not enabled.
+Traceback (most recent call last):
+  File "C:\lekshmi\AI_Home_Project\layout_extraction.py", line 34, in <module>
+    test_model.generate_content("Hello")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 75, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 277, in __call__
+    response, ignored_call = self._with_call(
+                             ~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 329, in _with_call
+    call = self._interceptor.intercept_unary_unary(
+        continuation, client_call_details, request
+    )
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 79, in intercept_unary_unary
+    response = continuation(client_call_details, request)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_interceptor.py", line 315, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<4 lines>...
+        compression=new_compression,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1192, in with_call
+    state, call = self._blocking(
+                  ~~~~~~~~~~~~~~^
+        request, timeout, metadata, credentials, wait_for_ready, compression
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python313\Lib\site-packages\grpc\_channel.py", line 1165, in _blocking
+    event = call.next_event()
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 388, in grpc._cython.cygrpc.SegregatedCall.next_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 211, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/channel.pyx.pxi", line 205, in grpc._cython.cygrpc._next_call_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 97, in grpc._cython.cygrpc._latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 81, in grpc._cython.cygrpc._internal_latent_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/completion_queue.pyx.pxi", line 77, in grpc._cython.cygrpc._interpret_event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/tag.pyx.pxi", line 71, in grpc._cython.cygrpc._BatchOperationTag.event
+  File "src/python/grpcio/grpc/_cython/_cygrpc/operation.pyx.pxi", line 138, in grpc._cython.cygrpc.ReceiveInitialMetadataOperation.un_c
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 69, in grpc._cython.cygrpc._metadata
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 70, in genexpr
+  File "src/python/grpcio/grpc/_cython/_cygrpc/metadata.pyx.pxi", line 64, in grpc._cython.cygrpc._metadatum
+  File "<string>", line 1, in <lambda>
+KeyboardInterrupt
+
+
+[2026-02-27 12:57:03.711035] Temporary layout files cleaned up.
+[2026-02-27 12:57:45.486178] --- START UPLOAD: home.png ---
+[2026-02-27 12:57:45.489143] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\b529ba33b0b5422c98c70025c1a44b4d_home.png
+[2026-02-27 12:57:45.490955] Falling back to OpenCV Preprocessing...
+[2026-02-27 12:57:45.613214] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\b529ba33b0b5422c98c70025c1a44b4d_home.png
+[2026-02-27 12:57:45.614834] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_b529ba33b0b5422c98c70025c1a44b4d.json
+[2026-02-27 12:57:45.615884] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_b529ba33b0b5422c98c70025c1a44b4d.json
+[2026-02-27 12:57:45.616844] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\b529ba33b0b5422c98c70025c1a44b4d_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_b529ba33b0b5422c98c70025c1a44b4d.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\b529ba33b0b5422c98c70025c1a44b4d_home.png']
+[2026-02-27 12:57:51.441516] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_b529ba33b0b5422c98c70025c1a44b4d.json
+
+[2026-02-27 12:57:51.442401] Layout extracted: 7 rooms
+[2026-02-27 12:57:51.443507] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_b529ba33b0b5422c98c70025c1a44b4d.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_b529ba33b0b5422c98c70025c1a44b4d.json']
+[2026-02-27 12:57:51.500482] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_b529ba33b0b5422c98c70025c1a44b4d.json
+
+[2026-02-27 12:57:51.502677] 3D layout generated successfully
+[2026-02-27 12:57:51.503398] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-27 12:57:51.504590] ML Prediction Error: name 'features' is not defined
+[2026-02-27 12:57:51.505776] Sending success response
+[2026-02-27 12:57:51.508109] Temporary layout files cleaned up.
+[2026-02-27 13:28:47.476554] --- START UPLOAD: home.png ---
+[2026-02-27 13:28:47.479481] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\cca816fb86b246279df31ddb5182d145_home.png
+[2026-02-27 13:28:47.481647] Falling back to OpenCV Preprocessing...
+[2026-02-27 13:28:47.599602] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\cca816fb86b246279df31ddb5182d145_home.png
+[2026-02-27 13:28:47.600450] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_cca816fb86b246279df31ddb5182d145.json
+[2026-02-27 13:28:47.600890] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_cca816fb86b246279df31ddb5182d145.json
+[2026-02-27 13:28:47.601496] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\cca816fb86b246279df31ddb5182d145_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_cca816fb86b246279df31ddb5182d145.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\cca816fb86b246279df31ddb5182d145_home.png']
+[2026-02-27 13:29:19.837970] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Selected and Validated model gemini-2.5-flash
+DEBUG: Found 38 contours.
+ Asking AI about Room 1...
+ -> AI says: Bedroom
+ Asking AI about Room 2...
+ -> AI says: Living Room
+ Asking AI about Room 3...
+ -> AI says: Bathroom
+ Asking AI about Room 4...
+ -> AI says: Living Room
+ Asking AI about Room 5...
+ -> AI says: Kitchen
+ Asking AI about Room 6...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 44.402745142s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '44s'}]}}
+ -> AI unsure.
+ Asking AI about Room 7...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 40.372606172s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '40s'}]}}
+ -> AI unsure.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_cca816fb86b246279df31ddb5182d145.json
+
+[2026-02-27 13:29:19.858437] Layout extracted: 7 rooms
+[2026-02-27 13:29:19.859782] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_cca816fb86b246279df31ddb5182d145.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_cca816fb86b246279df31ddb5182d145.json']
+[2026-02-27 13:29:19.921956] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_cca816fb86b246279df31ddb5182d145.json
+
+[2026-02-27 13:29:19.937759] 3D layout generated successfully
+[2026-02-27 13:29:19.939183] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-27 13:29:19.940616] ML Prediction Error: name 'features' is not defined
+[2026-02-27 13:29:19.942712] Sending success response
+[2026-02-27 13:29:19.945476] Temporary layout files cleaned up.
+[2026-02-27 13:29:22.053131] --- START UPLOAD: home.png ---
+[2026-02-27 13:29:22.055826] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\0e2b23a281ff44b98096a9ac568da1c4_home.png
+[2026-02-27 13:29:22.057497] Falling back to OpenCV Preprocessing...
+[2026-02-27 13:29:22.161272] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\0e2b23a281ff44b98096a9ac568da1c4_home.png
+[2026-02-27 13:29:22.161755] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_0e2b23a281ff44b98096a9ac568da1c4.json
+[2026-02-27 13:29:22.162129] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_0e2b23a281ff44b98096a9ac568da1c4.json
+[2026-02-27 13:29:22.163184] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\0e2b23a281ff44b98096a9ac568da1c4_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_0e2b23a281ff44b98096a9ac568da1c4.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\0e2b23a281ff44b98096a9ac568da1c4_home.png']
+[2026-02-27 13:29:25.087470] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Model gemini-2.5-flash failed validation: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 34.388548523s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '34s'}]}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 34.058724039s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '34s'}]}}
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_0e2b23a281ff44b98096a9ac568da1c4.json
+
+[2026-02-27 13:29:25.089705] Layout extracted: 7 rooms
+[2026-02-27 13:29:25.090501] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_0e2b23a281ff44b98096a9ac568da1c4.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_0e2b23a281ff44b98096a9ac568da1c4.json']
+[2026-02-27 13:29:25.147539] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_0e2b23a281ff44b98096a9ac568da1c4.json
+
+[2026-02-27 13:29:25.149868] 3D layout generated successfully
+[2026-02-27 13:29:25.150583] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-27 13:29:25.151124] ML Prediction Error: name 'features' is not defined
+[2026-02-27 13:29:25.151626] Sending success response
+[2026-02-27 13:29:25.154511] Temporary layout files cleaned up.

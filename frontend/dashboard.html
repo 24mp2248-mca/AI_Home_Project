@@ -160,8 +160,8 @@
                     // Create project info
                     const projInfo = {
                         filename: project.name,
-                        timestamp: new Date().toISOString(),
-                        // Add other fields if missing
+                        timestamp: layoutData.timestamp || new Date().toISOString(),
+                        processed_image_url: layoutData.processed_image_url || ''
                     };
                     localStorage.setItem('projectInfo', JSON.stringify(projInfo));
 

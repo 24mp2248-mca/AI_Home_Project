@@ -4,7 +4,7 @@ import os
 import sys
 import glob
 import numpy as np
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 import time
 
@@ -15,31 +15,31 @@ if not os.path.exists(env_path):
 load_dotenv(env_path)
 
 api_key = os.getenv("GEMINI_API_KEY")
-model = None
+client = None
+model_name = None
 
 if api_key:
-    genai.configure(api_key=api_key)
+    client = genai.Client(api_key=api_key)
     
     # Try to find a working vision model
-    # Note: gemini-pro-vision is safer for older keys/libs
-    candidates = ['gemini-1.5-flash-latest', 'gemini-1.5-flash', 'gemini-pro-vision', 'gemini-1.5-pro-latest']
+    # gemini-2.0-flash / gemini-2.5-flash
+    candidates = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash']
     
     for m_name in candidates:
         try:
             print(f"DEBUG: Testing model {m_name}...")
-            test_model = genai.GenerativeModel(m_name)
             
             # VALIDATE by generating simple text
             # This ensures the model name exists and API key has access
-            test_model.generate_content("Hello")
+            client.models.generate_content(model=m_name, contents="Hello")
             
-            model = test_model
+            model_name = m_name
             print(f"DEBUG: Selected and Validated model {m_name}")
             break
         except Exception as e:
             print(f"DEBUG: Model {m_name} failed validation: {e}")
             
-    if model is None:
+    if model_name is None:
          print("WARNING: No working Gemini Vision model found. AI features disabled.")
 else:
     print("WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.")
@@ -94,8 +94,8 @@ def identify_room_with_ai(crop_img):
     """
     Sends a cropped room image to Gemini Vision to identify the room type.
     """
-    global model
-    if model is None or crop_img is None:
+    global client, model_name
+    if client is None or model_name is None or crop_img is None:
         return None
     
     try:
@@ -107,7 +107,7 @@ def identify_room_with_ai(crop_img):
         prompt = "Look at this floor plan room crop. Identify the room type based on furniture (bed/table/toilet) or text labels. Return ONLY one of these words: Bedroom, Bathroom, Kitchen, Living Room, Dining Room, Garage, Entrance. If unsure, say Unknown."
         
         # Determine strict list for robustness
-        response = model.generate_content([prompt, pil_img])
+        response = client.models.generate_content(model=model_name, contents=[prompt, pil_img])
         text = response.text.strip().replace('.','').replace('"','')
         
         valid_types = ["Bedroom", "Bathroom", "Kitchen", "Living Room", "Dining Room", "Garage", "Entrance"]
@@ -119,7 +119,7 @@ def identify_room_with_ai(crop_img):
         print(f"AI Vision Error: {e}")
         # If model not found or huge error, disable it for future calls
         if "404" in str(e) or "not found" in str(e).lower():
-            model = None
+            model_name = None
         return None
 
 print(f"DEBUG: Found {len(contours)} contours.")
@@ -138,7 +138,7 @@ for i, contour in enumerate(contours):
     room_type = "Unknown"
     
     # Only try AI if we have the original image and API key
-    if original_img is not None and model is not None:
+    if original_img is not None and client is not None and model_name is not None:
         # Crop with some padding
         pad = 10
         cy1 = max(0, y - pad)
@@ -155,8 +155,8 @@ for i, contour in enumerate(contours):
             print(f" -> AI says: {ai_label}")
         else:
             print(" -> AI unsure.")
-            # If AI failed with critical error (model is None now), stop trying
-            if model is None: 
+            # If AI failed with critical error (model_name is None now), stop trying
+            if model_name is None: 
                 print("Stopping AI extraction due to previous errors.")
     
         # Rate limit protection (Free tier 15 RPM = 1 req / 4s)

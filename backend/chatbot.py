@@ -1,6 +1,6 @@
 import os
 import json
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 # Load env from .env file explicitly
@@ -10,13 +10,14 @@ load_dotenv(env_path)
 class HomePlannerChatbot:
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
-        self.model = None
+        self.client = None
+        self.model_name = None
         self.chat_session = None
         
         if self.api_key:
-            genai.configure(api_key=self.api_key)
-            # Use 'models/gemma-3-4b-it' because this API key does not have free tier access to Gemini 2.0
-            self.model = genai.GenerativeModel('models/gemma-3-4b-it')
+            self.client = genai.Client(api_key=self.api_key)
+            # Switch to gemini-2.0-flash as we have a new key
+            self.model_name = 'gemini-2.5-flash'
         else:
             print("WARNING: GEMINI_API_KEY not found. Chatbot will return fallback responses.")
 
@@ -24,7 +25,7 @@ class HomePlannerChatbot:
         """
         Gemini-powered chat logic with STRICT context separation.
         """
-        if not self.model:
+        if not self.client or not self.model_name:
             return {
                 "text": "I'm currently offline (Missing API Key). Please set GEMINI_API_KEY in backend/.env to wake me up!",
                 "action": None
@@ -108,8 +109,9 @@ class HomePlannerChatbot:
 
         try:
             # Generate valid JSON response
-            response = self.model.generate_content(
-                f"{system_prompt}\n\nUSER MESSAGE: {message}\n\nRESPONSE (JSON):"
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=f"{system_prompt}\n\nUSER MESSAGE: {message}\n\nRESPONSE (JSON):"
             )
             
             # Clean up potential markdown formatting before parsing JSON
