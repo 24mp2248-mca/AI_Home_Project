@@ -143,3 +143,177 @@ Layout extraction completed. Output: D:\AI_Home_Project\temp_layout_c8180394b1e0
 [2026-02-23 10:21:59.881201] ML Prediction Error: name 'features' is not defined
 [2026-02-23 10:21:59.881730] Sending success response
 [2026-02-23 10:21:59.883098] Temporary layout files cleaned up.
+[2026-02-26 14:07:28.138331] --- START UPLOAD: sample.png ---
+[2026-02-26 14:07:28.142605] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\7c4671fe0707472f811a1eba643dd526_sample.png
+[2026-02-26 14:07:28.144102] Falling back to OpenCV Preprocessing...
+[2026-02-26 14:07:28.225165] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\7c4671fe0707472f811a1eba643dd526_sample.png
+[2026-02-26 14:07:28.226134] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_7c4671fe0707472f811a1eba643dd526.json
+[2026-02-26 14:07:28.227227] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_7c4671fe0707472f811a1eba643dd526.json
+[2026-02-26 14:07:28.229319] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\7c4671fe0707472f811a1eba643dd526_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_7c4671fe0707472f811a1eba643dd526.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\7c4671fe0707472f811a1eba643dd526_sample.png']
+[2026-02-26 14:07:33.205559] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_7c4671fe0707472f811a1eba643dd526.json
+
+[2026-02-26 14:07:33.208524] Layout extracted: 3 rooms
+[2026-02-26 14:07:33.209259] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_7c4671fe0707472f811a1eba643dd526.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_7c4671fe0707472f811a1eba643dd526.json']
+[2026-02-26 14:07:33.261206] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_7c4671fe0707472f811a1eba643dd526.json
+
+[2026-02-26 14:07:33.263175] 3D layout generated successfully
+[2026-02-26 14:07:33.263773] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-26 14:07:33.265355] ML Prediction Error: name 'features' is not defined
+[2026-02-26 14:07:33.266392] Sending success response
+[2026-02-26 14:07:33.267891] Temporary layout files cleaned up.
+[2026-02-26 19:40:52.174367] --- START UPLOAD: sample.png ---
+[2026-02-26 19:40:52.176579] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\e8800aa9b30d4ede933a774568700f60_sample.png
+[2026-02-26 19:40:52.177957] Falling back to OpenCV Preprocessing...
+[2026-02-26 19:40:52.275920] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\e8800aa9b30d4ede933a774568700f60_sample.png
+[2026-02-26 19:40:52.276510] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_e8800aa9b30d4ede933a774568700f60.json
+[2026-02-26 19:40:52.277590] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_e8800aa9b30d4ede933a774568700f60.json
+[2026-02-26 19:40:52.278996] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\e8800aa9b30d4ede933a774568700f60_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_e8800aa9b30d4ede933a774568700f60.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\e8800aa9b30d4ede933a774568700f60_sample.png']
+[2026-02-26 19:40:58.661013] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_e8800aa9b30d4ede933a774568700f60.json
+
+[2026-02-26 19:40:58.662405] Layout extracted: 3 rooms
+[2026-02-26 19:40:58.663889] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_e8800aa9b30d4ede933a774568700f60.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_e8800aa9b30d4ede933a774568700f60.json']
+[2026-02-26 19:40:58.730983] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_e8800aa9b30d4ede933a774568700f60.json
+
+[2026-02-26 19:40:58.733032] 3D layout generated successfully
+[2026-02-26 19:40:58.733717] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-26 19:40:58.734278] ML Prediction Error: name 'features' is not defined
+[2026-02-26 19:40:58.735178] Sending success response
+[2026-02-26 19:40:58.738004] Temporary layout files cleaned up.
+[2026-02-26 19:48:51.946090] --- START UPLOAD: home.png ---
+[2026-02-26 19:48:51.949656] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\da8b9275a3064f3cae253dc40df926c7_home.png
+[2026-02-26 19:48:51.952336] Falling back to OpenCV Preprocessing...
+[2026-02-26 19:48:52.068947] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\da8b9275a3064f3cae253dc40df926c7_home.png
+[2026-02-26 19:48:52.069510] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_da8b9275a3064f3cae253dc40df926c7.json
+[2026-02-26 19:48:52.070078] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_da8b9275a3064f3cae253dc40df926c7.json
+[2026-02-26 19:48:52.070571] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\da8b9275a3064f3cae253dc40df926c7_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_da8b9275a3064f3cae253dc40df926c7.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\da8b9275a3064f3cae253dc40df926c7_home.png']
+[2026-02-26 19:48:57.861406] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_da8b9275a3064f3cae253dc40df926c7.json
+
+[2026-02-26 19:48:57.862341] Layout extracted: 7 rooms
+[2026-02-26 19:48:57.863774] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_da8b9275a3064f3cae253dc40df926c7.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_da8b9275a3064f3cae253dc40df926c7.json']
+[2026-02-26 19:48:57.929985] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_da8b9275a3064f3cae253dc40df926c7.json
+
+[2026-02-26 19:48:57.932233] 3D layout generated successfully
+[2026-02-26 19:48:57.933383] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-26 19:48:57.934156] ML Prediction Error: name 'features' is not defined
+[2026-02-26 19:48:57.935335] Sending success response
+[2026-02-26 19:48:57.938301] Temporary layout files cleaned up.
+[2026-02-26 20:11:31.138313] --- START UPLOAD: sample.png ---
+[2026-02-26 20:11:31.140394] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\075c37d8518d44f38b9973b57693a387_sample.png
+[2026-02-26 20:11:31.141551] Falling back to OpenCV Preprocessing...
+[2026-02-26 20:11:31.228930] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\075c37d8518d44f38b9973b57693a387_sample.png
+[2026-02-26 20:11:31.229675] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_075c37d8518d44f38b9973b57693a387.json
+[2026-02-26 20:11:31.230705] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_075c37d8518d44f38b9973b57693a387.json
+[2026-02-26 20:11:31.231812] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\075c37d8518d44f38b9973b57693a387_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_075c37d8518d44f38b9973b57693a387.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\075c37d8518d44f38b9973b57693a387_sample.png']
+[2026-02-26 20:11:37.413396] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_075c37d8518d44f38b9973b57693a387.json
+
+[2026-02-26 20:11:37.414440] Layout extracted: 3 rooms
+[2026-02-26 20:11:37.415762] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_075c37d8518d44f38b9973b57693a387.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_075c37d8518d44f38b9973b57693a387.json']
+[2026-02-26 20:11:37.470389] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_075c37d8518d44f38b9973b57693a387.json
+
+[2026-02-26 20:11:37.472177] 3D layout generated successfully
+[2026-02-26 20:11:37.472953] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-26 20:11:37.473956] ML Prediction Error: name 'features' is not defined
+[2026-02-26 20:11:37.475564] Sending success response
+[2026-02-26 20:11:37.477490] Temporary layout files cleaned up.
+[2026-02-26 20:38:49.923085] --- START UPLOAD: sample.png ---
+[2026-02-26 20:38:49.925163] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\590940efe5e64ffe9e5409a241881abb_sample.png
+[2026-02-26 20:38:49.927560] Falling back to OpenCV Preprocessing...
+[2026-02-26 20:38:50.029916] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\590940efe5e64ffe9e5409a241881abb_sample.png
+[2026-02-26 20:38:50.030577] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_590940efe5e64ffe9e5409a241881abb.json
+[2026-02-26 20:38:50.031019] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_590940efe5e64ffe9e5409a241881abb.json
+[2026-02-26 20:38:50.031481] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\590940efe5e64ffe9e5409a241881abb_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_590940efe5e64ffe9e5409a241881abb.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\590940efe5e64ffe9e5409a241881abb_sample.png']
+[2026-02-26 20:38:55.786681] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_590940efe5e64ffe9e5409a241881abb.json
+
+[2026-02-26 20:38:55.788303] Layout extracted: 3 rooms
+[2026-02-26 20:38:55.789982] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_590940efe5e64ffe9e5409a241881abb.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_590940efe5e64ffe9e5409a241881abb.json']
+[2026-02-26 20:38:55.852606] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_590940efe5e64ffe9e5409a241881abb.json
+
+[2026-02-26 20:38:55.854959] 3D layout generated successfully
+[2026-02-26 20:38:55.855837] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-26 20:38:55.856905] ML Prediction Error: name 'features' is not defined
+[2026-02-26 20:38:55.858381] Sending success response
+[2026-02-26 20:38:55.861573] Temporary layout files cleaned up.
+[2026-02-27 09:25:18.013790] --- START UPLOAD: sample.png ---
+[2026-02-27 09:25:18.017706] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\a76a316fb8644083b0485fd058431452_sample.png
+[2026-02-27 09:25:18.020442] Falling back to OpenCV Preprocessing...
+[2026-02-27 09:25:18.212420] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\a76a316fb8644083b0485fd058431452_sample.png
+[2026-02-27 09:25:18.213720] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_a76a316fb8644083b0485fd058431452.json
+[2026-02-27 09:25:18.215200] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_a76a316fb8644083b0485fd058431452.json
+[2026-02-27 09:25:18.216625] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\a76a316fb8644083b0485fd058431452_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_a76a316fb8644083b0485fd058431452.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\a76a316fb8644083b0485fd058431452_sample.png']
+[2026-02-27 09:25:25.222792] Extraction STDOUT: DEBUG: Testing model gemini-1.5-flash-latest...
+DEBUG: Model gemini-1.5-flash-latest failed validation: 404 models/gemini-1.5-flash-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-pro-vision...
+DEBUG: Model gemini-pro-vision failed validation: 404 models/gemini-pro-vision is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+DEBUG: Testing model gemini-1.5-pro-latest...
+DEBUG: Model gemini-1.5-pro-latest failed validation: 404 models/gemini-1.5-pro-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_a76a316fb8644083b0485fd058431452.json
+
+[2026-02-27 09:25:25.224072] Layout extracted: 3 rooms
+[2026-02-27 09:25:25.226156] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_a76a316fb8644083b0485fd058431452.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_a76a316fb8644083b0485fd058431452.json']
+[2026-02-27 09:25:25.312341] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_a76a316fb8644083b0485fd058431452.json
+
+[2026-02-27 09:25:25.315596] 3D layout generated successfully
+[2026-02-27 09:25:25.316291] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-27 09:25:25.316920] ML Prediction Error: name 'features' is not defined
+[2026-02-27 09:25:25.317587] Sending success response
+[2026-02-27 09:25:25.320642] Temporary layout files cleaned up.

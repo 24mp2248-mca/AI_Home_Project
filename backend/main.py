@@ -487,7 +487,7 @@ class ChatRequest(BaseModel):
     context: dict
 
 @app.post("/chat/")
-async def chat_endpoint(request: ChatRequest):
+def chat_endpoint(request: ChatRequest):
     try:
         response = get_bot_response(request.message, request.context)
         return response

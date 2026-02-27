@@ -15,8 +15,8 @@ class HomePlannerChatbot:
         
         if self.api_key:
             genai.configure(api_key=self.api_key)
-            # Use 'gemini-flash-latest' which is a valid alias in the user's account
-            self.model = genai.GenerativeModel('gemini-flash-latest')
+            # Use 'models/gemma-3-4b-it' because this API key does not have free tier access to Gemini 2.0
+            self.model = genai.GenerativeModel('models/gemma-3-4b-it')
         else:
             print("WARNING: GEMINI_API_KEY not found. Chatbot will return fallback responses.")
 
@@ -109,12 +109,14 @@ class HomePlannerChatbot:
         try:
             # Generate valid JSON response
             response = self.model.generate_content(
-                f"{system_prompt}\n\nUSER MESSAGE: {message}\n\nRESPONSE (JSON):",
-                generation_config={"response_mime_type": "application/json"}
+                f"{system_prompt}\n\nUSER MESSAGE: {message}\n\nRESPONSE (JSON):"
             )
             
+            # Clean up potential markdown formatting before parsing JSON
+            resp_text = response.text.replace('```json', '').replace('```', '').strip()
+            
             # Parse JSON
-            data = json.loads(response.text)
+            data = json.loads(resp_text)
             return {
                 "text": data.get("text", "I'm thinking..."),
                 "action": data.get("action")
