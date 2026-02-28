@@ -90,27 +90,39 @@ rooms = []
 if contours is None:
     contours = []
 
-def identify_room_with_ai(crop_img):
+def identify_room_with_ai(original_img, x, y, w, h):
     """
-    Sends a cropped room image to Gemini Vision to identify the room type.
+    Sends the floor plan image with a highlighted room to Gemini Vision to identify the room type.
     """
     global client, model_name
-    if client is None or model_name is None or crop_img is None:
+    if client is None or model_name is None or original_img is None:
         return None
     
     try:
-        # Convert BGR to RGB
-        rgb_crop = cv2.cvtColor(crop_img, cv2.COLOR_BGR2RGB)
-        from PIL import Image
-        pil_img = Image.fromarray(rgb_crop)
+        # Highlight the specific room for the AI by dimming the rest of the image
+        highlighted_img = original_img.copy()
+        mask = np.zeros(highlighted_img.shape[:2], dtype=np.uint8)
+        cv2.rectangle(mask, (int(x), int(y)), (int(x+w), int(y+h)), 255, -1)
         
-        prompt = "Look at this floor plan room crop. Identify the room type based on furniture (bed/table/toilet) or text labels. Return ONLY one of these words: Bedroom, Bathroom, Kitchen, Living Room, Dining Room, Garage, Entrance. If unsure, say Unknown."
+        # Dim the background to 30% brightness
+        dimmed = cv2.addWeighted(highlighted_img, 0.3, np.zeros_like(highlighted_img), 0.7, 0)
+        highlighted_img = np.where(mask[:, :, None] == 255, highlighted_img, dimmed)
+        
+        # Draw a thick red bounding box
+        cv2.rectangle(highlighted_img, (int(x), int(y)), (int(x+w), int(y+h)), (0, 0, 255), 12)
+        
+        # Convert BGR to RGB
+        rgb_img = cv2.cvtColor(highlighted_img, cv2.COLOR_BGR2RGB)
+        from PIL import Image
+        pil_img = Image.fromarray(rgb_img)
+        
+        prompt = "Look at this floor plan. Focus ONLY on the room inside the RED rectangle. 1. If there is text written inside the red box (e.g. 'Bedroom', 'Kitchen', 'Dining'), you MUST return that word. 2. If no text, guess based on furniture. Return ONLY ONE exact word: Bedroom, Bathroom, Kitchen, Living Room, Dining Room, Garage, Entrance, Balcony. Unsure = Unknown."
         
         # Determine strict list for robustness
         response = client.models.generate_content(model=model_name, contents=[prompt, pil_img])
         text = response.text.strip().replace('.','').replace('"','')
         
-        valid_types = ["Bedroom", "Bathroom", "Kitchen", "Living Room", "Dining Room", "Garage", "Entrance"]
+        valid_types = ["Bedroom", "Bathroom", "Kitchen", "Living Room", "Dining Room", "Garage", "Entrance", "Balcony"]
         for t in valid_types:
             if t.lower() in text.lower():
                 return t
@@ -139,17 +151,9 @@ for i, contour in enumerate(contours):
     
     # Only try AI if we have the original image and API key
     if original_img is not None and client is not None and model_name is not None:
-        # Crop with some padding
-        pad = 10
-        cy1 = max(0, y - pad)
-        cy2 = min(original_img.shape[0], y + h + pad)
-        cx1 = max(0, x - pad)
-        cx2 = min(original_img.shape[1], x + w + pad)
         
-        crop = original_img[cy1:cy2, cx1:cx2]
-        
-        print(f" Asking AI about Room {len(rooms)+1}...")
-        ai_label = identify_room_with_ai(crop)
+        print(f" Asking AI about Room {len(rooms)+1} (x:{int(x)}, y:{int(y)})...")
+        ai_label = identify_room_with_ai(original_img, x, y, w, h)
         if ai_label:
             room_type = ai_label
             print(f" -> AI says: {ai_label}")
@@ -195,10 +199,16 @@ if len(unknowns) > 0:
         elif i == total_rooms - 1 and total_rooms > 2:
             r['type'] = 'Bathroom'
         elif i == 1:
-             if total_rooms >= 4: r['type'] = 'Master Bedroom'
-             else: r['type'] = 'Kitchen'
+            if total_rooms >= 4: r['type'] = 'Master Bedroom'
+            else: r['type'] = 'Kitchen'
+        elif i == 2:
+            r['type'] = 'Kitchen' if total_rooms >= 4 else 'Bedroom'
+        elif i == 3:
+            r['type'] = 'Bedroom'
+        elif i == 4:
+            r['type'] = 'Dining Room'
         else:
-             r['type'] = 'Bedroom'
+             r['type'] = 'Hallway / Extra Space'
 
 # Reset ID
 for i, r in enumerate(rooms):

@@ -1345,3 +1345,96 @@ Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_1e8f
 [2026-02-28 18:52:57.679519] ML Prediction Error: name 'features' is not defined
 [2026-02-28 18:52:57.680607] Sending success response
 [2026-02-28 18:52:57.683967] Temporary layout files cleaned up.
+[2026-02-28 19:41:07.460257] --- START UPLOAD: home.png ---
+[2026-02-28 19:41:07.464252] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\11952e74ba2442cf84668f8f73b8d793_home.png
+[2026-02-28 19:41:07.466893] Falling back to OpenCV Preprocessing...
+[2026-02-28 19:41:07.688312] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\11952e74ba2442cf84668f8f73b8d793_home.png
+[2026-02-28 19:41:07.689622] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_11952e74ba2442cf84668f8f73b8d793.json
+[2026-02-28 19:41:07.690701] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_11952e74ba2442cf84668f8f73b8d793.json
+[2026-02-28 19:41:07.691946] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\11952e74ba2442cf84668f8f73b8d793_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_11952e74ba2442cf84668f8f73b8d793.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\11952e74ba2442cf84668f8f73b8d793_home.png']
+[2026-02-28 19:41:27.936055] Extraction STDOUT: DEBUG: Testing model gemini-flash-latest...
+DEBUG: Selected and Validated model gemini-flash-latest
+DEBUG: Found 38 contours.
+ Asking AI about Room 1 (x:48, y:265)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 2 (x:271, y:144)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 3 (x:48, y:135)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 4 (x:144, y:112)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 5 (x:300, y:98)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 6 (x:70, y:40)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+ Asking AI about Room 7 (x:30, y:23)...
+AI Vision Error: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+ -> AI unsure.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_11952e74ba2442cf84668f8f73b8d793.json
+
+[2026-02-28 19:41:27.957220] Layout extracted: 7 rooms
+[2026-02-28 19:41:27.958080] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_11952e74ba2442cf84668f8f73b8d793.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_11952e74ba2442cf84668f8f73b8d793.json']
+[2026-02-28 19:41:28.058586] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_11952e74ba2442cf84668f8f73b8d793.json
+
+[2026-02-28 19:41:28.061082] 3D layout generated successfully
+[2026-02-28 19:41:28.062010] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 19:41:28.062941] ML Prediction Error: name 'features' is not defined
+[2026-02-28 19:41:28.063489] Sending success response
+[2026-02-28 19:41:28.065587] Temporary layout files cleaned up.
+[2026-02-28 21:13:58.926445] --- START UPLOAD: home.png ---
+[2026-02-28 21:13:58.930518] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\4a052651560e4f30b84b44bccc3e3e36_home.png
+[2026-02-28 21:13:58.933182] Falling back to OpenCV Preprocessing...
+[2026-02-28 21:13:59.090197] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\4a052651560e4f30b84b44bccc3e3e36_home.png
+[2026-02-28 21:13:59.091555] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_4a052651560e4f30b84b44bccc3e3e36.json
+[2026-02-28 21:13:59.092689] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_4a052651560e4f30b84b44bccc3e3e36.json
+[2026-02-28 21:13:59.093728] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\4a052651560e4f30b84b44bccc3e3e36_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_4a052651560e4f30b84b44bccc3e3e36.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\4a052651560e4f30b84b44bccc3e3e36_home.png']
+[2026-02-28 21:14:04.559341] Extraction STDOUT: DEBUG: Testing model gemini-flash-latest...
+DEBUG: Model gemini-flash-latest failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_4a052651560e4f30b84b44bccc3e3e36.json
+
+[2026-02-28 21:14:04.580287] Layout extracted: 7 rooms
+[2026-02-28 21:14:04.581922] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_4a052651560e4f30b84b44bccc3e3e36.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_4a052651560e4f30b84b44bccc3e3e36.json']
+[2026-02-28 21:14:04.660543] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_4a052651560e4f30b84b44bccc3e3e36.json
+
+[2026-02-28 21:14:04.677725] 3D layout generated successfully
+[2026-02-28 21:14:04.679129] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 21:14:04.681689] ML Prediction Error: name 'features' is not defined
+[2026-02-28 21:14:04.683283] Sending success response
+[2026-02-28 21:14:04.686177] Temporary layout files cleaned up.
+[2026-02-28 21:14:57.512375] --- START UPLOAD: sample.png ---
+[2026-02-28 21:14:57.516376] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\9ad5be4628d84f3fa7cdbc55ff882623_sample.png
+[2026-02-28 21:14:57.519607] Falling back to OpenCV Preprocessing...
+[2026-02-28 21:14:57.639705] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\9ad5be4628d84f3fa7cdbc55ff882623_sample.png
+[2026-02-28 21:14:57.640954] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_9ad5be4628d84f3fa7cdbc55ff882623.json
+[2026-02-28 21:14:57.649275] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_9ad5be4628d84f3fa7cdbc55ff882623.json
+[2026-02-28 21:14:57.650241] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\9ad5be4628d84f3fa7cdbc55ff882623_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_9ad5be4628d84f3fa7cdbc55ff882623.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\9ad5be4628d84f3fa7cdbc55ff882623_sample.png']
+[2026-02-28 21:15:03.381547] Extraction STDOUT: DEBUG: Testing model gemini-flash-latest...
+DEBUG: Model gemini-flash-latest failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_9ad5be4628d84f3fa7cdbc55ff882623.json
+
+[2026-02-28 21:15:03.383935] Layout extracted: 3 rooms
+[2026-02-28 21:15:03.384774] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_9ad5be4628d84f3fa7cdbc55ff882623.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_9ad5be4628d84f3fa7cdbc55ff882623.json']
+[2026-02-28 21:15:03.462368] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_9ad5be4628d84f3fa7cdbc55ff882623.json
+
+[2026-02-28 21:15:03.481833] 3D layout generated successfully
+[2026-02-28 21:15:03.483067] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-28 21:15:03.484045] ML Prediction Error: name 'features' is not defined
+[2026-02-28 21:15:03.485296] Sending success response
+[2026-02-28 21:15:03.488776] Temporary layout files cleaned up.

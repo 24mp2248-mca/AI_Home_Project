@@ -1,81 +1,37 @@
 {
-    "total_rooms": 7,
+    "total_rooms": 3,
     "rooms": [
         {
             "room_id": 1,
             "type": "Living Room",
-            "approx_area": 141325,
+            "approx_area": 63427,
             "bbox": {
-                "x": 30,
-                "y": 23,
-                "w": 385,
-                "h": 394
+                "x": 115,
+                "y": 17,
+                "w": 657,
+                "h": 271
             }
         },
         {
             "room_id": 2,
-            "type": "Master Bedroom",
-            "approx_area": 12884,
+            "type": "Kitchen",
+            "approx_area": 12960,
             "bbox": {
-                "x": 271,
-                "y": 144,
-                "w": 126,
-                "h": 149
-            }
-        },
-        {
-            "room_id": 3,
-            "type": "Bedroom",
-            "approx_area": 6395,
-            "bbox": {
-                "x": 144,
-                "y": 112,
-                "w": 115,
+                "x": 129,
+                "y": 33,
+                "w": 201,
                 "h": 115
             }
         },
         {
-            "room_id": 4,
-            "type": "Bedroom",
-            "approx_area": 5131,
-            "bbox": {
-                "x": 48,
-                "y": 265,
-                "w": 134,
-                "h": 95
-            }
-        },
-        {
-            "room_id": 5,
-            "type": "Bedroom",
-            "approx_area": 2113,
-            "bbox": {
-                "x": 70,
-                "y": 40,
-                "w": 99,
-                "h": 37
-            }
-        },
-        {
-            "room_id": 6,
-            "type": "Bedroom",
-            "approx_area": 2080,
-            "bbox": {
-                "x": 300,
-                "y": 98,
-                "w": 77,
-                "h": 32
-            }
-        },
-        {
-            "room_id": 7,
+            "room_id": 3,
             "type": "Bathroom",
-            "approx_area": 2069,
+            "approx_area": 10597,
             "bbox": {
-                "x": 48,
+                "x": 152,
                 "y": 135,
-                "w": 70,
-                "h": 38
+                "w": 178,
+                "h": 128
             }
         }
     ]
