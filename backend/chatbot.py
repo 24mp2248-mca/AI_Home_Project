@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 # Load env from .env file explicitly
 env_path = os.path.join(os.path.dirname(__file__), ".env")
-load_dotenv(env_path)
+load_dotenv(env_path, override=True)
 
 class HomePlannerChatbot:
     def __init__(self):
@@ -16,8 +16,8 @@ class HomePlannerChatbot:
         
         if self.api_key:
             self.client = genai.Client(api_key=self.api_key)
-            # Switch to gemini-2.0-flash as we have a new key
-            self.model_name = 'gemini-2.5-flash'
+            # Switch to gemini-flash-latest as 2.x series quotas are exhausted on this account
+            self.model_name = 'gemini-flash-latest'
         else:
             print("WARNING: GEMINI_API_KEY not found. Chatbot will return fallback responses.")
 
@@ -125,9 +125,17 @@ class HomePlannerChatbot:
             }
 
         except Exception as e:
-            print(f"Gemini Error: {e}")
+            print(f"Gemini Error (Quota/Auth): {e}")
+            # Fallback mock response so the UI doesn't break outright if they just want to test
+            mock_text = ("I am currently operating in offline/fallback mode because my AI brain hit a quota limit. "
+                         "Please update the GEMINI_API_KEY in your backend/.env file with a fresh key to restore my intelligence!")
+            if page == 'cost_estimation':
+                mock_text = f"Fallback Mode: The estimated cost for your {area} sq.m house is roughly ${cost}. Please update the API key for detailed breakdowns."
+            elif page == 'visualization':
+                mock_text = "Fallback Mode: I cannot change the model right now because my API key quota has been exhausted. Please update the backend/.env file."
+                
             return {
-                "text": f"I'm having trouble connecting to my AI brain right now. Error details: {str(e)}",
+                "text": mock_text,
                 "action": None
             }
 

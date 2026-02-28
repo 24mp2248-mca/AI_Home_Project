@@ -1187,3 +1187,161 @@ Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_558c
 [2026-02-27 13:33:50.977464] ML Prediction Error: name 'features' is not defined
 [2026-02-27 13:33:50.978085] Sending success response
 [2026-02-27 13:33:50.979519] Temporary layout files cleaned up.
+[2026-02-28 18:34:20.982730] --- START UPLOAD: sample.png ---
+[2026-02-28 18:34:20.989146] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\8355e882151945fe8cdfed675de8b931_sample.png
+[2026-02-28 18:34:20.996374] Falling back to OpenCV Preprocessing...
+[2026-02-28 18:34:21.209539] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\8355e882151945fe8cdfed675de8b931_sample.png
+[2026-02-28 18:34:21.211742] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_8355e882151945fe8cdfed675de8b931.json
+[2026-02-28 18:34:21.214640] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_8355e882151945fe8cdfed675de8b931.json
+[2026-02-28 18:34:21.216829] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\8355e882151945fe8cdfed675de8b931_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_8355e882151945fe8cdfed675de8b931.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\8355e882151945fe8cdfed675de8b931_sample.png']
+[2026-02-28 18:34:29.876574] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Model gemini-2.5-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_8355e882151945fe8cdfed675de8b931.json
+
+[2026-02-28 18:34:29.878585] Layout extracted: 3 rooms
+[2026-02-28 18:34:29.879635] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_8355e882151945fe8cdfed675de8b931.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_8355e882151945fe8cdfed675de8b931.json']
+[2026-02-28 18:34:30.042637] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_8355e882151945fe8cdfed675de8b931.json
+
+[2026-02-28 18:34:30.066902] 3D layout generated successfully
+[2026-02-28 18:34:30.068074] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-02-28 18:34:30.070803] ML Prediction Error: name 'features' is not defined
+[2026-02-28 18:34:30.071886] Sending success response
+[2026-02-28 18:34:30.076957] Temporary layout files cleaned up.
+[2026-02-28 18:45:41.005245] --- START UPLOAD: home.png ---
+[2026-02-28 18:45:41.010179] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\2255ff17833b46909a3841bb791578c1_home.png
+[2026-02-28 18:45:41.012206] Falling back to OpenCV Preprocessing...
+[2026-02-28 18:45:41.206182] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\2255ff17833b46909a3841bb791578c1_home.png
+[2026-02-28 18:45:41.207373] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_2255ff17833b46909a3841bb791578c1.json
+[2026-02-28 18:45:41.209356] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_2255ff17833b46909a3841bb791578c1.json
+[2026-02-28 18:45:41.211752] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\2255ff17833b46909a3841bb791578c1_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_2255ff17833b46909a3841bb791578c1.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\2255ff17833b46909a3841bb791578c1_home.png']
+[2026-02-28 18:45:46.662732] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Model gemini-2.5-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_2255ff17833b46909a3841bb791578c1.json
+
+[2026-02-28 18:45:46.666357] Layout extracted: 7 rooms
+[2026-02-28 18:45:46.667994] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_2255ff17833b46909a3841bb791578c1.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_2255ff17833b46909a3841bb791578c1.json']
+[2026-02-28 18:45:46.786897] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_2255ff17833b46909a3841bb791578c1.json
+
+[2026-02-28 18:45:46.807151] 3D layout generated successfully
+[2026-02-28 18:45:46.808065] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 18:45:46.808802] ML Prediction Error: name 'features' is not defined
+[2026-02-28 18:45:46.809545] Sending success response
+[2026-02-28 18:45:46.812527] Temporary layout files cleaned up.
+[2026-02-28 18:49:27.361512] --- START UPLOAD: home.png ---
+[2026-02-28 18:49:27.377212] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\5777089e51dd444095af46b5ab89395d_home.png
+[2026-02-28 18:49:27.379836] Falling back to OpenCV Preprocessing...
+[2026-02-28 18:49:27.571137] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\5777089e51dd444095af46b5ab89395d_home.png
+[2026-02-28 18:49:27.572113] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_5777089e51dd444095af46b5ab89395d.json
+[2026-02-28 18:49:27.572984] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_5777089e51dd444095af46b5ab89395d.json
+[2026-02-28 18:49:27.573835] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\5777089e51dd444095af46b5ab89395d_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5777089e51dd444095af46b5ab89395d.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\5777089e51dd444095af46b5ab89395d_home.png']
+[2026-02-28 18:49:33.850962] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Model gemini-2.5-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-2.0-flash...
+DEBUG: Model gemini-2.0-flash failed validation: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+DEBUG: Testing model gemini-1.5-flash...
+DEBUG: Model gemini-1.5-flash failed validation: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+WARNING: No working Gemini Vision model found. AI features disabled.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_5777089e51dd444095af46b5ab89395d.json
+
+[2026-02-28 18:49:33.852650] Layout extracted: 7 rooms
+[2026-02-28 18:49:33.853669] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5777089e51dd444095af46b5ab89395d.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_5777089e51dd444095af46b5ab89395d.json']
+[2026-02-28 18:49:33.960758] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_5777089e51dd444095af46b5ab89395d.json
+
+[2026-02-28 18:49:33.964530] 3D layout generated successfully
+[2026-02-28 18:49:33.965338] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 18:49:33.966243] ML Prediction Error: name 'features' is not defined
+[2026-02-28 18:49:33.967357] Sending success response
+[2026-02-28 18:49:33.970168] Temporary layout files cleaned up.
+[2026-02-28 18:51:02.983844] --- START UPLOAD: home.png ---
+[2026-02-28 18:51:02.992752] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\7d88ae729f3a44578c52d3837d1a946b_home.png
+[2026-02-28 18:51:02.995714] Falling back to OpenCV Preprocessing...
+[2026-02-28 18:51:03.219755] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\7d88ae729f3a44578c52d3837d1a946b_home.png
+[2026-02-28 18:51:03.220824] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_7d88ae729f3a44578c52d3837d1a946b.json
+[2026-02-28 18:51:03.222161] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_7d88ae729f3a44578c52d3837d1a946b.json
+[2026-02-28 18:51:03.223585] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\7d88ae729f3a44578c52d3837d1a946b_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_7d88ae729f3a44578c52d3837d1a946b.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\7d88ae729f3a44578c52d3837d1a946b_home.png']
+[2026-02-28 18:51:32.645679] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Selected and Validated model gemini-2.5-flash
+DEBUG: Found 38 contours.
+ Asking AI about Room 1...
+ -> AI says: Bedroom
+ Asking AI about Room 2...
+ -> AI says: Living Room
+ Asking AI about Room 3...
+ -> AI says: Bedroom
+ Asking AI about Room 4...
+ -> AI says: Living Room
+ Asking AI about Room 5...
+ -> AI says: Kitchen
+ Asking AI about Room 6...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 28.631400059s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}
+ -> AI unsure.
+ Asking AI about Room 7...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 26.98430074s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '26s'}]}}
+ -> AI unsure.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_7d88ae729f3a44578c52d3837d1a946b.json
+
+[2026-02-28 18:51:32.647440] Layout extracted: 7 rooms
+[2026-02-28 18:51:32.648767] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_7d88ae729f3a44578c52d3837d1a946b.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_7d88ae729f3a44578c52d3837d1a946b.json']
+[2026-02-28 18:51:32.799086] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_7d88ae729f3a44578c52d3837d1a946b.json
+
+[2026-02-28 18:51:32.821160] 3D layout generated successfully
+[2026-02-28 18:51:32.822159] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 18:51:32.822992] ML Prediction Error: name 'features' is not defined
+[2026-02-28 18:51:32.823880] Sending success response
+[2026-02-28 18:51:32.826798] Temporary layout files cleaned up.
+[2026-02-28 18:52:31.836829] --- START UPLOAD: home.png ---
+[2026-02-28 18:52:31.845973] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\1e8f4618a2224a3f858fce71c038ed78_home.png
+[2026-02-28 18:52:31.848918] Falling back to OpenCV Preprocessing...
+[2026-02-28 18:52:31.989342] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\1e8f4618a2224a3f858fce71c038ed78_home.png
+[2026-02-28 18:52:31.989913] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_1e8f4618a2224a3f858fce71c038ed78.json
+[2026-02-28 18:52:31.990627] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_1e8f4618a2224a3f858fce71c038ed78.json
+[2026-02-28 18:52:31.991639] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\1e8f4618a2224a3f858fce71c038ed78_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_1e8f4618a2224a3f858fce71c038ed78.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\1e8f4618a2224a3f858fce71c038ed78_home.png']
+[2026-02-28 18:52:57.543262] Extraction STDOUT: DEBUG: Testing model gemini-2.5-flash...
+DEBUG: Selected and Validated model gemini-2.5-flash
+DEBUG: Found 38 contours.
+ Asking AI about Room 1...
+ -> AI says: Bedroom
+ Asking AI about Room 2...
+ -> AI says: Living Room
+ Asking AI about Room 3...
+ -> AI unsure.
+ Asking AI about Room 4...
+ -> AI says: Living Room
+ Asking AI about Room 5...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 4.786294483s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '4s'}]}}
+ -> AI unsure.
+ Asking AI about Room 6...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 3.417740803s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}}
+ -> AI unsure.
+ Asking AI about Room 7...
+AI Vision Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\nPlease retry in 1.861212346s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '5'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '1s'}]}}
+ -> AI unsure.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_1e8f4618a2224a3f858fce71c038ed78.json
+
+[2026-02-28 18:52:57.559771] Layout extracted: 7 rooms
+[2026-02-28 18:52:57.560602] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_1e8f4618a2224a3f858fce71c038ed78.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_1e8f4618a2224a3f858fce71c038ed78.json']
+[2026-02-28 18:52:57.657382] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_1e8f4618a2224a3f858fce71c038ed78.json
+
+[2026-02-28 18:52:57.677503] 3D layout generated successfully
+[2026-02-28 18:52:57.678483] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-02-28 18:52:57.679519] ML Prediction Error: name 'features' is not defined
+[2026-02-28 18:52:57.680607] Sending success response
+[2026-02-28 18:52:57.683967] Temporary layout files cleaned up.

@@ -12,7 +12,7 @@ import time
 env_path = os.path.join(os.path.dirname(__file__), 'backend', '.env')
 if not os.path.exists(env_path):
     env_path = os.path.join(os.path.dirname(__file__), '.env') # Fallback
-load_dotenv(env_path)
+load_dotenv(env_path, override=True)
 
 api_key = os.getenv("GEMINI_API_KEY")
 client = None
@@ -22,8 +22,8 @@ if api_key:
     client = genai.Client(api_key=api_key)
     
     # Try to find a working vision model
-    # gemini-2.0-flash / gemini-2.5-flash
-    candidates = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash']
+    # gemini-flash-latest is our most stable free-tier model right now
+    candidates = ['gemini-flash-latest', 'gemini-2.0-flash']
     
     for m_name in candidates:
         try:

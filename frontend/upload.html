@@ -309,7 +309,7 @@
 
   <div class="container">
     <div class="header">
-      <div class="logo">📐</div>
+      <a href="index.html" class="logo" style="text-decoration: none;">📐</a>
       <h1>Upload Floor Plan</h1>
       <p class="subtitle">AI Home Planner</p>
       <p class="description">Transform your hand-drawn sketch into a stunning 3D model</p>
@@ -362,6 +362,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     let selectedFile = null;
 
@@ -467,7 +468,7 @@
       formData.append('file', selectedFile);
 
       // Attempt to upload to backend (with 5-second timeout)
-      const uploadPromise = fetch('http://127.0.0.1:8000/upload-sketch/', {
+      const uploadPromise = fetch(`${CONFIG.API_URL}/upload-sketch/`, {
         method: 'POST',
         body: formData
       });
@@ -512,7 +513,7 @@
             if (token) {
               try {
                 progressText.textContent = 'Saving to Dashboard...';
-                const saveRes = await fetch('http://127.0.0.1:8000/projects/', {
+                const saveRes = await fetch(`${CONFIG.API_URL}/projects/`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',

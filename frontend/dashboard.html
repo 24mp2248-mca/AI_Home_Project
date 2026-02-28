@@ -48,10 +48,10 @@
 
     <div class="container">
         <header>
-            <div class="logo">
+            <a href="index.html" class="logo" style="text-decoration: none;">
                 <span class="logo-icon">🏠</span>
                 Dashboard
-            </div>
+            </a>
             <nav>
                 <a href="upload.html" class="nav-btn">+ New Project</a>
                 <a href="#" onclick="logout()">Logout</a>
@@ -67,8 +67,9 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script>
-        const API_URL = "http://127.0.0.1:8000";
+        const API_URL = CONFIG.API_URL;
 
         function logout() {
             localStorage.removeItem('token');

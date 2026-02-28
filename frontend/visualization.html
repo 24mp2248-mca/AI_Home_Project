@@ -494,7 +494,7 @@
   </div>
 
   <div id="header">
-    <div class="logo">🏠 AI Home Planner Pro</div>
+    <a href="index.html" class="logo" style="text-decoration: none;">🏠 AI Home Planner Pro</a>
     <div>
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-secondary" onclick="export3DModel()">📦 Export 3D</button>
@@ -592,6 +592,7 @@
   </div>
 
   <script src="chatbot.js"></script>
+  <script src="config.js"></script>
   <script>
     // Init Chatbot
     document.addEventListener('DOMContentLoaded', () => {
@@ -973,7 +974,7 @@
             // Let's assume absolute path if starts with /, else add prefix
             let finalUrl = pInfo.processed_image_url;
             if (!finalUrl.startsWith('http')) {
-              finalUrl = 'http://127.0.0.1:8000' + finalUrl;
+              finalUrl = CONFIG.API_URL + finalUrl;
             }
 
             imgEl.src = finalUrl;

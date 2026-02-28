@@ -14,6 +14,9 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
+    /* Include Lucide Icons */
+    @import url('https://unpkg.com/lucide@latest/dist/lucide.css');
+
     body {
       min-height: 100vh;
       background: #0a0a0a;
@@ -526,10 +529,10 @@
 
   <div class="container">
     <header>
-      <div class="logo">
+      <a href="index.html" class="logo" style="text-decoration: none;">
         <span class="logo-icon">🏠</span>
         AI Home Planner
-      </div>
+      </a>
       <nav>
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
@@ -543,7 +546,7 @@
       <p>Upload your floor plan sketch and watch AI convert it into a stunning 3D model with cost estimates in minutes.
       </p>
       <div class="cta-group">
-        <a href="http://127.0.0.1:8000/static/upload.html" class="btn btn-primary">Start Building Now</a>
+        <a href="upload.html" class="btn btn-primary" id="main-cta">Start Your Free Trial</a>
         <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
       </div>
     </section>
@@ -551,7 +554,7 @@
     <section class="preview">
       <div class="preview-card">
         <div class="preview-image">
-          🏗️
+          <i data-lucide="box" style="width: 80px; height: 80px; color: #667eea;"></i>
         </div>
       </div>
     </section>
@@ -563,37 +566,37 @@
       </div>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">📐</div>
+          <div class="feature-icon"><i data-lucide="pen-tool"></i></div>
           <h3>Sketch Recognition</h3>
           <p>Advanced OpenCV preprocessing accurately interprets hand-drawn floor plans and blueprints.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🧠</div>
+          <div class="feature-icon"><i data-lucide="brain"></i></div>
           <h3>Deep Learning AI</h3>
           <p>U-Net segmentation model trained on thousands of architectural layouts for precise room detection.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🏗️</div>
+          <div class="feature-icon"><i data-lucide="box"></i></div>
           <h3>3D Reconstruction</h3>
           <p>Instantly generates interactive 3D models from 2D sketches with accurate dimensions and layouts.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">💰</div>
+          <div class="feature-icon"><i data-lucide="dollar-sign"></i></div>
           <h3>Cost Estimation</h3>
           <p>AI-powered pricing analysis provides detailed construction cost breakdowns by room and material.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🤖</div>
+          <div class="feature-icon"><i data-lucide="bot"></i></div>
           <h3>AI Chatbot</h3>
           <p>AI-powered chatbot provides detailed information about the construction process and materials.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🎨</div>
+          <div class="feature-icon"><i data-lucide="palette"></i></div>
           <h3>Custom Styling</h3>
           <p>Apply different architectural styles, materials, and color schemes to your 3D model.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📊</div>
+          <div class="feature-icon"><i data-lucide="bar-chart-2"></i></div>
           <h3>Analytics Dashboard</h3>
           <p>Track space utilization, energy efficiency, and get smart recommendations for optimization.</p>
         </div>
@@ -603,7 +606,7 @@
     <section class="how-it-works" id="how-it-works">
       <div class="section-title">
         <h2>How It Works</h2>
-        <p>From sketch to 3D model in four simple steps</p>
+        <p>From sketch to 3D model in five simple steps</p>
       </div>
       <div class="steps">
         <div class="step">
@@ -650,6 +653,21 @@
     </footer>
   </div>
 
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const token = localStorage.getItem('token');
+      const navBtn = document.querySelector('.nav-btn');
+      if (token) {
+        navBtn.textContent = 'Dashboard';
+        navBtn.href = 'dashboard.html';
+        const mainCta = document.getElementById('main-cta');
+        if (mainCta) mainCta.href = 'dashboard.html';
+      }
+    });
+  </script>
 </body>
 
 </html>
