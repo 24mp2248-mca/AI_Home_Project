@@ -5,7 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 import os
 
@@ -26,14 +26,17 @@ def generate_data(n_samples=500):
         rooms.append(r)
     rooms = np.array(rooms)
     tiers = np.random.choice([0, 1, 2], n_samples, p=[0.6, 0.3, 0.1])
-    base_rate = 2500 
+    # For a 7-room layout (~105 sq.m minimum up to 300 sq.m) to be under 2 Crore INR ($~240,000 USD):
+    # Max allowed average cost $\approx$ $240,000
+    # $240,000 / 300 sq.m max = ~$800 per max sq.m
+    base_rate = 600 # Lowered base area rate significantly
     costs = []
     for i in range(n_samples):
         rate = base_rate
-        if tiers[i] == 1: rate *= 1.5
-        if tiers[i] == 2: rate *= 2.5
-        noise = np.random.normal(0, 5000)
-        cost = (areas[i] * rate) + (rooms[i] * 2000) + noise
+        if tiers[i] == 1: rate *= 1.2 # Lower luxury premium
+        if tiers[i] == 2: rate *= 1.5 # Lower luxury premium
+        noise = np.random.normal(0, 1000) # Reduced noise
+        cost = (areas[i] * rate) + (rooms[i] * 200) + noise # Significantly lower per-room fixed cost
         costs.append(round(cost, 2))
         
     df = pd.DataFrame({
@@ -72,20 +75,21 @@ def train_and_evaluate():
     best_mae = float("inf")
 
     print("\nTraining and Evaluating Models...")
-    print("-" * 50)
-    print(f"{'Model Name':<20} | {'MAE ($)':<12} | {'R2 Score':<10}")
-    print("-" * 50)
+    print("-" * 65)
+    print(f"{'Model Name':<20} | {'MAE ($)':<12} | {'MSE':<15} | {'R2 Score':<10}")
+    print("-" * 65)
 
     for name, model in models.items():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         
         mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
         
-        results.append({"Model": name, "MAE": mae})
+        results.append({"Model": name, "MAE": mae, "MSE": mse})
         
-        print(f"{name:<20} | ${mae:,.2f}    | {r2:.4f}")
+        print(f"{name:<20} | ${mae:<11,.2f} | {mse:<15,.2f} | {r2:.4f}")
         
         if mae < best_mae:
             best_mae = mae

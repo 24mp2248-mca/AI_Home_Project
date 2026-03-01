@@ -22,8 +22,8 @@ if api_key:
     client = genai.Client(api_key=api_key)
     
     # Try to find a working vision model
-    # gemini-flash-latest is our most stable free-tier model right now
-    candidates = ['gemini-flash-latest', 'gemini-2.0-flash']
+    # gemini-1.5-flash-8b is the most cost-effective model, with fallback to gemini-1.5-flash
+    candidates = ['gemini-1.5-flash-8b', 'gemini-1.5-flash', 'gemini-flash-latest']
     
     for m_name in candidates:
         try:

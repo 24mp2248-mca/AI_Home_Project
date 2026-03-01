@@ -16,7 +16,6 @@ class HomePlannerChatbot:
         
         if self.api_key:
             self.client = genai.Client(api_key=self.api_key)
-            # Switch to gemini-flash-latest as 2.x series quotas are exhausted on this account
             self.model_name = 'gemini-flash-latest'
         else:
             print("WARNING: GEMINI_API_KEY not found. Chatbot will return fallback responses.")
