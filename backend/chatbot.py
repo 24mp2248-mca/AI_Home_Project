@@ -1,6 +1,6 @@
 import os
 import json
-from google import genai
+from groq import Groq
 from dotenv import load_dotenv
 
 # Load env from .env file explicitly
@@ -9,24 +9,22 @@ load_dotenv(env_path, override=True)
 
 class HomePlannerChatbot:
     def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
+        self.api_key = os.getenv("GROQ_API_KEY")
         self.client = None
-        self.model_name = None
-        self.chat_session = None
+        self.model_name = 'llama-3.1-8b-instant'
         
         if self.api_key:
-            self.client = genai.Client(api_key=self.api_key)
-            self.model_name = 'gemini-flash-latest'
+            self.client = Groq(api_key=self.api_key)
         else:
-            print("WARNING: GEMINI_API_KEY not found. Chatbot will return fallback responses.")
+            print("WARNING: GROQ_API_KEY not found. Chatbot will return fallback responses.")
 
     def process_message(self, message, context):
         """
-        Gemini-powered chat logic with STRICT context separation.
+        Groq-powered chat logic with STRICT context separation.
         """
-        if not self.client or not self.model_name:
+        if not self.client:
             return {
-                "text": "I'm currently offline (Missing API Key). Please set GEMINI_API_KEY in backend/.env to wake me up!",
+                "text": "I'm currently offline (Missing API Key). Please set GROQ_API_KEY in backend/.env to wake me up!",
                 "action": None
             }
 
@@ -63,7 +61,7 @@ class HomePlannerChatbot:
             - If user asks about cost ("how much is this?", "budget?"), REPLY: "I specialize in design here. Please visit the Cost Estimation page for pricing details."
             - Be concise and helpful.
             
-            OUTPUT FORMAT: Single JSON object.
+            OUTPUT FORMAT: You MUST return a valid JSON object.
             {{
                 "text": "Response text...",
                 "action": {{ "type": "...", "value": "..." }} OR null
@@ -90,7 +88,7 @@ class HomePlannerChatbot:
             - If user asks to "change wall color" or "add furniture", REPLY: "I cannot modify the 3D model from this page. Please return to the defined Visualization page to make design changes."
             - If user asks about currency, explain 1 USD ~= 84 INR.
             
-            OUTPUT FORMAT: Single JSON object.
+            OUTPUT FORMAT: You MUST return a valid JSON object.
             {{
                 "text": "Response text...",
                 "action": null
@@ -103,18 +101,27 @@ class HomePlannerChatbot:
             You are a helpful Home Planning Assistant.
             Current Page: {page}.
             Please guide the user to either the Visualization page (for design) or Cost Estimation page (for budgeting).
-            OUTPUT FORMAT: Single JSON object {{ "text": "...", "action": null }}
+            OUTPUT FORMAT: You MUST return a valid JSON object {{ "text": "...", "action": null }}
             """
 
         try:
-            # Generate valid JSON response
-            response = self.client.models.generate_content(
+            # Generate valid JSON response using Groq
+            chat_completion = self.client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": system_prompt
+                    },
+                    {
+                        "role": "user",
+                        "content": f"USER MESSAGE: {message}\n\nRESPONSE (JSON):"
+                    }
+                ],
                 model=self.model_name,
-                contents=f"{system_prompt}\n\nUSER MESSAGE: {message}\n\nRESPONSE (JSON):"
+                response_format={"type": "json_object"},
             )
             
-            # Clean up potential markdown formatting before parsing JSON
-            resp_text = response.text.replace('```json', '').replace('```', '').strip()
+            resp_text = chat_completion.choices[0].message.content
             
             # Parse JSON
             data = json.loads(resp_text)
@@ -124,14 +131,19 @@ class HomePlannerChatbot:
             }
 
         except Exception as e:
-            print(f"Gemini Error (Quota/Auth): {e}")
-            # Fallback mock response so the UI doesn't break outright if they just want to test
-            mock_text = ("I am currently operating in offline/fallback mode because my AI brain hit a quota limit. "
-                         "Please update the GEMINI_API_KEY in your backend/.env file with a fresh key to restore my intelligence!")
+            print(f"Groq Error: {e}")
+            is_rate_limit = "429" in str(e)
+            if is_rate_limit:
+                base_mock = "I am currently overloaded by the free tier rate limit! Please wait 60 seconds and try your request again."
+            else:
+                base_mock = "I am currently operating in offline/fallback mode due to an API error. Please check the GROQ_API_KEY."
+
             if page == 'cost_estimation':
-                mock_text = f"Fallback Mode: The estimated cost for your {area} sq.m house is roughly ${cost}. Please update the API key for detailed breakdowns."
+                mock_text = f"Fallback Mode: The estimated cost for your {area} sq.m house is roughly ${cost}. ({base_mock})"
             elif page == 'visualization':
-                mock_text = "Fallback Mode: I cannot change the model right now because my API key quota has been exhausted. Please update the backend/.env file."
+                mock_text = f"Fallback Mode: I cannot change the model right now. {base_mock}"
+            else:
+                mock_text = base_mock
                 
             return {
                 "text": mock_text,

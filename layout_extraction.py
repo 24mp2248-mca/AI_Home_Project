@@ -4,7 +4,7 @@ import os
 import sys
 import glob
 import numpy as np
-from google import genai
+import google.generativeai as genai
 from dotenv import load_dotenv
 import time
 
@@ -18,12 +18,12 @@ api_key = os.getenv("GEMINI_API_KEY")
 client = None
 model_name = None
 
-if api_key:
-    client = genai.Client(api_key=api_key)
+if False: # api_key:
+    genai.configure(api_key=api_key)
     
     # Try to find a working vision model
     # gemini-1.5-flash-8b is the most cost-effective model, with fallback to gemini-1.5-flash
-    candidates = ['gemini-1.5-flash-8b', 'gemini-1.5-flash', 'gemini-flash-latest']
+    candidates = ['gemini-1.5-flash-8b', 'gemini-1.5-flash', 'gemini-flash-latest', 'gemini-1.5-pro']
     
     for m_name in candidates:
         try:
@@ -31,8 +31,10 @@ if api_key:
             
             # VALIDATE by generating simple text
             # This ensures the model name exists and API key has access
-            client.models.generate_content(model=m_name, contents="Hello")
+            model = genai.GenerativeModel(m_name)
+            model.generate_content("Hello")
             
+            client = model
             model_name = m_name
             print(f"DEBUG: Selected and Validated model {m_name}")
             break
@@ -119,7 +121,8 @@ def identify_room_with_ai(original_img, x, y, w, h):
         prompt = "Look at this floor plan. Focus ONLY on the room inside the RED rectangle. 1. If there is text written inside the red box (e.g. 'Bedroom', 'Kitchen', 'Dining'), you MUST return that word. 2. If no text, guess based on furniture. Return ONLY ONE exact word: Bedroom, Bathroom, Kitchen, Living Room, Dining Room, Garage, Entrance, Balcony. Unsure = Unknown."
         
         # Determine strict list for robustness
-        response = client.models.generate_content(model=model_name, contents=[prompt, pil_img])
+        # client is the GenerativeModel instance
+        response = client.generate_content([prompt, pil_img])
         text = response.text.strip().replace('.','').replace('"','')
         
         valid_types = ["Bedroom", "Bathroom", "Kitchen", "Living Room", "Dining Room", "Garage", "Entrance", "Balcony"]
@@ -164,8 +167,8 @@ for i, contour in enumerate(contours):
                 print("Stopping AI extraction due to previous errors.")
     
         # Rate limit protection (Free tier 15 RPM = 1 req / 4s)
-        # We'll sleep a bit to be safe, though 1s might be enough if not many rooms
-        time.sleep(1.0) 
+        # Sleeping 5 seconds ensures we stay well below the 15 RPM limit.
+        time.sleep(5.0) 
     
     # -----------------------------
 
@@ -196,19 +199,18 @@ if len(unknowns) > 0:
         
         if i == 0:
             r['type'] = 'Living Room'
-        elif i == total_rooms - 1 and total_rooms > 2:
-            r['type'] = 'Bathroom'
         elif i == 1:
-            if total_rooms >= 4: r['type'] = 'Master Bedroom'
-            else: r['type'] = 'Kitchen'
+            r['type'] = 'Master Bedroom' if total_rooms >= 4 else 'Bedroom'
         elif i == 2:
-            r['type'] = 'Kitchen' if total_rooms >= 4 else 'Bedroom'
+            r['type'] = 'Kitchen' if total_rooms >= 3 else 'Bedroom'
+        elif i == total_rooms - 1 and total_rooms >= 3:
+            r['type'] = 'Bathroom'
+        elif i == total_rooms - 2 and total_rooms >= 4:
+            r['type'] = 'Bathroom' if total_rooms > 5 else 'Bedroom'
         elif i == 3:
-            r['type'] = 'Bedroom'
-        elif i == 4:
-            r['type'] = 'Dining Room'
+            r['type'] = 'Dining Room' if total_rooms >= 6 else 'Bedroom'
         else:
-             r['type'] = 'Hallway / Extra Space'
+            r['type'] = 'Bedroom'
 
 # Reset ID
 for i, r in enumerate(rooms):
