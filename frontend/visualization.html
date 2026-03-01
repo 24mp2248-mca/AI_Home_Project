@@ -888,6 +888,47 @@
       }
       const brickTex = createBrickTexture();
 
+      function createRoofTexture() {
+        // Interlocking scalloped shingles (terracotta style)
+        const canvas = document.createElement('canvas');
+        canvas.width = 512; canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#3e2723'; // Dark brown base
+        ctx.fillRect(0, 0, 512, 512);
+
+        const tileW = 64, tileH = 64;
+        for (let y = 0; y < 512; y += tileH / 2) { // Overlap tiles vertically by 50%
+          const offset = (y / (tileH / 2)) % 2 === 0 ? 0 : tileW / 2;
+          for (let x = -tileW; x < 512; x += tileW) {
+            // Determine a slight color variation for realism
+            const shade = Math.random() > 0.5 ? '#4e342e' : '#3e2723';
+            ctx.fillStyle = shade;
+            ctx.beginPath();
+            ctx.arc(x + offset + tileW / 2, y + tileH / 2, tileW / 2 - 2, Math.PI, 0); // Top curve
+            ctx.lineTo(x + offset + tileW - 2, y + tileH);
+            ctx.lineTo(x + offset + 2, y + tileH);
+            ctx.fill();
+
+            // Add highlight & shadow for bump mapping depth
+            ctx.strokeStyle = '#2d1816';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            ctx.strokeStyle = '#5d4037';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(x + offset + tileW / 2, y + tileH / 2, tileW / 2 - 4, Math.PI, 0);
+            ctx.stroke();
+          }
+        }
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(6, 6); // Adjust tiling
+        return tex;
+      }
+      const roofTex = createRoofTexture();
+
       // --- ENVIRONMENT REFLECTIONS & SKY ---
       let sky, sun;
       try {
@@ -1038,11 +1079,21 @@
         metalness: 0.0
       });
 
-      // Roof: Darker, modern tile color
+      // Roof: Detailed Tile texture
       const roofMat = new THREE.MeshStandardMaterial({
-        color: 0x3e2723, // Dark Brown
-        roughness: 0.7,
+        color: 0x5d4037, // Slightly lighter brown to let texture show
+        map: roofTex,
+        bumpMap: roofTex,
+        bumpScale: 0.05,
+        roughness: 0.8,
         metalness: 0.1
+      });
+
+      // Fascia Board Material
+      const fasciaMat = new THREE.MeshStandardMaterial({
+        color: 0x3e2723, // Very dark wood
+        roughness: 0.9,
+        metalness: 0.0
       });
 
       const doorMat = new THREE.MeshStandardMaterial({
@@ -1551,47 +1602,124 @@
       }
 
       function buildHipRoof(cx, y, cz, w, d, h) {
-        // Custom Hip Roof Geometry is complex to build perfectly with primitives.
-        // Let's use a prism (Gable) for now as it's cleaner than a distorted cone.
-        // Or a 4-sided pyramid for a true Hip.
+        // Let's create a Gable Roof (Prism) with Overhangs and Fascia Boards
+        const overhangX = 1.0;
+        const overhangZ = 1.0;
 
-        const geometry = new THREE.ConeGeometry(1, h, 4, 1, true);
-        const mesh = new THREE.Mesh(geometry, roofMat);
+        const finalW = w + overhangX * 2;
+        const finalD = d + overhangZ * 2;
 
-        // The cone base is rotated 45deg. 
-        // We need to scale it to match w and d.
-        // But a cone comes to a point. A hip roof usually has a ridge line if not square.
-        // FOR SIMPLICITY: Gable Roof (Prism) is more "House-like" for non-squares.
-
-        // Switch to Gable (Prism)
-        mesh.geometry = new THREE.CylinderGeometry(0, 1, d, 4, 1, false);
-        // Rotated to lay along Z?
-        mesh.rotation.z = Math.PI / 2;
-        mesh.rotation.y = Math.PI / 4; // This makes it a pyramid.
-
-        // Let's just use a Prism (Extruded Triangle)
         const shape = new THREE.Shape();
-        shape.moveTo(-w / 2, 0);
+        shape.moveTo(-finalW / 2, 0);
         shape.lineTo(0, h);
-        shape.lineTo(w / 2, 0);
-        shape.lineTo(-w / 2, 0);
+        shape.lineTo(finalW / 2, 0);
+        shape.lineTo(-finalW / 2, 0);
 
         const extrudeSettings = {
           steps: 1,
-          depth: d,
+          depth: finalD,
           bevelEnabled: false
         };
 
         const roofGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+
+        // Correct texture mapping for extruded shapes
+        const posAttribute = roofGeo.attributes.position;
+        const uvs = new Float32Array(posAttribute.count * 2);
+        for (let i = 0; i < posAttribute.count; i++) {
+          const px = posAttribute.getX(i);
+          const py = posAttribute.getY(i);
+          const pz = posAttribute.getZ(i);
+          // Simple planar mapping based on normals/facing but this is a rough hack
+          uvs[i * 2] = px / 10;
+          uvs[i * 2 + 1] = pz / 10 + py / 10;
+        }
+        roofGeo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+        roofGeo.computeVertexNormals();
+
+
         const roofObj = new THREE.Mesh(roofGeo, roofMat);
-        // Extrudes along Z, Center is at 0,0 usually but Shape starts at origin.
-        // Move to center
-        roofObj.position.set(cx, y, cz - d / 2);
+        roofObj.position.set(cx, y, cz - finalD / 2);
         roofObj.castShadow = true;
+        roofObj.receiveShadow = true;
         roofGroup.add(roofObj);
 
-        // Add Overhang borders?
-        // For now, this is sufficient.
+        // --- FASCIA BOARDS (Wooden Trim around overhang) ---
+        const fasciaThickness = 0.1;
+        const fasciaHeight = 0.3;
+
+        // Front Fascia
+        const fFasciaGeo = new THREE.BoxGeometry(finalW, fasciaHeight, fasciaThickness);
+        const fFascia = new THREE.Mesh(fFasciaGeo, fasciaMat);
+        fFascia.position.set(cx, y - fasciaHeight / 2, cz + finalD / 2 - overhangZ);
+        fFascia.castShadow = true;
+        roofGroup.add(fFascia);
+
+        // Back Fascia
+        const bFascia = new THREE.Mesh(fFasciaGeo, fasciaMat);
+        bFascia.position.set(cx, y - fasciaHeight / 2, cz - finalD / 2 + overhangZ);
+        bFascia.castShadow = true;
+        roofGroup.add(bFascia);
+
+        // We need slanted side fascia along the gable ends
+        // Math for the slope length and angle
+        const slopeLen = Math.sqrt(Math.pow(finalW / 2, 2) + Math.pow(h, 2));
+        const slopeAngle = Math.atan2(h, finalW / 2);
+
+        const sideFasciaGeo = new THREE.BoxGeometry(slopeLen, fasciaHeight, fasciaThickness);
+
+        // Left Front & Back Slopes
+        const slF1 = new THREE.Mesh(sideFasciaGeo, fasciaMat);
+        slF1.position.set(cx - finalW / 4, y + h / 2 - fasciaHeight / 2, cz + finalD / 2 - overhangZ + fasciaThickness / 2);
+        slF1.rotation.z = slopeAngle;
+        slF1.castShadow = true;
+        roofGroup.add(slF1);
+
+        const slF2 = new THREE.Mesh(sideFasciaGeo, fasciaMat);
+        slF2.position.set(cx + finalW / 4, y + h / 2 - fasciaHeight / 2, cz + finalD / 2 - overhangZ + fasciaThickness / 2);
+        slF2.rotation.z = -slopeAngle;
+        slF2.castShadow = true;
+        roofGroup.add(slF2);
+
+        // Actually the roof extrudes along Z. The "Gable" ends are the Front and Back of the Z-axis.
+        // Wait, the extrusion is along Z. The shape is in X-Y. 
+        // Modifying Fascia logic based on Extruded Geometry orientation:
+        roofGroup.remove(fFascia);
+        roofGroup.remove(bFascia);
+        roofGroup.remove(slF1);
+        roofGroup.remove(slF2);
+
+        // Let's do a simplified wrap-around box fascia below the overhang level that just covers the horizontal perimeter for a modern look, or just clean up the edges.
+        const leftFascia = new THREE.Mesh(new THREE.BoxGeometry(fasciaThickness, fasciaHeight, finalD), fasciaMat);
+        leftFascia.position.set(cx - finalW / 2, y - fasciaHeight / 2, cz);
+        leftFascia.castShadow = true;
+        roofGroup.add(leftFascia);
+
+        const rightFascia = new THREE.Mesh(new THREE.BoxGeometry(fasciaThickness, fasciaHeight, finalD), fasciaMat);
+        rightFascia.position.set(cx + finalW / 2, y - fasciaHeight / 2, cz);
+        rightFascia.castShadow = true;
+        roofGroup.add(rightFascia);
+
+        // Front and back of the gable ends
+        const frontSlantL = new THREE.Mesh(new THREE.BoxGeometry(slopeLen, fasciaHeight, fasciaThickness), fasciaMat);
+        frontSlantL.position.set(cx - finalW / 4, y + h / 2, cz + finalD / 2);
+        frontSlantL.rotation.z = slopeAngle;
+        frontSlantL.castShadow = true;
+        roofGroup.add(frontSlantL);
+
+        const frontSlantR = new THREE.Mesh(new THREE.BoxGeometry(slopeLen, fasciaHeight, fasciaThickness), fasciaMat);
+        frontSlantR.position.set(cx + finalW / 4, y + h / 2, cz + finalD / 2);
+        frontSlantR.rotation.z = -slopeAngle;
+        frontSlantR.castShadow = true;
+        roofGroup.add(frontSlantR);
+
+        const backSlantL = frontSlantL.clone();
+        backSlantL.position.set(cx - finalW / 4, y + h / 2, cz - finalD / 2);
+        roofGroup.add(backSlantL);
+
+        const backSlantR = frontSlantR.clone();
+        backSlantR.position.set(cx + finalW / 4, y + h / 2, cz - finalD / 2);
+        roofGroup.add(backSlantR);
       }
 
       function addDoor(x, y, z, rotate) {
