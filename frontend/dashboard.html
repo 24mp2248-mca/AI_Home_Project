@@ -321,7 +321,7 @@
                             ID: ${p.id}
                         </div>
                         <div class="card-actions">
-                            <button class="btn btn-outline" onclick="loadProject(${p.id})">
+                            <button type="button" class="btn btn-outline" onclick="loadProject(event, '${p.id}')">
                                 <i data-lucide="box"></i> Open 3D
                             </button>
                         </div>
@@ -336,7 +336,8 @@
             }
         }
 
-        async function loadProject(id) {
+        async function loadProject(event, id) {
+            if (event) event.preventDefault();
             console.log(`[Dashboard] Attempting to load project ${id}...`);
             const token = localStorage.getItem('token');
             if (!token) {
@@ -352,7 +353,7 @@
                     throw new Error(`[Dashboard] Failed to fetch projects: ${res.status}`);
                 }
                 const projects = await res.json();
-                const project = projects.find(p => p.id === id);
+                const project = projects.find(p => String(p.id) === String(id));
 
                 if (!project) {
                     console.error("[Dashboard] Project ID not found in returned list:", id);
@@ -413,9 +414,14 @@
                 };
                 console.log(`[Dashboard] Saving projectInfo to localStorage:`, projInfo);
                 localStorage.setItem('projectInfo', JSON.stringify(projInfo));
+                // Clear sessionStorage to ensure visualization pulls from localStorage
+                sessionStorage.removeItem('roomData');
+                sessionStorage.removeItem('projectInfo');
 
                 console.log("[Dashboard] Redirecting to visualization.html now.");
-                window.location.href = 'visualization.html';
+                setTimeout(() => {
+                    window.location.href = 'visualization.html?t=' + Date.now();
+                }, 100);
 
             } catch (err) {
                 console.error("[Dashboard] Exception inside loadProject:", err);
