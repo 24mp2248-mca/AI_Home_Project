@@ -337,34 +337,89 @@
         }
 
         async function loadProject(id) {
+            console.log(`[Dashboard] Attempting to load project ${id}...`);
             const token = localStorage.getItem('token');
-            if (!token) return;
+            if (!token) {
+                console.warn("[Dashboard] No Auth Token found. Redirecting to login.");
+                return window.location.href = 'login.html';
+            }
 
             try {
                 const res = await fetch(`${API_URL}/projects/`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+                if (!res.ok) {
+                    throw new Error(`[Dashboard] Failed to fetch projects: ${res.status}`);
+                }
                 const projects = await res.json();
                 const project = projects.find(p => p.id === id);
 
-                if (project && project.data) {
-                    const layoutData = project.data;
-                    if (layoutData.rooms) {
-                        localStorage.setItem('roomData', JSON.stringify(layoutData.rooms));
-                    }
-                    const projInfo = {
-                        filename: project.name,
-                        timestamp: layoutData.timestamp || new Date().toISOString(),
-                        processed_image_url: layoutData.processed_image_url || ''
-                    };
-                    localStorage.setItem('projectInfo', JSON.stringify(projInfo));
-                    window.location.href = 'visualization.html';
-                } else {
-                    alert("Project data not found!");
+                if (!project) {
+                    console.error("[Dashboard] Project ID not found in returned list:", id);
+                    alert("Project not found!");
+                    return;
                 }
+
+                console.log(`[Dashboard] Found Project Data for ID ${id}:`, project);
+
+                let layoutData = project.data;
+                console.log(`[Dashboard] Raw project.data type:`, typeof layoutData);
+
+                if (typeof layoutData === 'string') {
+                    try {
+                        console.log(`[Dashboard] project.data is string, parsing JSON...`);
+                        // Some endpoints might double stringify or escape quotes.
+                        layoutData = layoutData.replace(/\\"/g, '"');
+                        if (layoutData.startsWith('"') && layoutData.endsWith('"')) {
+                            layoutData = layoutData.substring(1, layoutData.length - 1);
+                        }
+                        layoutData = JSON.parse(layoutData);
+                        console.log(`[Dashboard] First parse result type:`, typeof layoutData);
+
+                        // Handle double stringification
+                        if (typeof layoutData === 'string') {
+                            layoutData = JSON.parse(layoutData);
+                            console.log(`[Dashboard] Second parse result type:`, typeof layoutData);
+                        }
+                    } catch (e) {
+                        console.error("[Dashboard] Fatal error parsing project data:", e);
+                        alert("Project data is corrupted and cannot be parsed.");
+                        return;
+                    }
+                }
+
+                if (!layoutData) {
+                    console.warn("[Dashboard] Project data is empty or null.");
+                    layoutData = {};
+                }
+
+                console.log(`[Dashboard] Final Parsed Layout Data:`, layoutData);
+
+                if (layoutData.rooms) {
+                    console.log(`[Dashboard] Saving ${layoutData.rooms.length} rooms to localStorage.`);
+                    localStorage.setItem('roomData', JSON.stringify(layoutData.rooms));
+                } else {
+                    console.warn(`[Dashboard] No 'rooms' array found in layoutData! Setting empty array.`);
+                    localStorage.setItem('roomData', '[]');
+                }
+
+                const projInfo = {
+                    filename: project.name || `Project_${id}`,
+                    timestamp: layoutData.timestamp || new Date().toISOString(),
+                    processed_image_url: layoutData.processed_image_url || '',
+                    total_area: layoutData.total_area || 0,
+                    estimated_cost: layoutData.estimated_cost || 0,
+                    room_count: layoutData.rooms ? layoutData.rooms.length : 0
+                };
+                console.log(`[Dashboard] Saving projectInfo to localStorage:`, projInfo);
+                localStorage.setItem('projectInfo', JSON.stringify(projInfo));
+
+                console.log("[Dashboard] Redirecting to visualization.html now.");
+                window.location.href = 'visualization.html';
+
             } catch (err) {
-                console.error(err);
-                alert("Failed to load project");
+                console.error("[Dashboard] Exception inside loadProject:", err);
+                alert("Failed to load project due to a runtime error.");
             }
         }
 
