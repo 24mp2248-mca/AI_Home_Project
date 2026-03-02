@@ -2109,3 +2109,108 @@ Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_6ff0
 [2026-03-01 21:45:17.641822] ML Prediction Error: name 'features' is not defined
 [2026-03-01 21:45:17.642743] Sending success response
 [2026-03-01 21:45:17.644948] Temporary layout files cleaned up.
+[2026-03-02 18:17:13.723730] --- START UPLOAD: sample.png ---
+[2026-03-02 18:17:13.739863] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\0bdfde76599c4be397d3cdefe1db28b9_sample.png
+[2026-03-02 18:17:13.743105] Falling back to OpenCV Preprocessing...
+[2026-03-02 18:17:13.926449] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\0bdfde76599c4be397d3cdefe1db28b9_sample.png
+[2026-03-02 18:17:13.927836] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_0bdfde76599c4be397d3cdefe1db28b9.json
+[2026-03-02 18:17:13.928557] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_0bdfde76599c4be397d3cdefe1db28b9.json
+[2026-03-02 18:17:13.929582] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\0bdfde76599c4be397d3cdefe1db28b9_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_0bdfde76599c4be397d3cdefe1db28b9.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\0bdfde76599c4be397d3cdefe1db28b9_sample.png']
+[2026-03-02 18:17:36.665625] Extraction STDOUT: WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_0bdfde76599c4be397d3cdefe1db28b9.json
+
+[2026-03-02 18:17:36.674980] Layout extracted: 3 rooms
+[2026-03-02 18:17:36.676145] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_0bdfde76599c4be397d3cdefe1db28b9.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_0bdfde76599c4be397d3cdefe1db28b9.json']
+[2026-03-02 18:17:36.830228] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_0bdfde76599c4be397d3cdefe1db28b9.json
+
+[2026-03-02 18:17:36.850145] 3D layout generated successfully
+[2026-03-02 18:17:36.852828] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-03-02 18:17:36.854591] ML Prediction Error: name 'features' is not defined
+[2026-03-02 18:17:36.856161] Sending success response
+[2026-03-02 18:17:36.858985] Temporary layout files cleaned up.
+[2026-03-02 18:17:36.864460] --- START UPLOAD: sample.png ---
+[2026-03-02 18:17:36.869759] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\5e3065b05f484c30b1e934285ed0cc6e_sample.png
+[2026-03-02 18:17:36.872245] Falling back to OpenCV Preprocessing...
+[2026-03-02 18:17:36.996991] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\5e3065b05f484c30b1e934285ed0cc6e_sample.png
+[2026-03-02 18:17:37.001308] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_5e3065b05f484c30b1e934285ed0cc6e.json
+[2026-03-02 18:17:37.003068] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_5e3065b05f484c30b1e934285ed0cc6e.json
+[2026-03-02 18:17:37.004398] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\5e3065b05f484c30b1e934285ed0cc6e_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5e3065b05f484c30b1e934285ed0cc6e.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\5e3065b05f484c30b1e934285ed0cc6e_sample.png']
+[2026-03-02 18:17:43.660072] Extraction STDOUT: WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_5e3065b05f484c30b1e934285ed0cc6e.json
+
+[2026-03-02 18:17:43.661279] Layout extracted: 3 rooms
+[2026-03-02 18:17:43.662055] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_5e3065b05f484c30b1e934285ed0cc6e.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_5e3065b05f484c30b1e934285ed0cc6e.json']
+[2026-03-02 18:17:43.762504] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_5e3065b05f484c30b1e934285ed0cc6e.json
+
+[2026-03-02 18:17:43.766637] 3D layout generated successfully
+[2026-03-02 18:17:43.768623] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-03-02 18:17:43.769992] ML Prediction Error: name 'features' is not defined
+[2026-03-02 18:17:43.771292] Sending success response
+[2026-03-02 18:17:43.773493] Temporary layout files cleaned up.
+[2026-03-02 18:18:03.890107] --- START UPLOAD: home.png ---
+[2026-03-02 18:18:03.895626] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\e2d3e2b2041148bdbc19506679f394c4_home.png
+[2026-03-02 18:18:03.899494] Falling back to OpenCV Preprocessing...
+[2026-03-02 18:18:04.105132] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\e2d3e2b2041148bdbc19506679f394c4_home.png
+[2026-03-02 18:18:04.107242] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_e2d3e2b2041148bdbc19506679f394c4.json
+[2026-03-02 18:18:04.108692] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_e2d3e2b2041148bdbc19506679f394c4.json
+[2026-03-02 18:18:04.110214] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\e2d3e2b2041148bdbc19506679f394c4_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_e2d3e2b2041148bdbc19506679f394c4.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\e2d3e2b2041148bdbc19506679f394c4_home.png']
+[2026-03-02 18:18:26.244771] Extraction STDOUT: WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_e2d3e2b2041148bdbc19506679f394c4.json
+
+[2026-03-02 18:18:26.246561] Layout extracted: 7 rooms
+[2026-03-02 18:18:26.248086] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_e2d3e2b2041148bdbc19506679f394c4.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_e2d3e2b2041148bdbc19506679f394c4.json']
+[2026-03-02 18:18:26.369634] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_e2d3e2b2041148bdbc19506679f394c4.json
+
+[2026-03-02 18:18:26.387670] 3D layout generated successfully
+[2026-03-02 18:18:26.389376] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-03-02 18:18:26.390881] ML Prediction Error: name 'features' is not defined
+[2026-03-02 18:18:26.391859] Sending success response
+[2026-03-02 18:18:26.394165] Temporary layout files cleaned up.
+[2026-03-02 18:49:25.904478] --- START UPLOAD: home.png ---
+[2026-03-02 18:49:25.920310] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\08fe60eebd734517b56ba0348cb1eaa2_home.png
+[2026-03-02 18:49:25.922654] Falling back to OpenCV Preprocessing...
+[2026-03-02 18:49:26.110572] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\08fe60eebd734517b56ba0348cb1eaa2_home.png
+[2026-03-02 18:49:26.113179] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_08fe60eebd734517b56ba0348cb1eaa2.json
+[2026-03-02 18:49:26.114519] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_08fe60eebd734517b56ba0348cb1eaa2.json
+[2026-03-02 18:49:26.115983] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\08fe60eebd734517b56ba0348cb1eaa2_home.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_08fe60eebd734517b56ba0348cb1eaa2.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\08fe60eebd734517b56ba0348cb1eaa2_home.png']
+[2026-03-02 18:49:31.985123] Extraction STDOUT: WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.
+DEBUG: Found 38 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_08fe60eebd734517b56ba0348cb1eaa2.json
+
+[2026-03-02 18:49:31.988201] Layout extracted: 7 rooms
+[2026-03-02 18:49:31.990062] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_08fe60eebd734517b56ba0348cb1eaa2.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_08fe60eebd734517b56ba0348cb1eaa2.json']
+[2026-03-02 18:49:32.136248] 3D Gen STDOUT: 3D layout generation completed. House size (m): 3.85 x 3.94, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_08fe60eebd734517b56ba0348cb1eaa2.json
+
+[2026-03-02 18:49:32.146997] 3D layout generated successfully
+[2026-03-02 18:49:32.149728] Area Check: Raw=20.52, MinExpected=105, Used=105.00
+[2026-03-02 18:49:32.151627] ML Prediction Error: name 'features' is not defined
+[2026-03-02 18:49:32.153284] Sending success response
+[2026-03-02 18:49:32.158338] Temporary layout files cleaned up.
+[2026-03-02 18:50:50.647490] --- START UPLOAD: sample.png ---
+[2026-03-02 18:50:50.650117] Saved upload to: C:\lekshmi\AI_Home_Project\uploads\ef6b45f82fbd47559f0e80a5656b8c7f_sample.png
+[2026-03-02 18:50:50.653215] Falling back to OpenCV Preprocessing...
+[2026-03-02 18:50:50.759879] Preprocessed image (OpenCV) to: C:\lekshmi\AI_Home_Project\processed\ef6b45f82fbd47559f0e80a5656b8c7f_sample.png
+[2026-03-02 18:50:50.761041] Layout Path: C:\lekshmi\AI_Home_Project\temp_layout_ef6b45f82fbd47559f0e80a5656b8c7f.json
+[2026-03-02 18:50:50.761818] Layout 3D Path: C:\lekshmi\AI_Home_Project\temp_layout_3d_ef6b45f82fbd47559f0e80a5656b8c7f.json
+[2026-03-02 18:50:50.763125] Running Extraction: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_extraction.py', 'C:\\lekshmi\\AI_Home_Project\\processed\\ef6b45f82fbd47559f0e80a5656b8c7f_sample.png', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_ef6b45f82fbd47559f0e80a5656b8c7f.json', 'C:\\lekshmi\\AI_Home_Project\\uploads\\ef6b45f82fbd47559f0e80a5656b8c7f_sample.png']
+[2026-03-02 18:50:56.672684] Extraction STDOUT: WARNING: No GEMINI_API_KEY found. Room recognition will be heuristic.
+DEBUG: Found 10 contours.
+Applying heuristics to unknown rooms...
+Layout extraction completed. Output: C:\lekshmi\AI_Home_Project\temp_layout_ef6b45f82fbd47559f0e80a5656b8c7f.json
+
+[2026-03-02 18:50:56.674562] Layout extracted: 3 rooms
+[2026-03-02 18:50:56.676085] Running 3D Gen: ['C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\lekshmi\\AI_Home_Project\\layout_to_3d.py', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_ef6b45f82fbd47559f0e80a5656b8c7f.json', 'C:\\lekshmi\\AI_Home_Project\\temp_layout_3d_ef6b45f82fbd47559f0e80a5656b8c7f.json']
+[2026-03-02 18:50:56.806601] 3D Gen STDOUT: 3D layout generation completed. House size (m): 6.57 x 2.71, Output: C:\lekshmi\AI_Home_Project\temp_layout_3d_ef6b45f82fbd47559f0e80a5656b8c7f.json
+
+[2026-03-02 18:50:56.828876] 3D layout generated successfully
+[2026-03-02 18:50:56.830033] Area Check: Raw=22.39, MinExpected=45, Used=45.00
+[2026-03-02 18:50:56.831186] ML Prediction Error: name 'features' is not defined
+[2026-03-02 18:50:56.832828] Sending success response
+[2026-03-02 18:50:56.835751] Temporary layout files cleaned up.

@@ -3,168 +3,570 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>AI Home Planner - Transform Sketches into 3D Models</title>
+  <title>AI Home Planner - Premium 3D Models</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <style>
+    :root {
+      --bg-color: #050505;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-light: rgba(255, 255, 255, 0.15);
+      --primary: #8b5cf6;
+      --primary-glow: rgba(139, 92, 246, 0.5);
+      --secondary: #d946ef;
+      --accent: #0ea5e9;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
-
-    /* Include Lucide Icons */
-    @import url('https://unpkg.com/lucide@latest/dist/lucide.css');
 
     body {
       min-height: 100vh;
-      background: #0a0a0a;
-      color: #fff;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       overflow-x: hidden;
-      position: relative;
+      line-height: 1.6;
     }
 
-    /* Animated Background */
-    .bg-gradient {
+    /* Animated Mesh Gradient Background */
+    .bg-animation {
       position: fixed;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
-      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
       overflow: hidden;
+      background: #000;
     }
 
-    .bg-gradient::before {
-      content: '';
+    .blob {
       position: absolute;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
-      top: -400px;
-      right: -200px;
-      animation: pulse 8s ease-in-out infinite;
+      filter: blur(90px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: float 20s infinite ease-in-out alternate;
     }
 
-    .bg-gradient::after {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(118, 75, 162, 0.15) 0%, transparent 70%);
-      bottom: -300px;
-      left: -200px;
-      animation: pulse 6s ease-in-out infinite;
-      animation-delay: 2s;
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      animation-delay: 0s;
     }
 
-    .bg-orb {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 60%);
-      border-radius: 50%;
-      top: 50%;
+    .blob-2 {
+      bottom: -10%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      top: 40%;
       left: 50%;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      animation-delay: -10s;
       transform: translate(-50%, -50%);
-      animation: rotate 20s linear infinite;
     }
 
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.5;
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
       }
 
       50% {
-        transform: scale(1.3);
-        opacity: 0.8;
+        transform: translate(5%, 5%) scale(1.1);
+      }
+
+      100% {
+        transform: translate(-5%, -10%) scale(0.95);
       }
     }
 
-    @keyframes rotate {
-      from {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-
-      to {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
+    /* Glassmorphism Utilities */
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      border-radius: 24px;
     }
 
-    /* Container */
+    .glass-panel:hover {
+      border-color: var(--glass-border-light);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    /* Layout */
     .container {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
+      position: relative;
     }
 
     /* Header */
     header {
-      padding: 30px 0;
+      padding: 32px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      animation: fadeInDown 1s ease-out;
     }
 
     .logo {
       font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
     }
 
     .logo-icon {
       font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
     nav {
       display: flex;
-      gap: 30px;
+      gap: 32px;
       align-items: center;
     }
 
     nav a {
-      color: #b0b0b0;
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     nav a:hover {
-      color: #fff;
+      color: var(--text-main);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    nav a:hover::after {
+      width: 100%;
     }
 
     .nav-btn {
-      padding: 10px 24px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #fff;
+      padding: 12px 28px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-weight: 600;
       cursor: pointer;
+      backdrop-filter: blur(10px);
       transition: all 0.3s ease;
     }
 
     .nav-btn:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: var(--glass-border-light);
+      transform: translateY(-2px);
     }
 
-    /* Hero Section */
+    .nav-btn::after {
+      display: none;
+    }
+
+    /* Hero */
     .hero {
       text-align: center;
-      padding: 80px 0 60px;
-      animation: fadeInUp 0.8s ease-out;
+      padding: 120px 0 80px;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 24px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 30px;
+      color: #c4b5fd;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 32px;
+      animation: fadeIn 1s ease-out 0.2s backwards;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 4.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1.5px;
+      background: linear-gradient(to right, #fff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+
+    .hero-span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+      animation: fadeInUp 1s ease-out 0.6s backwards;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      animation: fadeInUp 1s ease-out 0.8s backwards;
+    }
+
+    .btn {
+      padding: 18px 40px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      box-shadow: 0 10px 30px -10px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 40px -10px var(--primary-glow);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-secondary {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--glass-border-light);
+      transform: translateY(-4px);
+    }
+
+    /* Cinematic Preview */
+    .preview-section {
+      margin: 80px 0;
+      perspective: 1000px;
+      animation: fadeIn 1.2s ease-out 1s backwards;
+    }
+
+    .preview-container {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      transform: rotateX(5deg) scale(0.95);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px 0 rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      aspect-ratio: 16/9;
+      background: linear-gradient(to bottom right, rgba(139, 92, 246, 0.1), rgba(217, 70, 239, 0.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-section:hover .preview-container {
+      transform: rotateX(0) scale(1);
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9), 0 0 60px 0 rgba(139, 92, 246, 0.4);
+    }
+
+    .preview-icon {
+      font-size: 5rem;
+      filter: drop-shadow(0 0 20px var(--primary));
+      animation: pulse 2s infinite;
+    }
+
+    /* Features Grid */
+    .features {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-header h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      padding: 40px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #c4b5fd;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* How It Works Steps */
+    .steps-container {
+      padding: 100px 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .step-number {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-color), #1a1a1a);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      position: relative;
+      color: white;
+    }
+
+    .step-number::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      bottom: -2px;
+      left: -2px;
+      z-index: -1;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .step-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .step-card p {
+      color: var(--text-muted);
+    }
+
+    /* Call to Action */
+    .cta-section {
+      padding: 120px 0;
+      text-align: center;
+    }
+
+    .cta-box {
+      padding: 80px 40px;
+      background: linear-gradient(to right, rgba(139, 92, 246, 0.05), rgba(217, 70, 239, 0.05));
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .cta-box h2 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .cta-box p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid var(--glass-border);
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes fadeInUp {
@@ -179,343 +581,60 @@
       }
     }
 
-    .hero-badge {
-      display: inline-block;
-      padding: 8px 20px;
-      background: rgba(102, 126, 234, 0.1);
-      border: 1px solid rgba(102, 126, 234, 0.3);
-      border-radius: 20px;
-      color: #667eea;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.8s ease-out 0.2s backwards;
-    }
-
-    h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeInUp 0.8s ease-out 0.3s backwards;
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      color: #b0b0b0;
-      max-width: 600px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-      animation: fadeInUp 0.8s ease-out 0.4s backwards;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s ease-out 0.5s backwards;
-    }
-
-    .btn {
-      padding: 16px 32px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.5s ease, height 0.5s ease;
-    }
-
-    .btn-primary:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Preview Section */
-    .preview {
-      margin: 60px 0;
-      animation: fadeInUp 0.8s ease-out 0.6s backwards;
-    }
-
-    .preview-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .preview-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.5), rgba(118, 75, 162, 0.5));
-      border-radius: 24px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .preview-card:hover::before {
-      opacity: 1;
-    }
-
-    .preview-image {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Features Section */
-    .features {
-      padding: 80px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .section-title p {
-      font-size: 1.1rem;
-      color: #b0b0b0;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .feature-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 32px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(102, 126, 234, 0.5);
-      box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
-    }
-
-    .feature-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(102, 126, 234, 0.2);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      color: #fff;
-    }
-
-    .feature-card p {
-      color: #b0b0b0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* How It Works */
-    .how-it-works {
-      padding: 80px 0;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      margin-top: 60px;
-    }
-
-    .step {
-      text-align: center;
-      position: relative;
-    }
-
-    .step-number {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-    }
-
-    .step h3 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-    }
-
-    .step p {
-      color: #b0b0b0;
-      font-size: 0.95rem;
-    }
-
-    /* CTA Section */
-    .cta-section {
-      padding: 80px 0;
-      text-align: center;
-    }
-
-    .cta-box {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 60px 40px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    }
-
-    .cta-box h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .cta-box p {
-      font-size: 1.1rem;
-      color: #b0b0b0;
-      margin-bottom: 32px;
-    }
-
-    /* Footer */
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      text-align: center;
-      color: #808080;
-      font-size: 0.9rem;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .footer-links a {
-      color: #b0b0b0;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: #667eea;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
       }
 
-      .hero p {
-        font-size: 1.1rem;
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px var(--primary));
+      }
+
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 35px var(--secondary));
+      }
+
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px var(--primary));
+      }
+    }
+
+    /* Standard lucide icon sizes inside components */
+    .lucide {
+      width: 28px;
+      height: 28px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      .cta-box h2 {
+        font-size: 2.5rem;
       }
 
       .cta-group {
         flex-direction: column;
       }
 
-      .btn {
-        width: 100%;
-      }
-
       nav {
         display: none;
       }
 
-      .features-grid,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title h2 {
-        font-size: 2rem;
-      }
-
-      .cta-box h2 {
-        font-size: 2rem;
+      .blob {
+        display: none;
       }
     }
   </style>
@@ -523,133 +642,150 @@
 
 <body>
 
-  <div class="bg-gradient">
-    <div class="bg-orb"></div>
+  <!-- Abstract Animated Backdrop -->
+  <div class="bg-animation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
   </div>
 
   <div class="container">
     <header>
-      <a href="index.html" class="logo" style="text-decoration: none;">
-        <span class="logo-icon">🏠</span>
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i data-lucide="hexagon"></i></span>
         AI Home Planner
       </a>
       <nav>
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Capabilities</a>
+        <a href="#how-it-works">Process</a>
         <a href="login.html" class="nav-btn">Sign In</a>
       </nav>
     </header>
 
     <section class="hero">
-      <div class="hero-badge">✨ Powered by Deep Learning & Computer Vision</div>
-      <h1>Transform Hand-Drawn<br>Sketches into 3D Homes</h1>
-      <p>Upload your floor plan sketch and watch AI convert it into a stunning 3D model with cost estimates in minutes.
-      </p>
+      <div class="badge">
+        <i data-lucide="sparkles" style="width:16px;height:16px;margin-right:8px;"></i>
+        Next-Gen Architectural AI
+      </div>
+      <h1>Bring your ideas to life <br>in <span class="hero-span">Immersive 3D</span></h1>
+      <p>Upload a simple floor plan sketch and let our deep learning engine instantly convert it into a photorealistic,
+        fully navigable 3D world complete with styling and cost estimations.</p>
+
       <div class="cta-group">
-        <a href="upload.html" class="btn btn-primary" id="main-cta">Start Your Free Trial</a>
-        <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+        <a href="upload.html" class="btn btn-primary" id="main-cta">
+          Start Processing Free
+          <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+        </a>
+        <a href="#features" class="btn btn-secondary">Explore Features</a>
       </div>
     </section>
 
-    <section class="preview">
-      <div class="preview-card">
-        <div class="preview-image">
-          <i data-lucide="box" style="width: 80px; height: 80px; color: #667eea;"></i>
-        </div>
+    <section class="preview-section">
+      <div class="preview-container">
+        <!-- Visual placeholder for dramatic effect -->
+        <i data-lucide="box" class="preview-icon"></i>
       </div>
     </section>
 
     <section class="features" id="features">
-      <div class="section-title">
-        <h2>Powerful AI-Driven Features</h2>
-        <p>Everything you need to bring your home designs to life</p>
+      <div class="section-header">
+        <h2>Unrivaled Capabilities</h2>
+        <p>A complete suite of tools to revolutionize your design workflow.</p>
       </div>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="pen-tool"></i></div>
-          <h3>Sketch Recognition</h3>
-          <p>Advanced OpenCV preprocessing accurately interprets hand-drawn floor plans and blueprints.</p>
+
+      <div class="grid-3">
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="scan-line"></i></div>
+          <h3>Precise Recognition</h3>
+          <p>Our custom OpenCV and U-Net models accurately extract room details, walls, and doors from even the roughest
+            hand-drawn sketches.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="brain"></i></div>
-          <h3>Deep Learning AI</h3>
-          <p>U-Net segmentation model trained on thousands of architectural layouts for precise room detection.</p>
+
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="box"></i></div>
+          <h3>Cinematic 3D</h3>
+          <p>Experience real-time rendering with physically-based materials, dynamic daylighting, and sophisticated
+            post-processing shadows.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="box"></i></div>
-          <h3>3D Reconstruction</h3>
-          <p>Instantly generates interactive 3D models from 2D sketches with accurate dimensions and layouts.</p>
+
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="wallet"></i></div>
+          <h3>Smart Economics</h3>
+          <p>Receive instant, itemized cost breakdowns by room and material with dynamic AI-powered market analysis.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="dollar-sign"></i></div>
-          <h3>Cost Estimation</h3>
-          <p>AI-powered pricing analysis provides detailed construction cost breakdowns by room and material.</p>
+
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="bot"></i></div>
+          <h3>Intelligent Assistant</h3>
+          <p>Converse with an integrated architectural AI capable of modifying colors, adding furniture, and providing
+            expert advice.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="bot"></i></div>
-          <h3>AI Chatbot</h3>
-          <p>AI-powered chatbot provides detailed information about the construction process and materials.</p>
+
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="palette"></i></div>
+          <h3>Style Transfer</h3>
+          <p>Instantly alternate between architectural visual themes—from Rustic wooden cabins to Sleek modern
+            minimalism.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="palette"></i></div>
-          <h3>Custom Styling</h3>
-          <p>Apply different architectural styles, materials, and color schemes to your 3D model.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><i data-lucide="bar-chart-2"></i></div>
-          <h3>Analytics Dashboard</h3>
-          <p>Track space utilization, energy efficiency, and get smart recommendations for optimization.</p>
+
+        <div class="feature-card glass-panel">
+          <div class="feature-icon-wrapper"><i data-lucide="shield-check"></i></div>
+          <h3>Robust Analytics</h3>
+          <p>Examine space utilization metrics and spatial efficiency scores directly integrated into your project
+            dashboard.</p>
         </div>
       </div>
     </section>
 
-    <section class="how-it-works" id="how-it-works">
-      <div class="section-title">
-        <h2>How It Works</h2>
-        <p>From sketch to 3D model in five simple steps</p>
+    <section class="steps-container" id="how-it-works">
+      <div class="section-header">
+        <h2>The Process</h2>
+        <p>Four effortless steps from concept to reality.</p>
       </div>
+
       <div class="steps">
-        <div class="step">
+        <div class="step-card glass-panel">
           <div class="step-number">1</div>
-          <h3>Upload Your Sketch</h3>
-          <p>Draw your floor plan by hand or upload an existing blueprint. We support JPG, PNG, and PDF formats.</p>
+          <h3>Capture & Upload</h3>
+          <p>Sketch your vision on paper, snap a photo, and securely upload it to your dashboard.</p>
         </div>
-        <div class="step">
+        <div class="step-card glass-panel">
           <div class="step-number">2</div>
-          <h3>OpenCV Preprocessing</h3>
-          <p>Our OpenCV preprocessing model analyzes your sketch, identifies rooms, doors, and windows with high
-            accuracy.</p>
+          <h3>Neural Analysis</h3>
+          <p>The AI isolates structure and boundaries, predicting room classification and scale.</p>
         </div>
-        <div class="step">
+        <div class="step-card glass-panel">
           <div class="step-number">3</div>
-          <h3>3D Generation</h3>
-          <p>Watch as your 2D sketch transforms into an interactive 3D model you can explore from any angle.</p>
+          <h3>Procedural Generation</h3>
+          <p>Your 2D map is extruded into a highly detailed 3D structure in mere seconds.</p>
         </div>
-        <div class="step">
+        <div class="step-card glass-panel">
           <div class="step-number">4</div>
-          <h3>Cost Estimation</h3>
-          <p>Receive detailed cost estimates, material recommendations, and optimization suggestions from AI.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">5</div>
-          <h3>AI Chatbot</h3>
-          <p>Get instant answers about the construction process, materials, and design choices from our AI assistant.
-          </p>
+          <h3>Explore & Iterate</h3>
+          <p>Walk inside, customize materials, consult the AI, and export production-ready reports.</p>
         </div>
       </div>
     </section>
 
-
+    <section class="cta-section">
+      <div class="cta-box glass-panel">
+        <h2>Ready to build the future?</h2>
+        <p>Join thousands of architects, students, and home owners leveraging AI to build better spaces.</p>
+        <a href="upload.html" class="btn btn-primary" style="margin-top: 16px;">
+          Create Your First Project
+        </a>
+      </div>
+    </section>
 
     <footer>
       <div class="footer-links">
         <a href="#">About</a>
         <a href="#">Documentation</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
         <a href="#">Contact</a>
       </div>
-      <p>&copy; 2026 AI Home Planner. All rights reserved.</p>
+      <p>&copy; 2026 AI Home Planner. Engineered with precision.</p>
     </footer>
   </div>
 
@@ -660,7 +796,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const token = localStorage.getItem('token');
       const navBtn = document.querySelector('.nav-btn');
-      if (token) {
+      if (token && navBtn) {
         navBtn.textContent = 'Dashboard';
         navBtn.href = 'dashboard.html';
         const mainCta = document.getElementById('main-cta');

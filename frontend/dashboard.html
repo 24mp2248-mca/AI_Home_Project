@@ -3,63 +3,257 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>AI Home Planner - Dashboard</title>
+    <title>Dashboard | AI Home Planner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --bg-color: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary: #8b5cf6;
+            --secondary: #d946ef;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(217, 70, 239, 0.1), transparent 50%);
+            filter: blur(80px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-main);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
-            margin-top: 40px;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
             padding: 24px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-6px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 160px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .project-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
         .project-card h3 {
-            margin-bottom: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
             color: #fff;
         }
 
         .project-meta {
-            color: #b0b0b0;
+            color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .card-actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--glass-bg);
+            border: 1px dashed var(--glass-border);
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            color: var(--primary);
+            opacity: 0.7;
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-gradient">
-        <div class="bg-orb"></div>
-    </div>
+    <div class="bg-gradient"></div>
 
     <div class="container">
         <header>
-            <a href="index.html" class="logo" style="text-decoration: none;">
-                <span class="logo-icon">🏠</span>
-                Dashboard
+            <a href="index.html" class="logo">
+                <i data-lucide="hexagon"></i>
+                AI Planner Dashboard
             </a>
             <nav>
-                <a href="upload.html" class="nav-btn">+ New Project</a>
-                <a href="#" onclick="logout()">Logout</a>
+                <a href="upload.html" class="btn btn-primary">
+                    <i data-lucide="plus"></i> New Project
+                </a>
+                <button onclick="logout()" class="btn btn-outline">Logout</button>
             </nav>
         </header>
 
-        <section class="hero" style="padding: 40px 0; text-align: left;">
-            <h1 id="welcome-msg" style="font-size: 2.5rem;">My Projects</h1>
+        <section class="hero">
+            <h1 id="welcome-msg">Your Spatial Portfolio</h1>
+            <p>Manage, review, and iterate on your AI generated architectures.</p>
         </section>
 
         <div class="dashboard-grid" id="project-list">
@@ -69,6 +263,7 @@
 
     <script src="config.js"></script>
     <script>
+        lucide.createIcons();
         const API_URL = CONFIG.API_URL;
 
         function logout() {
@@ -90,7 +285,7 @@
                 });
                 if (!userRes.ok) throw new Error('Auth failed');
                 const user = await userRes.json();
-                document.getElementById('welcome-msg').innerText = `Welcome, ${user.username}`;
+                document.getElementById('welcome-msg').innerText = `Welcome back, ${user.username}`;
 
                 // Get Projects
                 const projRes = await fetch(`${API_URL}/projects/`, {
@@ -99,18 +294,41 @@
                 const projects = await projRes.json();
 
                 const list = document.getElementById('project-list');
-                list.innerHTML = projects.length ? '' : '<p style="color:#b0b0b0">No projects yet. Start a new one!</p>';
 
+                if (projects.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <i data-lucide="folder-open"></i>
+                            <h3>No projects found</h3>
+                            <p style="margin-top: 8px;">Start by uploading a floor plan sketch.</p>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+
+                list.innerHTML = '';
                 projects.forEach(p => {
                     const card = document.createElement('div');
                     card.className = 'project-card';
                     card.innerHTML = `
+                        <div class="project-thumbnail">
+                            <i data-lucide="image" style="width: 32px; height: 32px; opacity: 0.5;"></i>
+                        </div>
                         <h3>${p.name}</h3>
-                        <div class="project-meta">ID: ${p.id}</div>
-                        <button class="btn btn-secondary" onclick="loadProject(${p.id})">Open 3D Model</button>
+                        <div class="project-meta">
+                            <i data-lucide="clock" style="width:14px;height:14px;"></i>
+                            ID: ${p.id}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" onclick="loadProject(${p.id})">
+                                <i data-lucide="box"></i> Open 3D
+                            </button>
+                        </div>
                     `;
                     list.appendChild(card);
                 });
+                lucide.createIcons();
 
             } catch (err) {
                 console.error(err);
@@ -123,20 +341,6 @@
             if (!token) return;
 
             try {
-                // 1. Fetch project details
-                // Note: We need an endpoint to get a single project, or we can find it in the list if we store it.
-                // For now, let's fetch the list again or finding it if we have it. 
-                // BETTER: Let's assume we can pass the data directly or fetch it.
-                // The current API /projects/ returns the full list with data.
-
-                // Let's iterate the 'projects' list we already fetched? 
-                // Actually, to be safe, let's just fetch the list again and find it, or simply pass the data object if we had it in memory.
-                // But efficient way: The projects list response contained the 'data' field.
-
-                // Let's refactor to fetch the specific project if we add a GET /projects/{id} endpoint, 
-                // but since we don't have that yet, let's find it in the DOM or re-fetch list.
-
-                // Simplest approach without changing backend: Re-fetch list and find by ID.
                 const res = await fetch(`${API_URL}/projects/`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -144,29 +348,16 @@
                 const project = projects.find(p => p.id === id);
 
                 if (project && project.data) {
-                    // 2. Store in localStorage (matching upload.html behavior)
-                    // The backend stores the 'data' dict which contains 'rooms' etc.
-
-                    // layout_3d_data structure from backend: { house: {}, rooms: [...] }
-                    // We need to map this to what 'visualization.html' expects.
-                    // visualization.html reads 'roomData' (rooms array) and 'projectInfo'.
-
-                    // user project.data usually contains the full JSON from layout_to_3d
-                    const layoutData = project.data; // This should be the 3D layout
-
+                    const layoutData = project.data;
                     if (layoutData.rooms) {
                         localStorage.setItem('roomData', JSON.stringify(layoutData.rooms));
                     }
-
-                    // Create project info
                     const projInfo = {
                         filename: project.name,
                         timestamp: layoutData.timestamp || new Date().toISOString(),
                         processed_image_url: layoutData.processed_image_url || ''
                     };
                     localStorage.setItem('projectInfo', JSON.stringify(projInfo));
-
-                    // 3. Redirect
                     window.location.href = 'visualization.html';
                 } else {
                     alert("Project data not found!");
