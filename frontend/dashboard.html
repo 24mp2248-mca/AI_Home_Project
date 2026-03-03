@@ -155,6 +155,7 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
 
         .project-card:hover {
@@ -265,6 +266,7 @@
     <script>
         lucide.createIcons();
         const API_URL = CONFIG.API_URL;
+        window.loadedProjects = [];
 
         function logout() {
             localStorage.removeItem('token');
@@ -292,6 +294,7 @@
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const projects = await projRes.json();
+                window.loadedProjects = projects;
 
                 const list = document.getElementById('project-list');
 
@@ -321,7 +324,7 @@
                             ID: ${p.id}
                         </div>
                         <div class="card-actions">
-                            <button type="button" class="btn btn-outline" onclick="loadProject(event, '${p.id}')">
+                            <button type="button" class="btn btn-outline open-3d-btn" data-id="${p.id}">
                                 <i data-lucide="box"></i> Open 3D
                             </button>
                         </div>
@@ -336,24 +339,11 @@
             }
         }
 
-        async function loadProject(event, id) {
-            if (event) event.preventDefault();
+        async function loadProject(id) {
             console.log(`[Dashboard] Attempting to load project ${id}...`);
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.warn("[Dashboard] No Auth Token found. Redirecting to login.");
-                return window.location.href = 'login.html';
-            }
 
             try {
-                const res = await fetch(`${API_URL}/projects/`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (!res.ok) {
-                    throw new Error(`[Dashboard] Failed to fetch projects: ${res.status}`);
-                }
-                const projects = await res.json();
-                const project = projects.find(p => String(p.id) === String(id));
+                const project = window.loadedProjects.find(p => String(p.id) === String(id));
 
                 if (!project) {
                     console.error("[Dashboard] Project ID not found in returned list:", id);
@@ -428,6 +418,17 @@
                 alert("Failed to load project due to a runtime error.");
             }
         }
+
+        document.getElementById('project-list').addEventListener('click', (e) => {
+            const btn = e.target.closest('.open-3d-btn');
+            if (btn) {
+                e.preventDefault();
+                const projectId = btn.getAttribute('data-id');
+                if (projectId) {
+                    loadProject(projectId);
+                }
+            }
+        });
 
         loadDashboard();
     </script>
