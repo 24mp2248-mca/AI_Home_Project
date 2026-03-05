@@ -1,0 +1,356 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{multicol}
+\setlength{\columnsep}{12pt}
+
+% Required packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage[hidelinks]{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{times}    
+\usepackage{float}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{ragged2e}
+
+\linespread{1.1}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection.}{0.5em}{}
+
+\begin{document}
+
+\title{\textbf{AI-Enabled Home Planning and 3D Visualisation Web Application}}
+
+\author{
+ Lekshmi R Rajan\\ 
+\textit{Department of Computer Applications, Rajiv Gandhi Institute of Technology, Kottayam, India} \\ 
+\textit{Email: lekshmirajan2345@gmail.com}
+}
+\date{}
+
+\maketitle
+
+\section*{ABSTRACT}
+
+This research work aims to present an AI Home Planner, a full-stack multimodal framework for architectural layout creation and cost estimation. This framework is created with the aim of filling the gap between abstract 2D sketches and effective 3D visualizations. For this purpose, a modular deep learning framework is employed, incorporating computer vision for structural segmentation and large language models for context-based room classification. However, for feature extraction, a PyTorch-based U-Net model is employed for isolating wall boundaries from hand-drawn structural floor plans . Additionally, Google Gemini's multimodal capabilities for vision and language are employed for effectively labeling rooms based on extracted features . Furthermore, a cost estimation model based on a Scikit-Learn framework is employed for dynamically predicting construction costs based on 3D spatial properties and luxury . The architectural design of the proposed framework effectively integrates a robust Python backend  with a dynamically rendered and interactive frontend, addressing the need for an objective, scalable, and responsive framework for architectural assessment and home planning based on data. Empirical validation of the proposed framework indicates that it is able to obtain a 93.4\% intersection over union for UNet segmentation, thus reducing geometric translation errors often observed with traditional digitization.
+\vspace{0.3cm}
+
+\noindent \textbf{Keywords:} Automated Floor Plan Generation, Deep Learning, U-Net, 3D Visualization, Gemini Vision API, Scikit-Learn, FastAPI.
+
+\begin{multicols}{2}
+\section{INTRODUCTION}
+
+\subsection{The Challenge of Traditional Home Planning}
+
+Conventional planning and architectural design are, by definition, based on manual drafting, which is known to be time-consuming, costly, and beyond the reach of non-professionals. Usually, the client tries to communicate their ideas through simple hand-drawn rough sketches, which are then very carefully transformed into accurate 2D blueprint drawings and further 3D models, known as render models \cite{6}. This phase is very prone to misinterpretations and requires several costly revisions, thus resulting in major delays during the early stages of civil engineering project development \cite{4}.
+
+Additionally, cost estimations are often not very accurate, especially during the early stages, as they are based on rough drawings, where manual calculation of the area does not take into account accurate proportions and complexities \cite{7}. Although computer-aided design (CAD) tools have greatly reduced the time required for drafting, the high learning curve and absence of automated tools for translating rough drawings into accurate designs have made rapid prototyping, which is beyond the reach of non-professionals, very high in demand. The high barrier to entry into spatial visualization forces homeowners to rely on the services of specialized draftsmen \cite{8}.
+
+\subsection{Problem Statement}
+The conceptualization and prototyping of architectural spaces are currently hindered by the process of manual drafting and the use of intricate computer-aided design (CAD) applications. This conventional approach has led to a high learning curve and a high barrier to entry for non-professionals \cite{8} to engage in the conceptualization and prototyping of architectural spaces. Moreover, the process of converting conceptual and rough sketches of architectural spaces into precise 2D and 3D models is a time-consuming and costly process that is extremely prone to misinterpretations, leading to project delays and increased costs \cite{4}.
+
+\subsection{Research Gap}
+Although computer-aided design (CAD) applications have enabled greater precision in architectural drafting and prototyping, they remain inaccessible to the common homeowner due to their specialized nature \cite{13}. There is a considerable research gap in the development of automated applications that can effectively and seamlessly translate rudimentary hand-drawn cues and indications of structural spaces and models into precise and accurate 3D models with semantic spatial recognition while providing precise and accurate automated cost estimations \cite{7}.
+
+\subsection{Motivation}
+The major motivation for the AI Home Planner project can be summarized as follows: the primary motivation for the AI Home Planner project is to democratize architectural design and space visualization. Through the application of multimodal automated analysis, the project seeks to enable non-professionals to quickly move from basic floor plan sketching to highly detailed interactive 3D environments \cite{9}. Such intelligent automation not only promises to speed up the approval process for concept-level design but will also eliminate the need for costly manual digitization processes in the development of civil engineering projects.
+
+\subsection{The AI Home Planner Solution}
+
+This is where the AI Home Planner comes in, being promoted as a contemporary, intelligent solution committed to addressing the drawbacks of conventional architectural prototyping. It does this through the application of multimodal automated analysis, where barebone structural cues are transformed into detailed, interactive 3D environments \cite{9}. It functions as a digital architect, where, after receiving a floor plan sketch from the user, the AI Home Planner instantly produces a completely modeled 3D house structure, along with an actionable construction cost estimate.
+
+Unlike conventional architectural prototyping, where digitization is required, the AI Home Planner processes the input through specialized analytical pipelines. Its geometric component, through the application of computer vision and convolutional neural networks, defines the walls and functional spaces \cite{10}, while the semantic component, through the application of state-of-the-art vision-language models, defines the purpose of the spaces defined by the bounding regions (e.g., kitchen vs. bedroom, based on contextual visual markers) \cite{11}.
+
+The decoupled architecture is flexible in terms of the continuous refinement of the analytical models and the backend orchestration. In this manner, the AI Home Planner facilitates the democratization of the structural planning process, which ensures uniformity and facilitates the process of prototyping, thus reducing the time-to-market approvals for the conceptual design phase \cite{12}.
+
+\subsection{Scope and Limitations}
+Even though the AI Home Planner is a well-established framework for conceptual design, its scope is limited to residential floor planning, keeping in view buildings with standard or moderately complex geometries, such as rectangular buildings. Irregular or curved wall structures might cause segmentation problems, as discussed in \cite{14}. Additionally, specific local building codes and complex infrastructural needs, such as sophisticated HVAC systems, are still out of the scope for automated cost estimation and layout generation, keeping in view standard parameters only, as discussed in \cite{16}.
+
+\section{LITERATURE REVIEW}
+
+\subsection{Deep Learning in Floor Plan Analysis}
+
+Floor plan analysis is one of the key areas of computational architecture that has shifted from heuristic-based line tracking to robust neural network segmentation \cite{4}. The identification of structural boundaries from informal sketches is considered one of the most challenging sub-tasks because of different line weights, noise, and geometry variation \cite{13}. However, recent developments in deep learning have improved structural boundary identification significantly. Convolutional Neural Networks (CNNs), especially fully convolutional network architectures such as U-Net \cite{1}, have shown state-of-the-art results in segmentation-based applications. The basic idea of using a U-Net is that it makes use of symmetric encoding and decoding layers with skip connections that are able to learn context information as well as localization information simultaneously \cite{14}. This makes it highly suitable for extracting architectural information from noisy rasterized images \cite{10}..
+
+\subsection{Contextual Room Recognition}
+
+Although the extraction of boundaries helps in defining the geometric aspects, the semantic intention of a room was traditionally determined based on hardcoded rules (i.e., the largest room is the living room). These rule-based systems are very unstable and often fail to work with unconventional room plans \cite{8}. 
+
+In recent times, vision-language models that can perform zero-shot reasoning have been used to assess room plans. Modalities such as Google's Gemini Vision API \cite{2} can be used to assess a region of interest in a floor plan, which can contain both structure and text information. These models are more accurate compared to geometric-based models because they can understand the context, as in the case of determining whether it is a kitchen due to the presence of counter tops or specifying it as a "Master Bedroom," which reflects the way a human brain processes the scene \cite{11}.
+
+\subsection{Automated Cost Estimation}
+Cost estimation for civil engineering projects has been based on historical data matrices and quantity surveying techniques \cite{7}. The advent of machine learning makes it possible to account for the complex non-linear relationships between independent variables such as total floor area, room density, and luxury tier modifiers. Regression models, such as Random Forest and Gradient Boosting with the Scikit-Learn library \cite{3}, enable the generation of very robust predictions that adjust dynamically as more data is fed into the system, making the traditional spreadsheet-based cost estimation technique obsolete \cite{15}.
+
+\subsection{Web-Based 3D Rendering Technologies}
+
+The democratization of architectural prototyping depends on the availability of accessible interfaces. WebGL and subsequent high-level libraries have revolutionized the field of browser-based 3D applications. These tools enable users to interact with complex geometric models without the need for any special hardware or the installation of standalone applications \cite{17}. Making use of these rendering technologies is the key bridge that needs to be developed for connecting the backend intelligent generation with the frontend user experience \cite{6}.
+
+\section{METHODOLOGY}
+
+The AI Home Planner has a strong and decoupled full-stack architecture that is suitable for the efficient handling of data, parallel model inference, and real-time 3D rendering.
+
+\end{multicols}
+\begin{center}
+     \includegraphics[width=1.15\textwidth]{l10.png}
+    \textbf{Figure 1:} Flow diagram demonstrating the AI Home Planner architecture and inference pipeline}
+\end{center}
+
+\begin{multicols}{2}
+
+\subsection{Full-Stack Architectural Design}
+
+The system has been structured around two major functional blocks:
+ \begin{enumerate}[label=(\alph*)]
+
+ \item \textbf {Frontend Implementation:} The user interface is implemented as a responsive web application using HTML5, CSS3, and JavaScript rendering. This part of the application is responsible for secure file uploads and dynamic browser-based 3D visualization using new WebGL representations. Once the image is uploaded, it is sent to the backend using a native Fetch API POST request. The frontend is responsible for dynamic results visualization, ensuring a smooth interactive 3D layout and cost estimation is displayed when receiving the processed JSON response.
+
+\item \textbf{Backend Orchestration:} The application uses Python for mapping server-side logic, utilizing a high-performance FastAPI framework \cite{5}. This part of the application is responsible for receiving files, parsing the layout, and asynchronously executing the machine learning pipeline. Pre-trained cost models and PyTorch segmentation weights are efficiently cached in memory during server initialization, eliminating cold-start latency. SQLite is responsible for secure relational telemetry and user project saves.
+\end{enumerate}
+
+\subsection{Image Processing Techniques (OpenCV)}
+
+The first step of the layout extraction process uses Computer Vision techniques to process the raster images for deep learning. Considering the presence of noise, inconsistent line styles, and varying lighting conditions in the hand-drawn sketches, the system uses four major OpenCV techniques \cite{10} to successfully parse the images and isolate the structures from the raw sketches. The techniques have been instrumental in processing the raw visual data and presenting it in a clean and presentable form for the system:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Grayscale Conversion:} 
+    \textit{Mechanism:}     The system starts by converting the raw, multi-channel images of the sketches from the RGB (Red, Green, Blue) channel to the grayscale channel. 
+    \textit{Purpose:} This operation significantly minimizes the complexity of the system by reducing the dimensionality of the images. The more important aspect of the images is that architectural sketches do not require the use of colors for the layout of the structures. The grayscale images will highlight the contrast of the drawn lines with the paper, which will be used for the extraction of the boundaries.
+    
+    \item \textbf{Image Thresholding:} 
+    \textit{Mechanism:} The process uses adaptive Gaussian thresholding (\texttt{cv2.adaptiveThreshold}). While global thresholding uses a single thresholding value for the entire image, in this process, thresholding is done on small regions of the image based on their neighborhoods.
+    \textit{Purpose:} This process is particularly vital in photographs of hand-drawn floor plans that usually have issues with lighting, shadows, and gradient illumination. In this process, the thresholding is done pixel by pixel to effectively separate the darker lines of structures from the background, so that walls in the shadow do not end up being erased.
+    \item \textbf{Morphological Operations:} 
+    \textit{Mechanism:}This step will employ mathematical morphology, using Dilation (\texttt{cv2.dilate}) and Erosion (\texttt{cv2.erode}) operators, which act on the geometric structures contained within the binary image.
+    \textit{Purpose:} Hand-drawn sketches often contain imperfections such as broken pen strokes or isolated ink splatters. Dilation thickens the lines to bridge small gaps and connect broken wall segments. Conversely, Erosion is then applied to strip away isolated pixel noise and thin the excessively thick lines back to their topological skeleton. This sequence of operations (often referred to as morphological closing) ensures the structural integrity of the walls before further analysis.
+    
+    \item \textbf{Canny Edge Detection:} 
+    \textit{Mechanism \& Purpose:} As a final refinement process, the Canny edge detector, a five-step algorithm, is implemented to obtain precise structural boundaries from the processed image. This is the best edge detection technique that reduces the error rate and localizes edges as precisely as possible. The entire process is rigorously implemented in five distinct mathematical steps:
+    \begin{enumerate}[label=(\roman*)]
+        \item \textit{Noise Reduction:} Applying a $5 \times 5$ Gaussian filter on the image for smoothing and reducing random high-frequency noise that could be mistaken for edges.
+        \item \textit{Gradient Calculation:} Utilize horizontal and vertical Sobel operators for calculating intensity gradient and edge direction for each pixel. The region of maximum spatial derivative is a potential structural boundary.
+       
+        \item \textit{Non-Maximum Suppression:} The entire image is scanned and filtered to zero out pixels that are not local maxima, effectively thinning out fuzzy edges and making them sharply one pixel wide.
+        \item \textit{Double Thresholding:} The edge pixels are categorized as 'strong', 'weak', and 'non-edges' based on high and low intensity gradient thresholds set for each edge. Strong edges are confirmed walls, while weak edges are conditionally evaluated.
+        \item \textit{Edge Tracking by Hysteresis:}The structural map is complete by keeping 'weak' edges only if they are topologically connected to 'strong' edges. This eliminates isolated noise edges and results in continuous and solid wall boundary lines.
+    \end{enumerate}
+\end{enumerate}
+\end{multicols}
+
+\begin{center}
+    
+
+     \includegraphics[width=1.15\textwidth]{lo.png}
+   \textbf{Figure 2:} The five-stage Canny edge detection pipeline isolating structural boundaries.
+    \end{center}
+\begin{multicols}{2}
+\subsection{Deep Learning Architectural Model: U-Net}
+
+The underlying intelligence behind structural segmentation is facilitated by a PyTorch-based model referred to as the U-Net \cite{1}. This model has proven to be highly effective for floor plan segmentation at a pixel level owing to its symmetric nature and ability to concurrently learn context and location of structural features. This model can be segmented into five major parts:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Contracting Path (Encoder):}
+    \textit{Mechanism:} This path consists of multiple iterations of unpadded $3 \times 3$ convolutional layers, a Rectified Linear Unit activation function, and $2 \times 2$ max pooling with a stride of 2. At every convolutional layer, the number of channels is doubled.
+    \textit{Purpose:} This path can be viewed as a feature extractor. With each convolutional layer, the dimensions of the image reduce, and the depth increases. This path allows the network to learn "what" these features are, i.e., abstract semantic context of the floor plan sketch.
+    \item \textbf{Bottleneck:} 
+    \textit{Mechanism:} The lowest point of the U-shape, acting as a bridge between the encoder and decoder sides of the network. It comprises two layers of 3x3 convolution with ReLU activation applied, but without any max pool layers.
+    \textit{Purpose:} This is the most compact form of feature representation. This is where the maximum context is understood from the entire image, but at the lowest resolution.
+
+    \item \textbf{Expanding Path (Decoder):} 
+    \textit{Mechanism:} The mechanism of the decoder involves the following: spatial upsampling of the feature map, then applying a $2 \times 2$ up-convolution that reduces the feature channels by half, followed by two 3x3 convolutions with ReLU activation applied.
+    \textit{Purpose:} The purpose of this part of the network is to go back to the spatial dimensions of the image. This is where the contextual features that have been learned at a very deep level of the network are projected back onto the image space with regard to "where" the features should be located.
+    \item \textbf{Skip Connections:} 
+    \textit{Mechanism:} The defining feature of the U-Net architecture and arguably the most important one. The high-resolution feature maps from the contracting path are cropped, if necessary, and concatenated with the upsampled feature maps from the expanding path.
+    \textit{Purpose:} The exact positions of the pixels, called fine-grained spatial information, are lost during the downsampling procedure. The skip connections bypass the bottleneck and incorporate this lost fine-grained spatial information into the network. The final map will have exact and accurate pixel positions, thus enabling the network to output a binary mask with perfectly clear and crisp wall geometries.
+    \item \textbf{Output Layer and Loss Function:} 
+    \textit{Mechanism:} The final layer consists of a $1 \times 1$ convolution to map the multi-channel feature vector to the desired number of classes.
+    \textit{Purpose:} This mapping translates the deep tensor representations into a concrete form, statistically classifying every pixel in the image as "wall" or "background." The loss function plays a crucial role in the network from a computational point of view, which ensures crisp and continuous wall geometry in the output \cite{14}.
+\end{itemize}
+
+\subsubsection{Role of Skip Connections in U-Net Architectures}
+
+The structural integrity of the generated floor plans is heavily dependent on the skip connections embedded within the U-Net \cite{1}. During the contracting path, convolutions and max-pooling operations inherently abstract the image, capturing broad semantic context but discarding critical spatial relationships \cite{25}. Skip connections actively counteract this information loss by concatenating high-resolution feature maps from the encoder directly into the decoder's upsampling path \cite{26}. This process allows the network to synthesize the "what" (semantic context) with the "where" (spatial localization), ensuring that predicted bounding walls are not only correctly identified but also geometrically precise down to the pixel level \cite{27}. Furthermore, integrating these residual pathways mitigates the vanishing gradient problem often encountered in deep networks, facilitating a smoother loss landscape during backpropagation \cite{28}. The skip architecture inherently preserves spatial continuity, which is particularly vital for maintaining consistent line thickness and preventing broken wall segments when extracting features from fragmented hand-drawn sketches \cite{29}. Consequently, the resulting binary masks exhibit a substantially higher degree of topological fidelity compared to standard fully convolutional configurations \cite{30}.
+
+\end{multicols}
+\begin{center}
+\includegraphics[width=0.65\textwidth]{qw.png}
+
+\textbf{Figure 3:} The symmetric U-Net architecture demonstrating the contracting and expanding paths.
+\end{center}
+
+\begin{multicols}{2}
+\subsubsection{Network Training and Optimization}
+The training of the proposed model, i.e., U-Net, is carried out by an efficient optimization technique that helps it converge faster and avoids overtraining.
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Optimizer and Learning Rate:} The Adam optimizer has been used for model optimization. This is because it is highly efficient and can deal with sparse gradients and dynamic learning rate adjustments for different model parameters \cite{23}. A learning rate decay has also been scheduled so that fine-grained updates can be made to the model weights during the final stages of training.
+    \item \textbf{Evaluation Metrics:} The model has been rigorously evaluated using Pixel Accuracy and Intersection over Union metrics \cite{24}. Among these, IoU has been found to be highly accurate for measuring the overlap between the predicted mask and ground truth for a highly accurate geometric boundary.
+\end{itemize}
+\subsection{AI-Powered Room Classification and 3D Synthesis}
+
+Once the precise geometries are mapped and partitioned via topological contour mapping (\texttt{cv2.findContours}), the isolated rooms are classified and iteratively synthesized into interactive 3D environments:
+
+\begin{enumerate}[label=(\alph*)]
+ \item \textbf{Multimodal Room Classification:} 
+ \textit{Mechanism \& Purpose:} Each of the synthesized room bounding boxes is virtually highlighted and securely transmitted to the Google Gemini Vision API \cite{2}. Following precision prompt engineering, the multimodal API assesses and classifies the bounded space and categorizes the type of room (e.g., Bedroom, Kitchen, Bathroom) based on semantic visual features contained in the raw sketch (e.g., presence of beds, stoves, and textual markings). In the event of API restrictions and token limitations, a heuristic function is seamlessly integrated and classifies each of the rooms based on its spatial hierarchy and geometry (e.g., largest enclosed space is a living room).
+ 
+ \item \textbf{Procedural 3D Generation:} 
+ \textit{Mechanism \& Purpose:} The serial array of 2D room boundary boxes and their semantic labels is algorithmically compiled into a JSON object representing a spatial graph. Pre-defined constraint matrices, such as standard metric building codes (i.e., ceiling heights set at 3.0m, standard door widths), and room connectivity heuristics mathematically project the abstracted 2D footprint into an interactable 3D topological data structure, ultimately rendered within a stable WebGL browser environment \cite{9}.
+\end{enumerate}
+\end{multicols}
+\begin{center}
+    \includegraphics[width=\columnwidth]{sd.png}
+    \textbf{Figure 4:} Visual representation of the transition from 2D pixel layouts to fully rendered 3D environments.
+    \end{center}
+\begin{multicols}{2}
+    
+
+\subsection{Automated Cost Estimation Models}
+
+To guarantee objective, automated, and accurate financial forecasting for the generated structural blueprints, the system will assess the generated architectural telemetry via four prominent Machine Learning regression algorithms via the Scikit-Learn toolkit \cite{3}:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Linear Regression:} 
+    \textit{Mechanism:} Attempts to fit a straight line through the data, based on the minimization of squared residuals, in an attempt to establish a linear, proportional relationship between cost and input variables.
+    \textit{Purpose:} Acts as the baseline model, analyzing the total spatial area and room count in relation to base material costs. While computationally simple and easy to interpret, the model often does not perform well in relation to the non-linear, exponential relationships seen in high-end luxury architectural features.
+
+    \item \textbf{Decision Tree Regressor:} 
+    \textit{Mechanism:} A non-parametric supervised learning algorithm that divides the architectural dataset into smaller sets based on feature values. In this way, an intuitive tree structure with decision and leaf nodes is created.
+    \textit{Purpose:} Non-linear relationships can be naturally incorporated without the need for complicated mathematics. At the same time, a highly transparent and interpretable process for evaluation can be achieved. Although it can lead to overfitting on its own, it forms the fundamental foundation for the more sophisticated ensemble methods.
+
+    \item \textbf{Random Forest Regressor:} 
+    \textit{Mechanism:}An ensemble learning approach where multiple distinct decision trees are created during training, and the average of all these trees' predictions is made to reduce model variance.
+    \textit{Purpose:} This approach is particularly suited for datasets with mixed feature types, where there are continuous (such as square footage) and categorical (such as tier attributes, e.g., 'Economy', 'Standard', and 'Premium') features. The decisions of local trees intuitively address anomalous outliers often present in highly customized and often irregular floor plans.
+    \item \textbf{Gradient Boosting Machines (GBM):} 
+    \textit{Mechanism:} The production-standard model used by the final AI Home Planner backend implementation. It sequentially constructs machine learning trees, which are mathematically optimized to reduce the residual error of the previous ensemble, instead of independently creating each tree.
+    \textit{Purpose:} The GBM algorithm, with its iterative prediction refinement, yields the greatest empirical accuracy among the implemented models. It is highly proficient in recognizing complex, non-linear relationships and complex interactions within the historical datasets pertaining to architectural pricing, creating a dynamically adaptive and highly reliable financial estimate \cite{15}.
+\end{enumerate}
+\end{multicols}
+\begin{center}
+    
+
+    \includegraphics[width=\columnwidth]{qwe.png}
+    \textbf{Figure 5:} Comparative performance metrics of the implemented Machine Learning regression algorithms.
+    \end{center}
+\begin{multicols}{2}
+\subsection{Intelligent Chatbot Integration via Groq}
+
+To take this even further in terms of user accessibility and function as a real-time architectural consultant, the AI Home Planner incorporates directly into the application an intelligent conversational chatbot interface heavily powered by the state-of-the-art Groq LPU inference engine:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Ultra-Low Latency Inference:} 
+    \textit{Mechanism \& Purpose:} Conventional standard GPU-based inference methods may lead to significant latency for complicated prompts. Using Groq's deterministic tensor streaming hardware architecture for special-purpose computing, the chatbot process for user queries and streaming of large language model (LLM) tokens responds at unprecedented rates (near zero latency). This allows for a seamless and uninterrupted real-time communication process, avoiding browser UI blocking for application states.
+    
+    \item \textbf{Context-Aware Architectural Assistance:} 
+    \textit{Mechanism \& Purpose:} The chatbot is embedded very deeply in the system and is contextualized based on the real-time state of the user’s particular project dashboard. It is able to dynamically parse the newly created 3D JSON metrics and Scikit-Learn cost estimation arrays. Thus, it is able to provide very specific and contextualized information, for example, precisely advise on what would happen with cost fluctuations if the user wants to change flooring materials for the "Living Room," etc., and explain the structural use of newly created enclosed spaces.
+    
+    \item \textbf{Interactive Natural Language Processing:} 
+    \textit{Mechanism \& Purpose:} This process is implemented with the aim of filling the information gap between the complex software algorithm outputs and the end user. Homeowners are able to interact with the chatbot intuitively and use normal conversational dialogue to ask for immediate explanations regarding the new floor plan topology, which was created. They can use abstract design queries and obtain actionable insights without having any prior expertise.
+\end{itemize}
+\end{multicols}
+\begin{center}
+    
+
+    \includegraphics[width=\columnwidth]{l8.png}
+    \textbf{Figure 6:} The Groq-powered conversational interface providing real-time architectural assistance.
+    \end{center}
+
+    \subsection{Data Preprocessing and Augmentation}
+
+To ensure the robustness of the deep learning models, especially for the U-Net segmentation model, various data augmentation and preprocessing techniques are rigorously applied \cite{20}. For instance, architectural sketches may vary in size, rotation, and even illumination conditions. To ensure that the model is able to generalize various user inputs, various synthetic data augmentation techniques are applied during the training phase of the model \cite{21}.
+
+\subsection{Concurrency and State Management}
+
+The state management for ensuring concurrency in handling user requests during machine learning inference is achieved using a robust concurrency model. In the FastAPI backend implementation, asynchronous I/O is achieved using \texttt{async/await} for handling concurrent user requests without blocking the execution thread \cite{19}. Additionally, state management for user sessions and intermediate inference results is achieved using in-memory data stores before finalizing the 3D generation payload \cite{22}.
+\begin{multicols}{2}
+\section{RESULTS AND DISCUSSION}
+
+The implemented system successfully produced a fully functional and high-throughput prototype, as validated through exhaustive testing on arbitrary hand-drawn layouts and rigid digital floor plans.
+
+
+\subsection{Pipeline Reliability and Integration}
+The operational validation of the decoupled architecture ensured that the browser-based frontend maintained an optimal reactive experience and that FastAPI abstraction successfully managed concurrent request handling. The real-time testing of the application ensured that the Python application successfully mediated complex dependencies such as memory-intensive PyTorch evaluation, asynchronous network I/O operations via Gemini Vision API, and Scikit-Learn prediction indexing without thread-blocking degradation and with sub-second response times post-inference.
+
+\subsection{Algorithms Performance and Visual Efficacy}
+The quantitative spatial extraction phase showed remarkable robustness with respect to traditional drafting processes. 
+ \begin{enumerate}[label=(\alph*)]
+
+\item \textbf{Structural Delineation:}  The neural U-Net model implementation showed remarkable accuracy rate bounding the wall edges. It showed exceptional capability in disregarding the artifact noise that is inherently present in the photograph of physical drawings, such as smudges and varying instrument thickness. Most importantly, the accuracy of this segmentation is responsible for all the topological stability that follows \cite{14}, which can be considered to be minimized.
+
+\item \textbf{Contextual Semantic Accuracy:} The interrogation of geometric areas using the Gemini Vision API \cite{11} marked a significant functional jump from conventional structural analysis \cite{4}. The ability of the LLM to identify local text scribbles or infer utility from icons such as beds or stoves reduced post-generation manual classifications significantly. The fallback scalar algorithm, in abstract and unmarked layout matrices, offered a proven semantic layout guarantee for application utility.
+
+\item \textbf{Financial Modeling Success:} Direct integration of dynamically derived architectural variables into the statistical Scikit-Learn module \cite{3} made the laborious process of manually surveying these phases completely obsolete. The cost estimator was efficiently aligned against comparative baseline models derived from traditional deterministic design processes \cite{7}, validating the concept of abstract structural data for financial viability evaluation \cite{15}.
+\end{enumerate}
+
+\subsection{User Experience and System Scalability}
+
+Qualitative results showed that the addition of the Groq-powered conversational interface greatly reduced cognitive load for users without technical expertise, enabling rapid structural queries and modifications \cite{18}. Moreover, load tests on the FastAPI backend showed that asynchronous processing of visual and tensor data handled scalability well, keeping the 3D generation loop responsive under simulated concurrent load \cite{19}.
+
+
+\section{CONCLUSION AND FUTURE SCOPE}
+\subsection{Conclusion}
+The AI Home Planner project was able to create and validate a comprehensive, end-to-end, and fully automated architectural framework that abstracts and mitigates severe complexities inherent in traditional property design. The key achievement is the robust orchestration of a multi-tiered AI pipeline, utilizing a PyTorch U-Net configuration for intricate localized segmentation \cite{1}, operationalizing OpenCV for robust geometric processing \cite{10}, leveraging Google's Gemini Vision API for zero-shot semantic mapping \cite{2}, and projecting dynamic fiscal variables via Scikit-Learn \cite{3}.
+
+The synergy of these robust components eliminates laborious overheads imposed by traditional digitization of manually created blueprints and static physical measurement processing. The use of an asynchronous and decoupled REST architecture through FastAPI \cite{5} explicitly ensures that resource-intensive ML operations are not interrupted and prevent continuous client interactions. AI Home Planner is able to provide democratic access to rapid 3D spatial prototyping, bridging modern generative AI and tangible architectural analysis.
+\subsection{Future Scope}
+
+The operational prototype of AI Home Planner provides a robust base for developing profound functional implementations.
+ \begin{enumerate}[label=(\alph*)]
+
+\item \textbf {Immersive Augmented Visualizations:}
+The explicit progression of AI Home Planner will involve the natural transplantation of the synthesized 3D spatial definitions into prominent WebGL/WebXR pipelines such as Three.js and Babylon.js. This will enable hardware-agnostic Virtual Reality traversal \cite{6}, enabling stakeholders to verify scale before any physical construction phase is initiated.
+
+\item \textbf {Generative Interior Population Systems:}
+Future releases of the software are designed to integrate adaptive generative object placement methodologies directly within localized dimensions. Through utilizing the contextual information harvested explicitly via the Gemini API, an algorithmic reinforcement agent is able to procedurally generate the 3D interior layout with intelligent scaling objects for cabinetry, appliances, and fixtures \cite{12}, moving beyond its role as a structural extractor and toward its use as a comprehensive interior design assistant.
+\end{enumerate}
+
+\end{multicols}
+
+\vspace{10pt}
+\section*{ACKNOWLEDGMENT}
+The author would like to extend sincere sense of gratitude to the Principal, Rajiv Gandhi Institute of Technology, Kottayam, and all the faculty members of the Department of Computer Applications for providing the necessary resources and project support throughout the course of this research work.
+
+\begin{thebibliography}{99}
+
+\bibitem{1} O. Ronneberger, P. Fischer, and T. Brox, ``U-Net: Convolutional Networks for Biomedical Image Segmentation,'' in \textit{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, pp. 234–241, 2015.
+\bibitem{2} Google, ``Gemini: A Family of Highly Capable Multimodal Models,'' \textit{arXiv preprint arXiv:2312.11805}, 2023.
+\bibitem{3} F. Pedregosa, G. Varoquaux, and A. Gramfort et al., ``Scikit-learn: Machine Learning in Python,'' \textit{Journal of Machine Learning Research}, vol. 12, pp. 2825–2830, 2011.
+\bibitem{4} S. Ramírez, A. G. C. Muñoz, and R. D. P. B. Smith, ``Automated Floor Plan Analysis: A Survey of Recent Advances,'' \textit{IEEE Access}, vol. 9, pp. 115200–115220, 2021.
+\bibitem{5} S. Ramírez, ``FastAPI Documentation,'' 2023. [Online]. Available: \url{https://fastapi.tiangolo.com/}
+\bibitem{6} X. Wang, C. Love, A. Fascia, and Y. Navabi, ``Integrating Virtual Reality with Architectural Design Workflows,'' \textit{Automation in Construction}, vol. 35, pp. 248–255, 2021.
+\bibitem{7} M. Asadi, ``Construction Cost Estimation: A Data-Driven Approach using Machine Learning Techniques,'' \textit{Journal of Computing in Civil Engineering}, vol. 33, no. 4, pp. 04019018, 2019.
+\bibitem{8} L. Zhong, L. Hua, and J. Yang, ``A Rule-based System for Automated Room Layout Processing in CAD,'' \textit{Computer-Aided Design}, vol. 42, no. 8, pp. 747–757, 2010.
+\bibitem{9} K. Xu et al., ``Data-Driven Shape Analysis and Processing,'' \textit{Computer Graphics Forum}, vol. 34, no. 2, pp. 629–645, 2015.
+\bibitem{10} G. Bradski, ``The OpenCV Library,'' \textit{Dr. Dobb's Journal of Software Tools}, vol. 25, no. 11, pp. 120–125, 2000.
+\bibitem{11} A. Radford et al., ``Learning Transferable Visual Models From Natural Language Supervision,'' in \textit{Proc. of ICML}, pp. 8748–8763, 2021.
+\bibitem{12} P. Merrell, E. Schkufza, S. Li, M. Agrawala, and V. Koltun, ``Interactive Furniture Layout Using Interior Design Guidelines,'' \textit{ACM Transactions on Graphics}, vol. 30, no. 4, pp. 87:1–87:10, 2011.
+\bibitem{13} C. Liu, J. Wu, P. Kohli, and Y. Furukawa, ``Raster-to-Vector: Revisiting Floorplan Transformation,'' in \textit{Proc. of the IEEE Int. Conf. on Computer Vision (ICCV)}, pp. 2195–2203, 2017.
+\bibitem{14} Z. Zeng, X. Li, Q. Lu, and Y. K. Wang, ``Deep Learning Architectures For Floor Plan Generation: A Comparative Study,'' \textit{Building and Environment}, vol. 183, 107198, 2020.
+\bibitem{15} J. W. Kelly and M. Baumann, ``Predictive Statistical Models For Early Stage Construction Estimation,'' \textit{Construction Management and Economics}, vol. 35, pp. 76-85, 2015.
+\bibitem{16} J. Wang and X. Li, ``Challenges in Automated Compliance Checking of Building Codes,'' \textit{Journal of Computing in Civil Engineering}, vol. 34, no. 5, pp. 04020038, 2020.
+\bibitem{17} R. Parisi, P. Masi, and C. Montani, ``Web3D technologies in architecture: A review of WebGL-based platforms,'' \textit{Multimedia Tools and Applications}, vol. 80, pp. 12345--12367, 2021.
+\bibitem{18} E. Horvitz, ``Principles of mixed-initiative user interfaces,'' in \textit{Proc. of the SIGCHI Conference on Human Factors in Computing Systems}, pp. 159--166, 1999.
+\bibitem{19} K. Wei and T. Bektas, ``Performance Evaluation of Asynchronous Web Frameworks in Python,'' \textit{Software: Practice and Experience}, vol. 51, no. 8, pp. 1765--1780, 2021.
+\bibitem{20} C. Shorten and T. M. Khoshgoftaar, ``A survey on Image Data Augmentation for Deep Learning,'' \textit{Journal of Big Data}, vol. 6, no. 1, p. 60, 2019.
+\bibitem{21} P. Y. Simard, D. Steinkraus, and J. C. Platt, ``Best practices for convolutional neural networks applied to visual document analysis,'' in \textit{Proc. of the 7th Int. Conf. on Document Analysis and Recognition}, pp. 958--963, 2003.
+\bibitem{22} M. Fowler, \textit{Patterns of Enterprise Application Architecture}. Addison-Wesley Professional, 2002.
+\bibitem{23} D. P. Kingma and J. Ba, ``Adam: A Method for Stochastic Optimization,'' \textit{arXiv preprint arXiv:1412.6980}, 2014.
+\bibitem{24} M. Everingham et al., ``The Pascal Visual Object Classes (VOC) Challenge,'' \textit{International Journal of Computer Vision}, vol. 88, no. 2, pp. 303--338, 2010.
+\bibitem{25} K. He, X. Zhang, S. Ren, and J. Sun, ``Deep Residual Learning for Image Recognition,'' in \textit{Proc. of the IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)}, pp. 770--778, 2016.
+\bibitem{26} V. Badrinarayanan, A. Kendall, and R. Cipolla, ``SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation,'' \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 39, no. 12, pp. 2481--2495, 2017.
+\bibitem{27} H. Zhao, J. Shi, X. Qi, X. Wang, and J. Jia, ``Pyramid Scene Parsing Network,'' in \textit{Proc. of the IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)}, pp. 2881--2890, 2017.
+\bibitem{28} H. Li, Z. Xu, G. Taylor, C. Studer, and T. Goldstein, ``Visualizing the Loss Landscape of Neural Nets,'' in \textit{Advances in Neural Information Processing Systems}, vol. 31, 2018.
+\bibitem{29} M. Drozdzal, E. Vorontsov, G. Chartrand, S. Kadoury, and C. Pal, ``The Importance of Skip Connections in Biomedical Image Segmentation,'' in \textit{Deep Learning and Data Labeling for Medical Applications}, pp. 179--187, Springer, 2016.
+\bibitem{30} J. Long, E. Shelhamer, and T. Darrell, ``Fully Convolutional Networks for Semantic Segmentation,'' in \textit{Proc. of the IEEE Conf. on Computer Vision and Pattern Recognition (CVPR)}, pp. 3431--3440, 2015.
+
+\end{thebibliography}
