@@ -1,0 +1,495 @@
+\documentclass[aspectratio=169]{beamer}
+
+% -------------------- Packages --------------------
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{amssymb}
+\usepackage{pifont}
+
+% -------------------- Theme --------------------
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{caption}[numbered]
+
+% -------- Attractive Accent Color (Teal) --------
+\definecolor{structurecolor}{RGB}{22,160,133}
+\setbeamercolor{structure}{fg=structurecolor}
+\setbeamercolor{frametitle}{bg=structurecolor, fg=white}
+
+% -------------------- CUSTOM FOOTER --------------------
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}
+{
+  \leavevmode
+  \hbox{
+  \begin{beamercolorbox}[
+    wd=\paperwidth,
+    ht=3ex,
+    dp=1.2ex,
+    leftskip=0.4cm,
+    rightskip=0.4cm
+  ]{custom footer}
+  \color{white}\scriptsize
+  Lekshmi R Rajan\;|\; Roll No.: 31
+  \hfill  \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}}
+}
+\setbeamercolor{custom footer}{bg=structurecolor}
+
+% -------------------- Title Info --------------------
+\title{AI-Enabled Home Planning and 3D Visualization Web Application}
+\author[Lekshmi R Rajan | Roll No.: 31]{
+\textbf{Lekshmi R Rajan}\\
+Roll No.: 31\\
+Reg. No.: KTE24MCA--2035
+}
+\institute{
+\textbf{Guided By:}\\
+Prof. Shilpa M Thomas\\[0.2cm]
+Department of Computer Applications\\
+Rajiv Gandhi Institute of Technology (RIT), Kottayam
+}
+\date{}
+
+\begin{document}
+
+%---------------- TITLE ----------------
+\begin{frame}
+\titlepage
+\end{frame}
+
+%---------------- INTRODUCTION ----------------
+\begin{frame}{INTRODUCTION}
+\begin{itemize}
+  \item Home planning requires a clear understanding of spatial layout, room functionality, and user requirements.
+  \item During the early planning stage, hand-sketched house plans are commonly used to express layout ideas.
+  \item These hand-drawn sketches are difficult for non-technical users to interpret and visualize accurately.
+  \item Existing architectural design tools (e.g., CAD software) demand professional expertise and are not user-friendly for common users.
+  \item The proposed AI-enabled web-based system converts hand-sketched house plans into interactive 3D visualizations via a full-stack pipeline using PyTorch, OpenCV, FastAPI, Three.js, and Groq LLM.
+\end{itemize}
+\end{frame}
+
+%---------------- OBJECTIVE ----------------
+\begin{frame}{OBJECTIVE}
+\begin{itemize}
+  \item To design a secure, authenticated web interface for uploading hand-sketched house plans.
+  \item To apply a hybrid AI pipeline — PyTorch U-Net for wall segmentation and OpenCV for geometry extraction — for sketch interpretation.
+  \item To generate an interactive 3D visualization of residential house layouts using Three.js (WebGL).
+  \item To clearly visualize functional room areas (Living Room, Bedroom, Kitchen, Bathroom) with color differentiation.
+  \item To estimate approximate construction cost using an ensemble of 4 Scikit-Learn ML models (Linear Regression, Decision Tree, Random Forest, Gradient Boosting).
+  \item To provide context-aware, page-specific design and budget advice via an AI Chatbot powered by Groq LLM (\texttt{llama-3.1-8b-instant}).
+\end{itemize}
+\end{frame}
+
+%---------------- SCOPE ----------------
+\begin{frame}{SCOPE}
+\textbf{Project Includes:}
+\begin{itemize}
+  \item Secure user authentication (JWT Bearer Tokens + Argon2 password hashing).
+  \item AI-powered upload and processing of hand-sketched house plans.
+  \item Generation of a conceptual 3D house layout with 5-room standard structure.
+  \item Visualization of functional areas (Living, Bedroom, Kitchen, Bathroom) via Three.js rendering.
+  \item Approximate construction cost estimation (Economy, Standard, Premium tiers) using ML.
+  \item Context-aware Groq LLM chatbot with strict Design vs.\ Budget mode separation.
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Project Excludes:}
+\begin{itemize}
+  \item Detailed structural engineering calculations.
+  \item Construction-ready blueprints (mechanical/electrical/plumbing).
+  \item Replacement of certified architectural sign-offs.
+\end{itemize}
+\end{frame}
+
+%---------------- RELEVANCE ----------------
+\begin{frame}{RELEVANCE}
+\begin{itemize}
+  \item \textbf{Democratizes Design:} Enables easy visual understanding for non-technical users without CAD expertise.
+  \item \textbf{Cost \& Time Efficient:} Reduces sketch-to-3D prototyping from hours to $\sim$2.6 seconds (99\% time reduction).
+  \item \textbf{Decision Support:} Real-time ML cost estimates enable confident financial planning at the ideation stage.
+  \item \textbf{Technology Integration:} Demonstrates a unified pipeline of Deep Learning (U-Net), Classical CV (OpenCV), ML Regression (Scikit-Learn), and LLM (Groq) in a single web system.
+  \item \textbf{Practical Utility:} Supports early-stage budgeting and spatial planning for homeowners and architects alike.
+\end{itemize}
+\end{frame}
+
+%---------------- REQUIREMENT ANALYSIS ----------------
+\begin{frame}
+\centering
+\Huge \textbf{REQUIREMENT ANALYSIS}
+\end{frame}
+
+%---------------- EXISTING SYSTEM ----------------
+\begin{frame}{EXISTING SYSTEM (LITERATURE REVIEW)}
+\scriptsize
+\begin{table}
+\centering
+\begin{tabular}{p{3.2cm} p{2.4cm} p{3.2cm} p{4cm}}
+\toprule
+\textbf{Publication / Paper Title} & \textbf{Authors \& Year} & \textbf{Methodology} & \textbf{Key Limitation} \\
+\midrule
+Automatic Floor Plan Generation &
+Liu et al. (2022) &
+Computer Vision + CNN &
+Converts sketches to vector plans; no 3D output \\
+3D House Modeling using CAD &
+Autodesk Research (2021) &
+Manual CAD Modeling &
+Accurate but requires professional expertise \\
+Web-based 3D Interior Visualization &
+Kim et al. (2023) &
+Three.js + WebGL &
+Interactive 3D but requires manual data entry \\
+AI-based Cost Estimation &
+Patel et al. (2022) &
+ML Regression &
+Predicts cost but lacks visual integration \\
+\bottomrule
+\end{tabular}
+\caption{Literature Review: Existing Home Planning Systems}
+\end{table}
+\end{frame}
+
+%---------------- GAP IDENTIFIED ----------------
+\begin{frame}{GAP IDENTIFIED}
+\begin{itemize}
+  \item \textbf{No Integrated Solution:} No single platform combines Sketch Upload $\rightarrow$ AI Segmentation $\rightarrow$ 3D Model $\rightarrow$ Cost Estimation.
+  \item \textbf{Steep Learning Curve:} Existing CAD tools are too complex for average users with no technical background.
+  \item \textbf{Static 2D Limitations:} Hand sketches fail to convey spatial volume, depth, and room flow.
+  \item \textbf{Budget Opacity:} Lack of data-driven, real-time initial cost estimation integrated with design tools.
+  \item \textbf{No Conversational Assistance:} No system provides spatially-grounded LLM chatbot linked to the actual extracted layout data.
+\end{itemize}
+\end{frame}
+
+%---------------- PROPOSED SYSTEM ----------------
+\begin{frame}{PROPOSED SYSTEM}
+\begin{itemize}
+  \item The proposed system is a full-stack AI-enabled web application that accepts a hand-sketched house plan as input and automatically converts it into an interactive 3D model.
+  \item A hybrid AI pipeline first preprocesses the sketch using OpenCV (CLAHE, Canny Edge Detection, Hough Transform) and then applies a trained PyTorch U-Net model for pixel-level wall segmentation.
+  \item The extracted wall geometry is mapped to real-world metre coordinates and rendered interactively in the browser using Three.js (WebGL) with rotate, zoom, and pan controls.
+  \item A Scikit-Learn ensemble of 4 ML regression models (Linear Regression, Decision Tree, Random Forest, Gradient Boosting) automatically estimates construction cost from the extracted layout dimensions.
+  \item A Groq LLM chatbot (\texttt{llama-3.1-8b-instant}) provides context-aware advice — acting as a Design Assistant on the Visualization page and as a Cost Consultant on the Cost Estimation page.
+  \item User accounts, project data, and uploaded sketches are securely managed via JWT authentication, Argon2 password hashing, and SQLite persistence.
+\end{itemize}
+\end{frame}
+
+%---------------- SOFTWARE & HARDWARE ----------------
+\begin{frame}{SOFTWARE \& HARDWARE REQUIREMENT}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Software Requirements}
+\begin{itemize}
+  \item \textbf{Backend:} Python 3.10, FastAPI, Uvicorn
+  \item \textbf{Frontend:} HTML5, CSS3, JavaScript (Three.js, OrbitControls.js)
+  \item \textbf{Deep Learning:} PyTorch (U-Net model)
+  \item \textbf{CV:} OpenCV (cv2)
+  \item \textbf{ML:} Scikit-Learn (4 regressors)
+  \item \textbf{LLM:} Groq SDK (\texttt{llama-3.1-8b-instant})
+  \item \textbf{Auth:} Passlib (Argon2), JWT (python-jose)
+  \item \textbf{DB:} SQLite via SQLModel
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Hardware Requirements}
+\begin{itemize}
+  \item \textbf{Processor:} Intel Core i5 or higher
+  \item \textbf{RAM:} Minimum 8 GB (16 GB recommended)
+  \item \textbf{GPU:} NVIDIA GPU recommended for U-Net inference; browser WebGL for 3D rendering
+  \item \textbf{Storage:} 500 MB minimum (96 MB model + uploads)
+  \item \textbf{Internet:} Required for Groq API calls
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+%---------------- DEVELOPMENT METHODOLOGY ----------------
+\begin{frame}{DEVELOPMENT METHODOLOGY}
+\begin{itemize}
+\item \textbf{Agile Approach:} Iterative development with continuous testing and integration.
+\item \textbf{Sprint 1 (Research \& Planning):} Problem definition, literature survey, requirement analysis, technology selection.
+\item \textbf{Sprint 2 (Backend \& AI Pipeline):} FastAPI setup, OpenCV preprocessing module, U-Net training and inference, cost model training (4 ML algorithms).
+\item \textbf{Sprint 3 (Frontend \& 3D):} Three.js 3D viewer with OrbitControls, room coloring, interactive UI with upload, visualization, and cost pages.
+\item \textbf{Sprint 4 (Integration):} JWT authentication, project persistence (SQLite/SQLModel), Groq LLM chatbot integration with dual-mode context prompting.
+\item \textbf{Sprint 5 (Testing \& Validation):} Unit testing, end-to-end pipeline validation, latency benchmarking, and final documentation.
+\end{itemize}
+\end{frame}
+
+%---------------- SYSTEM ARCHITECTURE DIAGRAM ----------------
+\begin{frame}{SYSTEM ARCHITECTURE OVERVIEW}
+\begin{figure}
+\centering
+\includegraphics[height=0.75\textheight]{l1.jpeg}
+\caption{High-Level System Architecture of the AI Home Planner}
+\end{figure}
+\end{frame}
+
+%---------------- 3-TIER ARCHITECTURE ----------------
+\begin{frame}{SYSTEM ARCHITECTURE: 3-TIER INFRASTRUCTURE}
+\begin{itemize}
+    \item \textbf{Tier 1 — Presentation Layer:} HTML5/CSS3/JavaScript frontend with Three.js for 3D rendering. Pages: Home, Upload, Visualization, Cost Estimation, Dashboard.
+    \item \textbf{Tier 2 — Application Layer:} FastAPI + Uvicorn backend serving REST APIs. Manages JWT authentication, file uploads (UUID-named), and asynchronous subprocess execution via Python's \texttt{subprocess} module.
+    \item \textbf{Tier 3 — AI \& Data Layer:} PyTorch U-Net for wall segmentation $\rightarrow$ OpenCV geometry extraction $\rightarrow$ Scikit-Learn cost prediction. Groq LLM handles conversational queries. SQLite (via SQLModel) stores users and project data.
+    \item \textbf{Data Flow:} Upload $\rightarrow$ \texttt{layout\_extraction.py} subprocess $\rightarrow$ \texttt{layout\_to\_3d.py} subprocess $\rightarrow$ JSON response to Three.js renderer.
+\end{itemize}
+\end{frame}
+
+%---------------- ARCHITECTURE FIGURES ----------------
+\begin{frame}{SYSTEM ARCHITECTURE: PREPROCESSING PIPELINE}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{l2.jpeg}
+\caption{Computer Vision Preprocessing \& Geometry Extraction (OpenCV)}
+\end{figure}
+\end{frame}
+
+\begin{frame}{SYSTEM ARCHITECTURE: DEEP LEARNING MODULE}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{l3.jpeg}
+\caption{Deep Learning Semantic Segmentation — PyTorch U-Net Architecture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{SYSTEM ARCHITECTURE: ML COST ENGINE}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{l4.jpeg}
+\caption{Machine Learning Cost Estimation Ensemble (Scikit-Learn)}
+\end{figure}
+\end{frame}
+
+\begin{frame}{SYSTEM ARCHITECTURE: GROQ LLM CHATBOT}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{l5.jpeg}
+\caption{Groq LLM Context Engine — Dual-Mode Chatbot Architecture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{SYSTEM ARCHITECTURE: FASTAPI APPLICATION TIER}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{l6.jpeg}
+\caption{FastAPI Application Tier: Asynchronous Orchestration \& JWT Security}
+\end{figure}
+\end{frame}
+
+%---------------- IMPLEMENTATION ALGORITHMS ----------------
+\begin{frame}{IMPLEMENTATION ALGORITHMS (1/3): Computer Vision}
+\textbf{OpenCV Preprocessing Pipeline}
+\begin{itemize}
+    \item \textbf{Grayscale Conversion:} Reduces input to single-channel image for processing efficiency.
+    \item \textbf{CLAHE (Contrast Limited Adaptive Histogram Equalization):} Enhances local contrast on faint, lightly-penciled sketches.
+    \item \textbf{Canny Edge Detection:} Multi-stage gradient algorithm that identifies sharp structural boundary lines.
+    \item \textbf{Probabilistic Hough Transform:} Connects fragmented or broken wall line segments into continuous lines.
+    \item \textbf{Suzuki's Contour Detection Algorithm:} Extracts closed room boundaries from the binary wall mask.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{IMPLEMENTATION ALGORITHMS (2/3): AI \& ML}
+\textbf{Deep Learning \& Machine Learning Modules}
+\begin{itemize}
+    \item \textbf{PyTorch U-Net:} Pixel-level semantic segmentation of walls vs.\ background. Model: \texttt{wall\_segmentation\_model.pth} (96 MB). Uses skip connections to preserve fine wall boundary details.
+    \item \textbf{Groq LLM (\texttt{llama-3.1-8b-instant}):} Context-aware chatbot with \emph{strict} page-based system prompting. Visualization page $\rightarrow$ Design Mode. Cost page $\rightarrow$ Budget Mode. Returns structured JSON responses with optional \texttt{action} objects (e.g., \texttt{change\_color}, \texttt{apply\_theme}, \texttt{add\_furniture}).
+    \item \textbf{4 Cost Models (Scikit-Learn):} Linear Regression (baseline), Decision Tree, Random Forest ($R^2$=0.9983, best), Gradient Boosting.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{IMPLEMENTATION ALGORITHMS (3/3): Security \& 3D}
+\textbf{Security \& 3D Rendering}
+\begin{itemize}
+    \item \textbf{Argon2 Password Hashing:} Industry-standard memory-hard hash (via Passlib) for secure user password storage in SQLite.
+    \item \textbf{JWT Bearer Token Authentication:} All protected endpoints (\texttt{/projects/}, \texttt{/users/me/}) require valid OAuth2 access tokens generated on login.
+    \item \textbf{UUID File Naming:} Every uploaded file is assigned a unique \texttt{uuid4} prefix to prevent overwrite conflicts.
+    \item \textbf{Three.js Linear Extrusion:} 2D room bounding boxes (in metres) are extruded along the Z-axis to a height of 3.0m to create 3D wall meshes.
+    \item \textbf{Raycasting (Three.js):} Detects user mouse-click interactions on 3D room surfaces for room selection and labeling.
+\end{itemize}
+\end{frame}
+
+%---------------- TOOLS & TECHNOLOGIES ----------------
+\begin{frame}{TOOLS \& TECHNOLOGIES USED}
+\textbf{Development Environment:} VS Code, Git / GitHub, Anaconda / pip
+
+\vspace{0.2cm}
+\textbf{Frontend Stack:}
+\begin{itemize}
+    \item HTML5, CSS3, JavaScript (ES6+)
+    \item Three.js \& OrbitControls.js (3D rendering engine)
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Backend \& AI Stack:}
+\begin{itemize}
+    \item FastAPI + Uvicorn (REST API server)
+    \item OpenCV (cv2) — Image preprocessing
+    \item PyTorch — U-Net deep learning inference
+    \item Scikit-Learn — ML cost regression (joblib model persistence)
+    \item Groq SDK — \texttt{llama-3.1-8b-instant} LLM chatbot
+    \item SQLite + SQLModel — User \& project database persistence
+    \item Passlib (Argon2) + python-jose (JWT) — Authentication
+\end{itemize}
+\end{frame}
+
+%---------------- CURRENT STATUS: 100% ----------------
+\begin{frame}{PROJECT STATUS: 100\% IMPLEMENTATION COMPLETE}
+\textbf{All Modules Fully Implemented \& Tested:}
+\begin{itemize}
+    \item[\ding{51}] \textbf{Secure Auth:} User registration, JWT login, Argon2 password hashing -- all endpoints protected.
+    \item[\ding{51}] \textbf{Upload \& Processing:} Image upload with UUID naming $\rightarrow$ U-Net DL segmentation $\rightarrow$ OpenCV fallback $\rightarrow$ layout JSON via subprocess.
+    \item[\ding{51}] \textbf{3D Visualization:} Three.js viewer renders 5-room layout with real metre dimensions, room coloring, rotate/zoom/pan controls.
+    \item[\ding{51}] \textbf{Cost Estimation:} 4 trained ML models predict cost; Random Forest selected as best ($R^2 = 0.9983$).
+    \item[\ding{51}] \textbf{Groq LLM Chatbot:} Dual-mode chatbot live -- Design Mode (Visualization page) and Budget Mode (Cost page).
+    \item[\ding{51}] \textbf{Project Persistence:} All projects saved to SQLite and retrievable from the Dashboard.
+\end{itemize}
+\end{frame}
+
+%---------------- RESULTS: INTERFACE ----------------
+\begin{frame}{RESULTS: PLATFORM INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig1.png}
+\caption{Home Page \& Landing Interface}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig4.png}
+\caption{Upload \& AI Processing UI}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig5.png}
+\caption{Interactive 3D Visualization}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+%---------------- RESULTS: DASHBOARD ----------------
+\begin{frame}{RESULTS: DASHBOARD \& COST OUTPUT}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig6.png}
+\caption{3D Layout: Top-Down View}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig7.png}
+\caption{ML Cost Estimation Report}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig8.png}
+\caption{Responsive Dashboard View}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+%---------------- RESULTS: MODEL EVALUATION ----------------
+\begin{frame}{RESULTS: ML MODEL EVALUATION}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig9.png}
+\caption{U-Net Evaluation: mIoU 0.884, Pixel Acc 95.2\%}
+\end{figure}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{fig10.png}
+\caption{Cost Model Comparison: Random Forest Best (MAE \$1,575)}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+%---------------- PROJECT PLAN ----------------
+\begin{frame}{PROJECT PLAN \& TIMELINE}
+\scriptsize
+\begin{table}
+\centering
+\begin{tabular}{p{2cm} p{6.5cm} p{3.5cm}}
+\toprule
+\textbf{Phase} & \textbf{Activities} & \textbf{Status} \\
+\midrule
+Phase 1 & Literature Survey, Problem Definition \& Technology Selection & \textbf{Completed} (Dec 2025) \\
+Phase 2 & Requirement Analysis \& System Design & \textbf{Completed} (Jan 2026) \\
+Phase 3 & Backend: FastAPI, U-Net, OpenCV, ML Cost Model Training & \textbf{Completed} (Jan 2026) \\
+Phase 4 & Frontend: Three.js 3D Viewer, UI Pages, JWT Auth & \textbf{Completed} (Feb 2026) \\
+Phase 5 & AI Integration: Groq LLM Chatbot, Full Pipeline Testing & \textbf{Completed} (Feb 2026) \\
+Phase 6 & Validation, Benchmarking \& Final Documentation & \textbf{Completed} (Mar 2026) \\
+\bottomrule
+\end{tabular}
+\caption{Project Phases and Timeline — 100\% Complete}
+\end{table}
+\end{frame}
+
+%---------------- CONCLUSION ----------------
+\begin{frame}{CONCLUSION}
+\begin{itemize}
+  \item The AI Home Planner was successfully designed and implemented as a complete, full-stack web application that bridges the gap between hand-drawn sketches and professional 3D architectural visualization.
+  \item The hybrid AI pipeline combining OpenCV preprocessing and PyTorch U-Net semantic segmentation effectively interprets noisy, informal sketches with high accuracy (mIoU: 0.884, Pixel Accuracy: 95.2\%).
+  \item The Scikit-Learn cost estimation engine (Random Forest: $R^2 = 0.9983$, MAE = \$1,575.64) enables users to receive instant, reliable construction budget estimates derived automatically from the extracted layout.
+  \item The Groq LLM chatbot (\texttt{llama-3.1-8b-instant}) provides spatially-grounded, page-specific responses -- acting as a Design Assistant on the Visualization page and a Cost Consultant on the Cost Estimation page.
+  \item The complete ``Upload-to-3D'' pipeline runs in approximately 2.6 seconds, representing a 99\% reduction in time compared to traditional manual 3D modeling.
+  \item The system successfully democratizes architectural prototyping, making early-stage home planning accessible, visual, and data-driven for both non-technical homeowners and professional architects.
+\end{itemize}
+\end{frame}
+
+%---------------- GIT HISTORY ----------------
+\begin{frame}{GIT VERSION CONTROL HISTORY}
+\begin{figure}
+\centering
+\includegraphics[height=0.7\textheight]{git.png}
+\caption{Git Commit History — Full Development Lifecycle}
+\end{figure}
+\end{frame}
+
+%---------------- BIBLIOGRAPHY ----------------
+\begin{frame}{BIBLIOGRAPHY}
+\small
+\begin{thebibliography}{9}
+\bibitem{ref1}
+O. Ronneberger, P. Fischer, and T. Brox,
+``U-Net: Convolutional Networks for Biomedical Image Segmentation,''
+\textit{MICCAI}, pp. 234--241, 2015.
+\bibitem{ref2}
+G. Bradski, ``The OpenCV Library,''
+\textit{Dr. Dobb's Journal}, 2000.
+\bibitem{ref3}
+F. Pedregosa et al., ``Scikit-learn: Machine Learning in Python,''
+\textit{JMLR}, vol. 12, pp. 2825--2830, 2011.
+\bibitem{ref4}
+R. Cabello, ``Three.js -- JavaScript 3D Library,''
+[Online]. Available: https://threejs.org/. 2026.
+\bibitem{ref5}
+Patel et al., ``ML Approaches for Construction Cost Estimation,''
+\textit{Journal of Construction Engineering}, 2022.
+\end{thebibliography}
+\end{frame}
+
+%---------------- THANK YOU ----------------
+\begin{frame}
+\centering
+\Huge \textbf{THANK YOU}
+\vspace{0.5cm} \\
+\Large \textbf{Questions \& Answers}
+\end{frame}
+
+\end{document}
