@@ -1,0 +1,162 @@
+{
+  "timestamp": "2026-03-23_14-34-33",
+  "benchmark_config": {
+    "image": "d:\\project\\AI_Home_Project\\uploads\\358c0335bd124568acf0981abcf4ae61_sample.png",
+    "iterations": 8,
+    "endpoint": "http://localhost:8000/upload-sketch/"
+  },
+  "raw_results": [
+    {
+      "iteration": 1,
+      "status": "Success",
+      "cv_preprocessing_ms": 26.21769905090332,
+      "dl_inference_ms": 26.21769905090332,
+      "layout_extraction_ms": 1640.5298709869385,
+      "extraction_3d_ms": 45.95303535461426,
+      "total_latency_ms": 1719.41
+    },
+    {
+      "iteration": 2,
+      "status": "Success",
+      "cv_preprocessing_ms": 26.395320892333984,
+      "dl_inference_ms": 26.395320892333984,
+      "layout_extraction_ms": 1658.0817699432373,
+      "extraction_3d_ms": 44.85774040222168,
+      "total_latency_ms": 1734.68
+    },
+    {
+      "iteration": 3,
+      "status": "Success",
+      "cv_preprocessing_ms": 23.157119750976562,
+      "dl_inference_ms": 23.157119750976562,
+      "layout_extraction_ms": 1674.2122173309326,
+      "extraction_3d_ms": 50.80366134643555,
+      "total_latency_ms": 1753.84
+    },
+    {
+      "iteration": 4,
+      "status": "Success",
+      "cv_preprocessing_ms": 24.946212768554688,
+      "dl_inference_ms": 24.946212768554688,
+      "layout_extraction_ms": 1668.1880950927734,
+      "extraction_3d_ms": 51.10526084899902,
+      "total_latency_ms": 1752.1
+    },
+    {
+      "iteration": 5,
+      "status": "Success",
+      "cv_preprocessing_ms": 25.400161743164062,
+      "dl_inference_ms": 25.400161743164062,
+      "layout_extraction_ms": 2397.2485065460205,
+      "extraction_3d_ms": 66.23673439025879,
+      "total_latency_ms": 2496.9
+    },
+    {
+      "iteration": 6,
+      "status": "Success",
+      "cv_preprocessing_ms": 26.6876220703125,
+      "dl_inference_ms": 26.6876220703125,
+      "layout_extraction_ms": 2135.753870010376,
+      "extraction_3d_ms": 65.22846221923828,
+      "total_latency_ms": 2234.34
+    },
+    {
+      "iteration": 7,
+      "status": "Success",
+      "cv_preprocessing_ms": 31.634807586669922,
+      "dl_inference_ms": 31.634807586669922,
+      "layout_extraction_ms": 1710.4096412658691,
+      "extraction_3d_ms": 48.62260818481445,
+      "total_latency_ms": 1799.31
+    },
+    {
+      "iteration": 8,
+      "status": "Success",
+      "cv_preprocessing_ms": 25.896549224853516,
+      "dl_inference_ms": 25.896549224853516,
+      "layout_extraction_ms": 1643.1519985198975,
+      "extraction_3d_ms": 43.99824142456055,
+      "total_latency_ms": 1720.48
+    }
+  ],
+  "statistics": {
+    "cv_preprocessing": {
+      "average": 26.29193663597107,
+      "min": 23.157119750976562,
+      "max": 31.634807586669922,
+      "std_dev": 2.429246790273067,
+      "p95": 31.634807586669922
+    },
+    "dl_inference": {
+      "average": 26.29193663597107,
+      "min": 23.157119750976562,
+      "max": 31.634807586669922,
+      "std_dev": 2.429246790273067,
+      "p95": 31.634807586669922
+    },
+    "layout_extraction": {
+      "average": 1815.9469962120056,
+      "min": 1640.5298709869385,
+      "max": 2397.2485065460205,
+      "std_dev": 287.5507818140953,
+      "p95": 2397.2485065460205
+    },
+    "extraction_3d": {
+      "average": 52.10071802139282,
+      "min": 43.99824142456055,
+      "max": 66.23673439025879,
+      "std_dev": 8.806166828712177,
+      "p95": 66.23673439025879
+    },
+    "total_latency": {
+      "average": 1901.3825,
+      "min": 1719.41,
+      "max": 2496.9,
+      "std_dev": 296.0704712805479,
+      "p95": 2496.9
+    }
+  },
+  "total_samples": 8,
+  "all_iterations_data": {
+    "cv_preprocessing_ms": [
+      26.21769905090332,
+      26.395320892333984,
+      23.157119750976562,
+      24.946212768554688,
+      25.400161743164062,
+      26.6876220703125,
+      31.634807586669922,
+      25.896549224853516
+    ],
+    "dl_inference_ms": [
+      26.21769905090332,
+      26.395320892333984,
+      23.157119750976562,
+      24.946212768554688,
+      25.400161743164062,
+      26.6876220703125,
+      31.634807586669922,
+      25.896549224853516
+    ],
+    "extraction_3d_ms": [
+      45.95303535461426,
+      44.85774040222168,
+      50.80366134643555,
+      51.10526084899902,
+      66.23673439025879,
+      65.22846221923828,
+      48.62260818481445,
+      43.99824142456055
+    ],
+    "total_latency_ms": [
+      1719.41,
+      1734.68,
+      1753.84,
+      1752.1,
+      2496.9,
+      2234.34,
+      1799.31,
+      1720.48
+    ]
+  }
+}

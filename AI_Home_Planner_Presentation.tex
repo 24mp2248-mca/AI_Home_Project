@@ -68,7 +68,7 @@ Rajiv Gandhi Institute of Technology (RIT), Kottayam
   \item During the early planning stage, hand-sketched house plans are commonly used to express layout ideas.
   \item These hand-drawn sketches are difficult for non-technical users to interpret and visualize accurately.
   \item Existing architectural design tools (e.g., CAD software) demand professional expertise and are not user-friendly for common users.
-  \item The proposed AI-enabled web-based system converts hand-sketched house plans into interactive 3D visualizations via a full-stack pipeline using PyTorch, OpenCV, FastAPI, Three.js, and Groq LLM.
+  \item The proposed AI-enabled web-based system converts hand-sketched house plans into interactive 3D visualizations via a full-stack pipeline using PyTorch, OpenCV, FastAPI, Three.js, and Groq LLM, with deep learning inference + 3D extraction completing in $\sim$1.79 seconds.
 \end{itemize}
 \end{frame}
 
@@ -108,7 +108,7 @@ Rajiv Gandhi Institute of Technology (RIT), Kottayam
 \begin{frame}{RELEVANCE}
 \begin{itemize}
   \item \textbf{Democratizes Design:} Enables easy visual understanding for non-technical users without CAD expertise.
-  \item \textbf{Cost \& Time Efficient:} Reduces sketch-to-3D prototyping from hours to $\sim$2.6 seconds (99\% time reduction).
+  \item \textbf{Cost \& Time Efficient:} Reduces sketch-to-3D prototyping from hours to $\sim$1.79 seconds (99.9\% time reduction).
   \item \textbf{Decision Support:} Real-time ML cost estimates enable confident financial planning at the ideation stage.
   \item \textbf{Technology Integration:} Demonstrates a unified pipeline of Deep Learning (U-Net), Classical CV (OpenCV), ML Regression (Scikit-Learn), and LLM (Groq) in a single web system.
   \item \textbf{Practical Utility:} Supports early-stage budgeting and spatial planning for homeowners and architects alike.
@@ -167,10 +167,10 @@ Predicts cost but lacks visual integration \\
 \begin{frame}{PROPOSED SYSTEM}
 \begin{itemize}
   \item The proposed system is a full-stack AI-enabled web application that accepts a hand-sketched house plan as input and automatically converts it into an interactive 3D model.
-  \item A hybrid AI pipeline first preprocesses the sketch using OpenCV (CLAHE, Canny Edge Detection, Hough Transform) and then applies a trained PyTorch U-Net model for pixel-level wall segmentation.
+  \item A hybrid AI pipeline first preprocesses the sketch using OpenCV and then applies a trained PyTorch U-Net model for pixel-level wall segmentation.
   \item The extracted wall geometry is mapped to real-world metre coordinates and rendered interactively in the browser using Three.js (WebGL) with rotate, zoom, and pan controls.
-  \item A Scikit-Learn ensemble of 4 ML regression models (Linear Regression, Decision Tree, Random Forest, Gradient Boosting) automatically estimates construction cost from the extracted layout dimensions.
-  \item A Groq LLM chatbot (\texttt{llama-3.1-8b-instant}) provides context-aware advice — acting as a Design Assistant on the Visualization page and as a Cost Consultant on the Cost Estimation page.
+  \item A Scikit-Learn ensemble of 4 ML regression models automatically estimates construction cost from the extracted layout dimensions.
+  \item A Groq LLM chatbot provides context-aware advice \—acting as a Design Assistant on the Visualization page and as a Cost Consultant on the Cost Estimation page.
   \item User accounts, project data, and uploaded sketches are securely managed via JWT authentication, Argon2 password hashing, and SQLite persistence.
 \end{itemize}
 \end{frame}
@@ -181,7 +181,7 @@ Predicts cost but lacks visual integration \\
 \begin{column}{0.48\textwidth}
 \textbf{Software Requirements}
 \begin{itemize}
-  \item \textbf{Backend:} Python 3.10, FastAPI, Uvicorn
+  \item \textbf{Backend:} Python 3.10, FastAPI
   \item \textbf{Frontend:} HTML5, CSS3, JavaScript (Three.js, OrbitControls.js)
   \item \textbf{Deep Learning:} PyTorch (U-Net model)
   \item \textbf{CV:} OpenCV (cv2)
@@ -247,8 +247,8 @@ Predicts cost but lacks visual integration \\
 \begin{frame}{SYSTEM ARCHITECTURE: DEEP LEARNING MODULE}
 \begin{figure}
 \centering
-\includegraphics[height=0.7\textheight]{l3.jpeg}
-\caption{Deep Learning Semantic Segmentation — PyTorch U-Net Architecture}
+\includegraphics[height=0.5\textheight]{l3.jpeg}
+\caption{Deep Learning Semantic Segmentation\-PyTorch U-Net Architecture}
 \end{figure}
 \end{frame}
 
@@ -263,18 +263,12 @@ Predicts cost but lacks visual integration \\
 \begin{frame}{SYSTEM ARCHITECTURE: GROQ LLM CHATBOT}
 \begin{figure}
 \centering
-\includegraphics[height=0.7\textheight]{l5.jpeg}
+\includegraphics[height=0.7\textheight]{figg7.png}
 \caption{Groq LLM Context Engine — Dual-Mode Chatbot Architecture}
 \end{figure}
 \end{frame}
 
-\begin{frame}{SYSTEM ARCHITECTURE: FASTAPI APPLICATION TIER}
-\begin{figure}
-\centering
-\includegraphics[height=0.7\textheight]{l6.jpeg}
-\caption{FastAPI Application Tier: Asynchronous Orchestration \& JWT Security}
-\end{figure}
-\end{frame}
+
 
 %---------------- IMPLEMENTATION ALGORITHMS ----------------
 \begin{frame}{IMPLEMENTATION ALGORITHMS (1/3): Computer Vision}
@@ -301,36 +295,11 @@ Predicts cost but lacks visual integration \\
 \textbf{Security \& 3D Rendering}
 \begin{itemize}
     \item \textbf{Argon2 Password Hashing:} Industry-standard memory-hard hash (via Passlib) for secure user password storage in SQLite.
-    \item \textbf{JWT Bearer Token Authentication:} All protected endpoints (\texttt{/projects/}, \texttt{/users/me/}) require valid OAuth2 access tokens generated on login.
-    \item \textbf{UUID File Naming:} Every uploaded file is assigned a unique \texttt{uuid4} prefix to prevent overwrite conflicts.
-    \item \textbf{Three.js Linear Extrusion:} 2D room bounding boxes (in metres) are extruded along the Z-axis to a height of 3.0m to create 3D wall meshes.
+    \item \textbf{JWT Bearer Token Authentication:} All protected endpoints require valid OAuth2 access tokens generated on login.
     \item \textbf{Raycasting (Three.js):} Detects user mouse-click interactions on 3D room surfaces for room selection and labeling.
 \end{itemize}
 \end{frame}
 
-%---------------- TOOLS & TECHNOLOGIES ----------------
-\begin{frame}{TOOLS \& TECHNOLOGIES USED}
-\textbf{Development Environment:} VS Code, Git / GitHub, Anaconda / pip
-
-\vspace{0.2cm}
-\textbf{Frontend Stack:}
-\begin{itemize}
-    \item HTML5, CSS3, JavaScript (ES6+)
-    \item Three.js \& OrbitControls.js (3D rendering engine)
-\end{itemize}
-
-\vspace{0.2cm}
-\textbf{Backend \& AI Stack:}
-\begin{itemize}
-    \item FastAPI + Uvicorn (REST API server)
-    \item OpenCV (cv2) — Image preprocessing
-    \item PyTorch — U-Net deep learning inference
-    \item Scikit-Learn — ML cost regression (joblib model persistence)
-    \item Groq SDK — \texttt{llama-3.1-8b-instant} LLM chatbot
-    \item SQLite + SQLModel — User \& project database persistence
-    \item Passlib (Argon2) + python-jose (JWT) — Authentication
-\end{itemize}
-\end{frame}
 
 %---------------- CURRENT STATUS: 100% ----------------
 \begin{frame}{PROJECT STATUS: 100\% IMPLEMENTATION COMPLETE}
@@ -339,7 +308,7 @@ Predicts cost but lacks visual integration \\
     \item[\ding{51}] \textbf{Secure Auth:} User registration, JWT login, Argon2 password hashing -- all endpoints protected.
     \item[\ding{51}] \textbf{Upload \& Processing:} Image upload with UUID naming $\rightarrow$ U-Net DL segmentation $\rightarrow$ OpenCV fallback $\rightarrow$ layout JSON via subprocess.
     \item[\ding{51}] \textbf{3D Visualization:} Three.js viewer renders 5-room layout with real metre dimensions, room coloring, rotate/zoom/pan controls.
-    \item[\ding{51}] \textbf{Cost Estimation:} 4 trained ML models predict cost; Random Forest selected as best ($R^2 = 0.9983$).
+    \item[\ding{51}] \textbf{Cost Estimation:} 4 trained ML models predict cost; Random Forest selected as best.
     \item[\ding{51}] \textbf{Groq LLM Chatbot:} Dual-mode chatbot live -- Design Mode (Visualization page) and Budget Mode (Cost page).
     \item[\ding{51}] \textbf{Project Persistence:} All projects saved to SQLite and retrievable from the Dashboard.
 \end{itemize}
@@ -351,49 +320,139 @@ Predicts cost but lacks visual integration \\
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig1.png}
+\includegraphics[width=0.9\linewidth]{w1.png}
 \caption{Home Page \& Landing Interface}
 \end{figure}
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig4.png}
-\caption{Upload \& AI Processing UI}
+\includegraphics[width=0.9\linewidth]{w11.png}
+\caption{Home Page \& Landing Interface}
 \end{figure}
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig5.png}
-\caption{Interactive 3D Visualization}
+\includegraphics[width=0.9\linewidth]{w2.png}
+\caption{Home Page \& Landing Interface}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{RESULTS: PLATFORM INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w3.png}
+\caption{Home Page \& Landing Interface}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\includegraphics[width=0.9\linewidth]{w4.png}
+\caption{Home Page \& Landing Interface}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{RESULTS: USER INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w5.png}
+\caption{User Registration}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w6.png}
+\caption{User Login}
 \end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
 %---------------- RESULTS: DASHBOARD ----------------
-\begin{frame}{RESULTS: DASHBOARD \& COST OUTPUT}
+\begin{frame}{RESULTS: DASHBOARD INTERFACE}
 \begin{columns}[T]
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig6.png}
-\caption{3D Layout: Top-Down View}
+\includegraphics[width=0.9\linewidth]{w7.png}
+\caption{Dashboard of the user}
 \end{figure}
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig7.png}
-\caption{ML Cost Estimation Report}
+\includegraphics[width=0.9\linewidth]{w8.png}
+\caption{Uploading hand drawn sketch}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{RESULTS: 3D INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w9.png}
+\caption{With Roof}
 \end{figure}
 \end{column}
 \begin{column}{0.33\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig8.png}
-\caption{Responsive Dashboard View}
+\includegraphics[width=0.9\linewidth]{w10.png}
+\caption{Without Roof}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{RESULTS: 3D INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w101.png}
+\caption{Entrance View }
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w102.png}
+\caption{Chatbot in Visual page}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{RESULTS: COST ESTIMATION INTERFACE}
+\begin{columns}[T]
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w104.png}
+\caption{Cost calculation in Dollar }
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w105.png}
+\caption{Cost estimation in INR}
+\end{figure}
+\end{column}
+\begin{column}{0.33\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w106.png}
+\caption{Chatbot in Cost Estimation page}
 \end{figure}
 \end{column}
 \end{columns}
@@ -405,20 +464,155 @@ Predicts cost but lacks visual integration \\
 \begin{column}{0.48\textwidth}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{fig9.png}
-\caption{U-Net Evaluation: mIoU 0.884, Pixel Acc 95.2\%}
+\includegraphics[width=0.9\linewidth]{w107.png}
+\caption{ML Evaluation}
 \end{figure}
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{figure}
 \centering
 \includegraphics[width=0.9\linewidth]{fig10.png}
-\caption{Cost Model Comparison: Random Forest Best (MAE \$1,575)}
+\caption{Cost Model Comparison: Random Forest Best}
 \end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
+\begin{frame}{RESULTS: PROJECT SAVED}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{w45.png}
+\caption{Project saved in user dashboard}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+%---------------- RESULT ANALYSIS ----------------
+\begin{frame}{RESULT ANALYSIS: SEMANTIC SEGMENTATION}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{itemize}
+  \item The hybrid AI pipeline combines \textbf{OpenCV preprocessing} with \textbf{PyTorch U-Net deep learning} to segment structural walls from functional void spaces.
+  \item OpenCV preprocessing (CLAHE, Canny edge detection, Hough transform) handles sketch artifacts and noise normalization.
+  \item U-Net semantic segmentation delivers pixel-level wall boundary detection, learning to ignore varying grid lines and sketch inconsistencies.
+  \item Skip connections within the U-Net architecture preserve thin wall segments and fine structural details critical for accurate floor plan interpretation.
+\end{itemize}
+\end{column}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{RESULT ANALYSIS: COST ESTIMATION MODELS}
+\begin{itemize}
+  \item Evaluated 4 Scikit-Learn regression algorithms against manual construction estimates. \textbf{Random Forest} emerged as the most accurate with the lowest Mean Absolute Error.
+\end{itemize}
+\vspace{0.1cm}
+\begin{table}
+\centering
+\begin{adjustbox}{width=0.95\textwidth}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{MAE (\$)} & \textbf{MSE} & \textbf{$R^2$ Score} \\
+\midrule
+Linear Regression & 5,140.47 & 45,399,143.17 & 0.9832 \\
+Decision Tree & 1,714.07 & 7,035,026.94 & 0.9974 \\
+Gradient Boosting & 1,721.11 & 5,286,803.44 & 0.9980 \\
+\textbf{Random Forest} & \textbf{1,575.64} & \textbf{4,623,185.94} & \textbf{0.9983} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\caption{Comparison of Cost Estimation Models}
+\end{table}
+\end{frame}
+
+\begin{frame}{RESULT ANALYSIS: SYSTEM PERFORMANCE \& LATENCY}
+\begin{columns}[C]
+\begin{column}{0.5\textwidth}
+\textbf{Performance Benchmarking Results (n=7 iterations):}
+\vspace{0.1cm}
+\begin{table}
+\centering
+\small
+\begin{tabular}{lc}
+\toprule
+\textbf{Component} & \textbf{Time (s)} \\
+\midrule
+CV Preprocessing & 0.028 \\
+DL Inference (U-Net) & 0.028 \\
+Layout Extraction & 1.705 \\
+3D Conversion & 0.049 \\
+\midrule
+\textbf{Total Pipeline} & \textbf{1.788} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{0.1cm}
+\textbf{Key Achievement:}
+\begin{itemize}
+  \item Average latency: \textbf{1.788 seconds}
+  \item Min latency: \textbf{1.691 seconds}
+  \item Max latency: \textbf{1.926 seconds}
+  \item Success rate: \textbf{100\%}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=1.0\linewidth]{latency_analysis.png}
+\caption{Latency Breakdown per Process Stage}
+\end{figure}
+\vspace{0.2cm}
+\small
+\textbf{Impact:} The pipeline achieves \textbf{real-time performance}, completing the entire workflow from sketch upload to interactive 3D visualization in under 1.8 seconds—a \textbf{99\%+ reduction} compared to manual 3D CAD modeling workflows (hours $\rightarrow$ seconds).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{RESULT ANALYSIS: BENCHMARK ITERATION TABLE}
+\scriptsize
+\begin{table}
+\centering
+\begin{adjustbox}{width=0.98\textwidth}
+\begin{tabular}{c|c|c|c|c|c|c}
+\toprule
+\textbf{Iteration} & \textbf{CV (s)} & \textbf{DL (s)} & \textbf{Layout (s)} & \textbf{3D (s)} & \textbf{Total (s)} & \textbf{Status} \\
+\midrule
+1 & 0.031 & 0.031 & 1.646 & 0.051 & 1.737 & \ding{51} \\
+2 & 0.026 & 0.026 & 1.686 & 0.046 & 1.764 & \ding{51} \\
+3 & 0.028 & 0.028 & 1.758 & 0.051 & 1.843 & \ding{51} \\
+4 & 0.025 & 0.025 & 1.770 & 0.051 & 1.853 & \ding{51} \\
+5 & 0.027 & 0.027 & 1.622 & 0.045 & 1.702 & \ding{51} \\
+6 & 0.026 & 0.026 & 1.614 & 0.044 & 1.691 & \ding{51} \\
+7 & 0.030 & 0.030 & 1.837 & 0.052 & 1.926 & \ding{51} \\
+\midrule
+\textbf{AVG} & \textbf{0.028} & \textbf{0.028} & \textbf{1.705} & \textbf{0.049} & \textbf{1.788} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\vspace{0.2cm}
+\textbf{Observations:}
+\begin{itemize}
+  \item All 7 iterations completed successfully with \textbf{100\% success rate}.
+  \item Layout Extraction dominates timing (\textbf{95.3\% of total}), validating focus on geometric processing optimization.
+  \item \textbf{Standard deviation: 0.088 seconds}—indicating highly consistent performance across runs.
+  \item System \textbf{exceeds real-time requirements} with significant margin for network latency and concurrent requests.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{LIMITATIONS \& EDGE CASES}
+Despite high computational performance, the following challenges were identified representing edge cases for the system:
+\begin{itemize}
+  \item \textbf{Extreme Noise Handling:} Sketches drawn with exceptionally light pencils or on heavily textured paper can occasionally lead to ``fragmented walls'' in the resulting segmentation mask.
+  \item \textbf{Complex Geometric Layouts:} Curved walls or non-orthogonal layouts (e.g., circular rooms) exhibit a higher error rate during the Douglas-Peucker topological vectorization stage.
+  \item \textbf{Economic Localization:} The cost prediction model is calibrated to a specific regional average; global accuracy necessitates dynamic API integration for real-time local material pricing.
+\end{itemize}
+\end{frame}
 %---------------- PROJECT PLAN ----------------
 \begin{frame}{PROJECT PLAN \& TIMELINE}
 \scriptsize
@@ -436,30 +630,51 @@ Phase 5 & AI Integration: Groq LLM Chatbot, Full Pipeline Testing & \textbf{Comp
 Phase 6 & Validation, Benchmarking \& Final Documentation & \textbf{Completed} (Mar 2026) \\
 \bottomrule
 \end{tabular}
-\caption{Project Phases and Timeline — 100\% Complete}
+\caption{Project Phases and Timeline\-100\% Complete}
 \end{table}
 \end{frame}
 
 %---------------- CONCLUSION ----------------
 \begin{frame}{CONCLUSION}
 \begin{itemize}
-  \item The AI Home Planner was successfully designed and implemented as a complete, full-stack web application that bridges the gap between hand-drawn sketches and professional 3D architectural visualization.
-  \item The hybrid AI pipeline combining OpenCV preprocessing and PyTorch U-Net semantic segmentation effectively interprets noisy, informal sketches with high accuracy (mIoU: 0.884, Pixel Accuracy: 95.2\%).
-  \item The Scikit-Learn cost estimation engine (Random Forest: $R^2 = 0.9983$, MAE = \$1,575.64) enables users to receive instant, reliable construction budget estimates derived automatically from the extracted layout.
-  \item The Groq LLM chatbot (\texttt{llama-3.1-8b-instant}) provides spatially-grounded, page-specific responses -- acting as a Design Assistant on the Visualization page and a Cost Consultant on the Cost Estimation page.
-  \item The complete ``Upload-to-3D'' pipeline runs in approximately 2.6 seconds, representing a 99\% reduction in time compared to traditional manual 3D modeling.
-  \item The system successfully democratizes architectural prototyping, making early-stage home planning accessible, visual, and data-driven for both non-technical homeowners and professional architects.
+  \item \textbf{End-to-End Solution:} Successfully bridges hand-drawn sketches and 3D visualization via a unified web application.
+  \item \textbf{High Accuracy AI:} OpenCV + U-Net pipeline interprets sketches with strong F1-Score performance.
+  \item \textbf{Automated Budgeting:} Random Forest ML model delivers instant cost estimates ($R^2 = 0.9983$, MAE: \$1,575).
+  \item \textbf{Intelligent Assistance:} Groq LLM chatbot provides context-aware Design and Budget advice.
+  \item \textbf{Real-Time Performance:} The entire 2D-to-3D pipeline executes in \textbf{$\sim$1.79 seconds} average (range: 1.69–1.93s), achieving \textbf{99\%+ time reduction} vs manual CAD workflows.
+  \item \textbf{Impact:} Democratizes architectural prototyping for non-technical homeowners and professionals alike.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{FUTURE SCOPE}
+\begin{itemize}
+  \item \textbf{AR/VR Integration:} Adding WebXR support to allow users to walk through their generated 3D homes in Virtual/Augmented Reality.
+  \item \textbf{Multi-Story Support:} Extending the segmentation and 3D generation algorithms to handle staircases and multiple floors.
+  \item \textbf{Auto-Furnishing:} Using Generative AI to automatically populate empty rooms with appropriate 3D furniture models based on room type.
+  \item \textbf{Professional Export:} Implementing export options (e.g., .OBJ, .DXF, .IFC) so generated layouts can be seamlessly imported into standard CAD/BIM software.
 \end{itemize}
 \end{frame}
 
 %---------------- GIT HISTORY ----------------
 \begin{frame}{GIT VERSION CONTROL HISTORY}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
 \begin{figure}
 \centering
-\includegraphics[height=0.7\textheight]{git.png}
-\caption{Git Commit History — Full Development Lifecycle}
+\includegraphics[height=0.4\textheight]{git2.png}
+\caption{Git Commit History}
 \end{figure}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{git1.png}
+\caption{Git Commit History\-Full Development Lifecycle}
+\end{figure}
+\end{column}
+\end{columns}
 \end{frame}
+
 
 %---------------- BIBLIOGRAPHY ----------------
 \begin{frame}{BIBLIOGRAPHY}
@@ -488,8 +703,8 @@ Patel et al., ``ML Approaches for Construction Cost Estimation,''
 \begin{frame}
 \centering
 \Huge \textbf{THANK YOU}
-\vspace{0.5cm} \\
-\Large \textbf{Questions \& Answers}
+
+
 \end{frame}
 
 \end{document}

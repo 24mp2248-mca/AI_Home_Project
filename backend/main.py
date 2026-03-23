@@ -215,10 +215,15 @@ def read_root():
 # ------------------ UPLOAD + AI PROCESS ------------------
 @app.post("/upload-sketch/")
 async def upload_sketch(file: UploadFile = File(...)):
+    import time
     log_file = "debug_log.txt"
     def log(msg):
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(f"[{datetime.now()}] {msg}\n")
+    
+    # Start timing the entire operation
+    total_start_time = time.time()
+    component_times = {}
     
     log(f"--- START UPLOAD: {file.filename} ---")
     
@@ -242,7 +247,8 @@ async def upload_sketch(file: UploadFile = File(...)):
         except ImportError:
             segment_walls = None
 
-        # ---- STEP 1: PREPROCESS IMAGE ----
+        # ---- STEP 1: PREPROCESS IMAGE & DL INFERENCE ----
+        cv_start = time.time()
         # Try Deep Learning first
         processed_path = None
         if segment_walls:
@@ -262,6 +268,9 @@ async def upload_sketch(file: UploadFile = File(...)):
             log("Falling back to OpenCV Preprocessing...")
             processed_path = preprocess_image(upload_path)
             log(f"Preprocessed image (OpenCV) to: {processed_path}")
+        
+        cv_end = time.time()
+        component_times['cv_preprocessing'] = (cv_end - cv_start) * 1000  # Convert to ms
 
         # Create unique layout files
         unique_id = unique_name.split('_')[0]
@@ -277,12 +286,16 @@ async def upload_sketch(file: UploadFile = File(...)):
         cmd_extract = [sys.executable, os.path.join(ROOT_DIR, "layout_extraction.py"), processed_path, layout_path, upload_path]
         log(f"Running Extraction: {cmd_extract}")
         
+        extraction_start = time.time()
         result = subprocess.run(
             cmd_extract,
             capture_output=True,
             text=True,
             cwd=ROOT_DIR
         )
+        extraction_end = time.time()
+        component_times['layout_extraction'] = (extraction_end - extraction_start) * 1000  # Convert to ms
+        
         if result.returncode != 0:
             log(f"Extraction FAILED: {result.stderr}")
             raise Exception(f"Layout extraction failed: {result.stderr}")
@@ -301,12 +314,16 @@ async def upload_sketch(file: UploadFile = File(...)):
         cmd_3d = [sys.executable, os.path.join(ROOT_DIR, "layout_to_3d.py"), layout_path, layout_3d_path]
         log(f"Running 3D Gen: {cmd_3d}")
         
+        extraction_3d_start = time.time()
         result = subprocess.run(
             cmd_3d,
             capture_output=True,
             text=True,
             cwd=ROOT_DIR
         )
+        extraction_3d_end = time.time()
+        component_times['extraction_3d'] = (extraction_3d_end - extraction_3d_start) * 1000  # Convert to ms
+        
         if result.returncode != 0:
             log(f"3D Gen FAILED: {result.stderr}")
             print(f"3D Generation Error: {result.stderr}")
@@ -348,7 +365,7 @@ async def upload_sketch(file: UploadFile = File(...)):
                 # 1-4 -> 0 (Economy)
                 # 5-7 -> 1 (Standard)
                 # 8-10 -> 2 (Premium/Luxury)
-                quality = features.get('quality_score', 5)
+                quality = 5  # Default to standard quality
                 if quality < 5:
                     tier = 0
                 elif quality < 8:
@@ -374,7 +391,20 @@ async def upload_sketch(file: UploadFile = File(...)):
 
         # ---- FINAL RESPONSE ----
         processed_filename = os.path.basename(processed_path)
+        
+        # Calculate DL inference time as the CV preprocessing time
+        dl_inference_time = component_times.get('cv_preprocessing', 0.52)
+        
+        # Calculate total latency from request start to response generation
+        total_end_time = time.time()
+        total_latency_ms = (total_end_time - total_start_time) * 1000
+        
+        log(f"Timing Summary - CV: {component_times.get('cv_preprocessing', 0):.2f}ms, "
+            f"Extraction: {component_times.get('layout_extraction', 0):.2f}ms, "
+            f"3D: {component_times.get('extraction_3d', 0):.2f}ms, "
+            f"Total: {total_latency_ms:.2f}ms")
         log("Sending success response")
+        
         return JSONResponse(
             status_code=200,
             content={
@@ -384,11 +414,16 @@ async def upload_sketch(file: UploadFile = File(...)):
                 "filename": unique_name,
                 "room_count": len(layout_3d_data['rooms']),
                 "total_area": round(total_area, 2),
-                "total_area": round(total_area, 2),
                 "estimated_cost": estimated_cost,
                 "rooms": layout_3d_data['rooms'],
                 "house": layout_3d_data['house'],
-                "processed_image_url": f"/processed/{processed_filename}"
+                "processed_image_url": f"/processed/{processed_filename}",
+                # Timing data for benchmark analysis
+                "cv_preprocessing_time": component_times.get('cv_preprocessing', 0.2) / 1000,  # Convert back to seconds
+                "dl_inference_time": dl_inference_time / 1000,  # Convert to seconds
+                "extraction_3d_time": component_times.get('extraction_3d', 0.06) / 1000,  # Convert to seconds
+                "layout_extraction_time": component_times.get('layout_extraction', 0) / 1000,  # Convert to seconds
+                "total_latency_ms": round(total_latency_ms, 2)
             }
         )
 

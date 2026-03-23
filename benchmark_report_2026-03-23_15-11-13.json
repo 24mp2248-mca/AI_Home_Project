@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-03-23_15-11-13",
+  "benchmark_config": {
+    "image": "d:\\project\\AI_Home_Project\\uploads\\00b5a4c56ff94a5b87136c6d24acde45_358c0335bd124568acf0981abcf4ae61_sample.png",
+    "iterations": 3,
+    "endpoint": "http://localhost:8000/upload-sketch/"
+  },
+  "raw_results": [
+    {
+      "iteration": 1,
+      "status": "Success",
+      "cv_preprocessing_ms": 25.051116943359375,
+      "dl_inference_ms": 25.051116943359375,
+      "layout_extraction_ms": 1722.245216369629,
+      "extraction_3d_ms": 50.80866813659668,
+      "total_latency_ms": 1810.06
+    },
+    {
+      "iteration": 2,
+      "status": "Success",
+      "cv_preprocessing_ms": 27.693748474121094,
+      "dl_inference_ms": 27.693748474121094,
+      "layout_extraction_ms": 1636.3906860351562,
+      "extraction_3d_ms": 51.7430305480957,
+      "total_latency_ms": 1725.39
+    },
+    {
+      "iteration": 3,
+      "status": "Success",
+      "cv_preprocessing_ms": 24.083852767944336,
+      "dl_inference_ms": 24.083852767944336,
+      "layout_extraction_ms": 1627.7885437011719,
+      "extraction_3d_ms": 48.241376876831055,
+      "total_latency_ms": 1709.96
+    }
+  ],
+  "statistics": {
+    "cv_preprocessing": {
+      "average": 25.609572728474934,
+      "min": 24.083852767944336,
+      "max": 27.693748474121094,
+      "std_dev": 1.8686201862109715,
+      "p95": 27.693748474121094
+    },
+    "dl_inference": {
+      "average": 25.609572728474934,
+      "min": 24.083852767944336,
+      "max": 27.693748474121094,
+      "std_dev": 1.8686201862109715,
+      "p95": 27.693748474121094
+    },
+    "layout_extraction": {
+      "average": 1662.141482035319,
+      "min": 1627.7885437011719,
+      "max": 1722.245216369629,
+      "std_dev": 52.2287600262586,
+      "p95": 1722.245216369629
+    },
+    "extraction_3d": {
+      "average": 50.26435852050781,
+      "min": 48.241376876831055,
+      "max": 51.7430305480957,
+      "std_dev": 1.8131738270213933,
+      "p95": 51.7430305480957
+    },
+    "total_latency": {
+      "average": 1748.47,
+      "min": 1709.96,
+      "max": 1810.06,
+      "std_dev": 53.8935738284259,
+      "p95": 1810.06
+    }
+  },
+  "total_samples": 3,
+  "all_iterations_data": {
+    "cv_preprocessing_ms": [
+      25.051116943359375,
+      27.693748474121094,
+      24.083852767944336
+    ],
+    "dl_inference_ms": [
+      25.051116943359375,
+      27.693748474121094,
+      24.083852767944336
+    ],
+    "extraction_3d_ms": [
+      50.80866813659668,
+      51.7430305480957,
+      48.241376876831055
+    ],
+    "total_latency_ms": [
+      1810.06,
+      1725.39,
+      1709.96
+    ]
+  }
+}
