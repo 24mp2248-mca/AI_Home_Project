@@ -14,7 +14,7 @@
 \usepackage{textcomp}  % For special symbols
 \usepackage[super]{cite}    % For superscript citations
 \makeatletter
-\renewcommand\@citess[1]{\textsuperscript{[#1]}}
+\renewcommand{\@cite}[2]{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}
 \makeatother
 
 % --- STRICT PLACEMENT & DETAILED BLOCK DIAGRAMS ---
@@ -223,7 +223,7 @@ Under the Guidance of\\[0.5em]
 \pagenumbering{arabic}
 \chapter{INTRODUCTION}
 
-The project titled AI-Enabled Home Planning and 3D Visualization Web Application focuses on providing an interactive, intelligent, and user-friendly solution for early-stage residential home planning. The system aims to bridge the gap between conceptual house layouts and realistic visualization by using a multimodal artificial intelligence framework to convert 2D hand-drawn sketches into structured three-dimensional (3D) representations\cite{liu2017, chen2019}. By leveraging modern web technologies alongside advanced deep learning models including an OpenCV preprocessing pipeline\cite{opencv2024}, a PyTorch-implemented U-Net for semantic segmentation\cite{ronneberger2015}, and Scikit-Learn for real-time cost estimation\cite{sklearn2024} the project enables users to better understand spatial arrangements, room layouts, and the financial implications of their designs\cite{wang2020}. Furthermore, the integration of a Groq-powered conversational AI chatbot\cite{groq2024} improves clarity, supports informed decision-making, and drastically reduces the dependency on professional architectural tools during the initial planning phase\cite{brown2020}. Additionally, the platform facilitates dynamic spatial optimization and real-time material selection, allowing users to iterate on their architectural concepts with data-driven precision. Such an integrated approach ensures that the transition from a creative sketch to a technically feasible 3D model is both seamless and intuitive, bridging the gap between artistic ideation and professional engineering standards.
+The project titled AI-Enabled Home Planning and 3D Visualization Web Application focuses on providing an interactive, intelligent, and user-friendly solution for early-stage residential home planning. The system aims to bridge the gap between conceptual house layouts and realistic visualization by using a multimodal artificial intelligence framework to convert 2D hand-drawn sketches into structured three-dimensional (3D) representations\cite{liu2017, chen2019}. By leveraging modern web technologies alongside advanced deep learning models including an OpenCV preprocessing pipeline\cite{opencv2024}, a PyTorch-implemented U-Net for semantic segmentation\cite{ronneberger2015}, and Scikit-Learn for real-time cost estimation\cite{sklearn2024} the project enables users to better understand spatial arrangements, room layouts, and the financial implications of their designs\cite{wang2020}. Furthermore, the integration of a Groq-powered conversational AI chatbot\cite{groq2024} improves clarity, supports informed decision-making, and drastically reduces the dependency on professional architectural tools during the initial planning phase\cite{brown2020}.
 
 \section{Need for Project}
 
@@ -487,43 +487,14 @@ The chatbot pipeline processes user messages through intelligent routing and fau
 
 \subsection{Development Methodology}
 
-The AI-Enabled Home Planning platform was developed using an \textbf{Agile Scrum Methodology}\cite{beck2001}. This iterative approach was critical given the experimental nature of the deep learning components, allowing for continuous refinement of the U-Net segmentation models and cost prediction algorithms based on incremental testing results. The development process was structured into two-week sprints, each focused on a specific functional module—from computer vision preprocessing to 3D rendering and NLP integration.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[node distance = 3.5cm, auto, thick]
-    \tikzstyle{block} = [rectangle, draw, fill=blue!5, text width=4.2cm, text centered, rounded corners, minimum height=1.8cm, font=\normalsize]
-    \tikzstyle{line} = [draw, -Latex, line width=1.5pt, blue!70!black]
-    
-    % Nodes
-    \node [block] (req) {\textbf{Sprint 0:}\\ Requirement \\ Analysis \cite{eastman2018}};
-    \node [block, right of=req, xshift=2.8cm] (design) {\textbf{Sprint 1:}\\ Data Curating \& \\ System Design \cite{chen2019}};
-    \node [block, below of=design, yshift=-1.2cm] (impl) {\textbf{Sprint 2-4:}\\ Iterative AI \\ Implementation \cite{pytorch2024}};
-    \node [block, left of=impl, xshift=-2.8cm] (test) {\textbf{Sprint 5:}\\ Testing \& \\ Validation \cite{ronneberger2015}};
-    \node [block, above of=test, yshift=1.2cm, fill=green!10] (deploy) {\textbf{Release:}\\ System \\ Deployment \cite{fastapi2024}};
-
-    % Connections
-    \path [line] (req) -- (design);
-    \path [line] (design) -- (impl);
-    \path [line] (impl) -- (test);
-    \path [line] (test) -- (deploy);
-    \path [line] (deploy) -- (req);
-    
-    % Center Label
-    \node at (3.15, -2.2) {\large \textbf{Agile Lifecycle}};
-\end{tikzpicture}
-\caption{Iterative Agile Development Methodology showing Sprint-based Progression\cite{beck2001}}
-\label{fig:agile_methodology}
-\end{figure}
-
-The methodology encompasses five primary phases as illustrated in Figure~\ref{fig:agile_methodology}:
+An Agile software development methodology\cite{beck2001} was adopted to ensure continuous improvement and iterative refinement of the complex AI components. The development lifecycle includes:
 
 \begin{itemize}
-  \item \textbf{Requirement Analysis \& Specification:} Detailed study of user needs and identification of the research gaps in current CAD systems, establishing the foundational SRS for the multimodal AI framework\cite{eastman2018, pizarro2022}.
-  \item \textbf{Dataset Engineering \& Design:} Curating and augmenting high-variance hand-drawn datasets to ensure the U-Net model remains robust against various sketch styles and noise levels\cite{chen2019, ronneberger2015}.
-  \item \textbf{Iterative Implementation:} Successive development of the OpenCV vision pipeline, PyTorch segmentation engine, and Scikit-Learn cost model, followed by the integration into a unified FastAPI backend\cite{opencv2024, pytorch2024, sklearn2024}.
-  \item \textbf{Empirical Testing \& Optimization:} Rigorous validation of segmentation mIoU and regression R\textsuperscript{2} scores, utilizing feedback loops to optimize model weights and reduce lattice-extraction latency\cite{ronneberger2015, wang2020}.
-  \item \textbf{System Deployment \& Monitoring:} Wrapping the AI engines in a responsive React-based glassmorphic UI and deploying the high-concurrency 3D rendering pipeline for end-user interaction\cite{fastapi2024, threejs2024}.
+  \item \textbf{Requirement Analysis:} Identifying limitations of existing CAD software\cite{eastman2018}.
+  \item \textbf{Dataset Preparation:} Curating a dataset of noisy hand-drawn sketches to train models robustly\cite{chen2019}.
+  \item \textbf{Iterative Prototyping:} Building and verifying OpenCV processing\cite{opencv2024} prior to PyTorch implementation\cite{pytorch2024}.
+  \item \textbf{Testing and Evaluation:} Measuring Mean Intersection over Union (mIoU)\cite{ronneberger2015} and checking Cost MAE against historical data\cite{wang2020}.
+  \item \textbf{Deployment:} Finalizing the browser UI to ensure stable functionality and UX flow\cite{fastapi2024, threejs2024}.
 \end{itemize}
 
 \section{Implementation}

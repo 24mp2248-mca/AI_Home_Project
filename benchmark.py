@@ -21,6 +21,13 @@ from typing import Dict, List, Tuple
 from datetime import datetime
 import statistics
 
+# Attempt to import graph generation utility
+try:
+    from generate_graphs import generate_benchmark_graphs
+    GRAPHS_AVAILABLE = True
+except ImportError:
+    GRAPHS_AVAILABLE = False
+
 class BenchmarkSuite:
     """Comprehensive benchmarking for AI Home Planner pipeline."""
     
@@ -205,10 +212,19 @@ class BenchmarkSuite:
         print("=" * 70)
         
         # Generate report files
-        self.generate_report_files(stats_summary)
+        report_files = self.generate_report_files(stats_summary)
+        
+        # Generate graphs if available
+        if GRAPHS_AVAILABLE:
+            json_filename = report_files[0] if report_files else None
+            print("\n📈 GENERATING VISUAL ANALYSIS...")
+            generate_benchmark_graphs(json_filename)
+        else:
+            print("\n⚠️ Graph generation skipped (matplotlib or generate_graphs.py not found).")
 
-    def generate_report_files(self, stats_summary: Dict) -> None:
+    def generate_report_files(self, stats_summary: Dict) -> List[str]:
         """Generate JSON and Markdown reports for documentation."""
+        generated_files = []
         
         # Generate JSON report
         json_report = {
@@ -234,9 +250,13 @@ class BenchmarkSuite:
         with open(json_filename, 'w') as f:
             json.dump(json_report, f, indent=2)
         print(f"\n💾 JSON Report saved: {json_filename}")
+        generated_files.append(json_filename)
         
         # Generate Markdown report for documentation
         self.generate_markdown_report(stats_summary, json_filename)
+        generated_files.append(f"benchmark_report_{self.timestamp}.md")
+        
+        return generated_files
 
     def generate_markdown_report(self, stats_summary: Dict, json_file: str) -> None:
         """Generate detailed Markdown report for thesis/paper."""
