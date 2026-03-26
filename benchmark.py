@@ -240,6 +240,7 @@ class BenchmarkSuite:
             "all_iterations_data": {
                 "cv_preprocessing_ms": self.component_times['cv_preprocessing'],
                 "dl_inference_ms": self.component_times['dl_inference'],
+                "layout_extraction_ms": self.component_times['layout_extraction'],
                 "extraction_3d_ms": self.component_times['extraction_3d'],
                 "total_latency_ms": self.component_times['total_latency']
             }

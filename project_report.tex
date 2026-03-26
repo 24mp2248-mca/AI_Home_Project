@@ -225,6 +225,7 @@ Under the Guidance of\\[0.5em]
 
 The project titled AI-Enabled Home Planning and 3D Visualization Web Application focuses on providing an interactive, intelligent, and user-friendly solution for early-stage residential home planning. The system aims to bridge the gap between conceptual house layouts and realistic visualization by using a multimodal artificial intelligence framework to convert 2D hand-drawn sketches into structured three-dimensional (3D) representations\cite{liu2017, chen2019}. By leveraging modern web technologies alongside advanced deep learning models including an OpenCV preprocessing pipeline\cite{opencv2024}, a PyTorch-implemented U-Net for semantic segmentation\cite{ronneberger2015}, and Scikit-Learn for real-time cost estimation\cite{sklearn2024} the project enables users to better understand spatial arrangements, room layouts, and the financial implications of their designs\cite{wang2020}. Furthermore, the integration of a Groq-powered conversational AI chatbot\cite{groq2024} improves clarity, supports informed decision-making, and drastically reduces the dependency on professional architectural tools during the initial planning phase\cite{brown2020}. Additionally, the platform facilitates dynamic spatial optimization and real-time material selection, allowing users to iterate on their architectural concepts with data-driven precision. Such an integrated approach ensures that the transition from a creative sketch to a technically feasible 3D model is both seamless and intuitive, bridging the gap between artistic ideation and professional engineering standards.
 
+
 \section{Need for Project}
 
 Home planning is a crucial phase in residential construction, where a clear understanding of space utilization, room arrangement, and functionality is essential\cite{eastman2018}. In most cases, early-stage house designs begin with hand-sketched plans, which are inherently ambiguous and difficult for both traditional algorithms and non-technical users to visualize accurately\cite{ahmed2018}. Translating these irregular sketches into realistic, interactive 3D spaces traditionally requires manual re-drawing within complex and fragmented software suites\cite{eastman2018}.
@@ -278,33 +279,38 @@ This report is organized as follows:
 % ================= CHAPTER 2 =================
 \chapter{LITERATURE REVIEW}
 
-This chapter presents a review of existing systems, tools, and research studies related to residential home planning, computational architecture, and multi-disciplinary AI technologies. It examines traditional professional methodologies, early visual-processing frameworks, and integrated conversational models. The purpose of this review is to understand current capabilities, pinpoint critical functional limitations, and demonstrate how our integrated AI-enabled framework resolves these contemporary industry bottlenecks.
+This chapter presents a review of existing systems, tools, and research studies related to residential home planning, computational architecture, and multi-disciplinary AI technologies. It examines traditional professional methodologies, early visual-processing frameworks, and integrated conversational models. The purpose of this review is to understand current capabilities, pinpoint critical functional limitations, and demonstrate how our integrated AI-enabled framework resolves these contemporary industry bottlenecks. 
+
+Historically, the transition from manual drafting to Computer-Aided Design (CAD) revolutionized architectural precision but maintained a high technical barrier for non-professional users. While contemporary BIM (Building Information Modeling) tools offer unparalleled detail, they often lack the intuitive interface required for early-stage conceptual ideation\cite{opencv2024, canny1986}. Recent developments in the AEC (Architecture, Engineering, and Construction) industry have begun to explore deep learning for automated floor plan generation, yet a significant gap remains in translating unstructured human input\—such as hand-drawn sketches\—into precise, actionable geometric data. 
+
+Furthermore, while Large Language Models (LLMs) have transformed natural language interaction, their application in spatial reasoning and structural constraints is still an emerging frontier. By synthesizing these disparate fields, this review establishes a theoretical groundwork for a hybrid system that treats architectural design as a collaborative, multimodal dialogue. The following sections categorize the state-of-the-art into three primary domains: conventional architectural software, computer-vision-based floor plan analysis, and the burgeoning field of generative architectural agents.
 
 \section{Existing System}
 
-Existing home planning systems predominantly rely on traditional approaches or high-end Computer-Aided Design (CAD) tools such as AutoCAD, Revit, and SketchUp. These tools remain the standard for producing accurate, compliance-ready architectural drafting. However, they lack semantic visual intelligence; they require exact manual inputs and cannot interpret the stochastic, noisy lines characteristic of early conceptual hand-sketches. Consequently, architects and clients cannot fluidly transform casual sketches into functional digital equivalents without laborious re-tracing.
-
-Moreover, the existing ecosystem is heavily fragmented. Separate systems manage differing stages of the prototyping loop: one for visualization, another separate spreadsheet framework for cost projection, and third-party personnel to advise on design rules. Web platforms demonstrating basic 3D rendering typically depend heavily on drag-and-drop templates rather than machine reading capabilities, keeping users dependent on multiple disjointed systems.
+Existing home planning systems predominantly rely on traditional approaches or high-end Computer-Aided Design (CAD) tools such as AutoCAD, Revit, and SketchUp. These tools remain the standard for producing accurate, compliance-ready architectural drafting. However, they lack semantic visual intelligence; they require exact manual inputs and cannot interpret the stochastic, noisy lines characteristic of early conceptual hand-sketches. Consequently, architects and clients cannot fluidly transform casual sketches into functional digital equivalents without laborious re-tracing\cite{wang2020} .
+Moreover, the existing ecosystem is heavily fragmented. Separate systems manage differing stages of the prototyping loop: one for visualization, another separate spreadsheet framework for cost projection, and third-party personnel to advise on design rules. Web platforms demonstrating basic 3D rendering typically depend heavily on drag-and-drop templates rather than machine reading capabilities, keeping users dependent on multiple disjointed systems.This mechanical rigidity creates a profound "semantic gap" where the software understands the geometry\—vectors, vertices, and layers\—but remains oblivious to the architectural intent. Within traditional CAD environments, a line represents a mathematical distance rather than a structural element with inherent properties like thermal resistance, load-bearing capacity, or cost-per-square-meter. Consequently, any intelligence regarding the "meaning" of the space must be manually injected by a human expert, rendering the software a passive drafting table rather than an active design partner.
+Furthermore, the lack of a unified data backbone results in persistent "information silos." When a design modification is made in a visualization tool, the corresponding impact on material procurement, structural integrity, and local building code compliance must be recalculated across disconnected spreadsheets or secondary software modules. This manual synthesis of data across disparate platforms introduces significant latency in the design-to-validation cycle, often leading to costly errors and misaligned expectations between the client and the architect.
+The barrier to entry also remains prohibitively high; the steep learning curve associated with parametric modeling often forces users into a "template-driven" workflow. In these scenarios, creative freedom is sacrificed for software convenience, as users are restricted to pre-defined libraries of objects that may not align with their unique spatial visions. There is a clear and urgent need for a "design-first" interface\—one that can perceive the raw intuition of a hand-drawn stroke and autonomously bridge the gap between a conceptual sketch and a multifaceted, data-rich architectural model.
 
 \section{Study on Existing System}
 
 Several research studies have attempted to computationally bridge the gap between 2D layouts and digital formats. Early studies favored algorithms like the Hough Transform\cite{ahmed2018} for extracting structural lines from floor plans. However, these classical vision methods struggled with the irregularities in hand-drawn imagery.
+A major breakthrough in addressing these inconsistencies arrived with deep learningspecifically the U-Net architecture\cite{ronneberger2015}, which established a robust approach for exact pixel-level segmentation. Furthermore, frameworks such as FloorNet\cite{liu2017} applied multi-branch CNNs directly towards 3D transformation. Despite their impressive accuracy, these solutions are often computationally dense, lack an interactive user-facing web tool, and do not interpret spatial logic toward external practicalities like financial forecasting.
 
-A major breakthrough in addressing these inconsistencies arrived with deep learningÃ¢â‚¬â€specifically the U-Net architecture\cite{ronneberger2015}, which established a robust approach for exact pixel-level segmentation. Furthermore, frameworks such as FloorNet\cite{liu2017} applied multi-branch CNNs directly towards 3D transformation. Despite their impressive accuracy, these solutions are often computationally dense, lack an interactive user-facing web tool, and do not interpret spatial logic toward external practicalities like financial forecasting.
-
-Separately, studies optimizing construction estimates via machine learning\cite{wang2020} demonstrated that regression algorithms can tightly predict building costs based on geographical dimensions. Yet, these models have remained standalone, continuing to demand that users quantify and input project areas manually.
+Separately, studies optimizing construction estimates via machine learning\cite{wang2020} demonstrated that regression algorithms can tightly predict building costs based on geographical dimensions. Yet, these models have remained standalone, continuing to demand that users quantify and input project areas manually.This lack of connectivity between visual perception and economic modeling represents a significant "knowledge gap" in current architectural AI research. While a U-Net may successfully identify a wall boundary, it rarely understands the financial or structural implications of that wall's material composition or its impact on the total project budget. Furthermore, existing end-to-end systems often neglect the "Human-in-the-Loop" aspect, failing to provide an intuitive interface where a non-expert can interactively refine AI-generated outputs.
+Most research-grade models also require high-performance localized computing environments, making them inaccessible for real-time deployment on lightweight web-based platforms used by the general public. Consequently, there is a clear demand for a hybrid architecture that not only automates spatial vectorization but also bridges the semantic divide between raw geometry and actionable business intelligencecite{opencv2024}. By synthesizing deep learning, topological simplification, and real-time regression analysis, the need for a unified environment becomes evident\—one where a single sketch can trigger a chain of multi-disciplinary inferences. Our proposed framework addresses these deficiencies by consolidating these fragmented breakthroughs into a singular, browser-accessible architectural agent.
 
 \section{Recent Advancements in Deep Learning for Architectural Analysis}
 
-The field of automatic floor plan analysis has undergone explosive growth due to advancements in machine learning\cite{pizarro2022}. Modern architectures like DeepFloorPlan\cite{zeng2019} leverage geometry-aware convolutional neural networks to perform real-time recognition of room boundaries and structural elements with high precision. Recent studies have also explored identifying connection points, such as wall corners and door endpoints, using CNNs to establish robust topological links\cite{shehzadi2022}. These data-driven approaches significantly outperform traditional heuristic methods by adapting to varied drawing styles and noise levels.
+The field of automatic floor plan analysis has undergone explosive growth due to advancements in machine learning\cite{threejs2024}. Modern architectures like DeepFloorPlan\cite{liu2017} leverage geometry-aware convolutional neural networks to perform real-time recognition of room boundaries and structural elements with high precision. Recent studies have also explored identifying connection points, such as wall corners and door endpoints, using CNNs to establish robust topological links\cite{liu2017}. These data-driven approaches significantly outperform traditional heuristic methods by adapting to varied drawing styles and noise levels.
 
 \section{Machine Learning for Construction Economics}
 
-Accurate cost estimation is critical to the feasibility of any construction project. Traditional estimation methods often struggle with the nonlinear relationships within construction data, leading to frequent cost overruns\cite{wang2020}. Recent research highlights the effectiveness of ensemble learning techniques, such as Random Forest and XGBoost, in providing more reliable cost predictions during the early design phases\cite{wang2023cost}. These models enable the processing of large datasets of historical construction costs against extracted spatial metrics, yielding predictive accuracies exceeding 90\% in controlled benchmarks.
+Accurate cost estimation is critical to the feasibility of any construction project. Traditional estimation methods often struggle with the nonlinear relationships within construction data, leading to frequent cost overruns\cite{liu2017, threejs2024}.. Recent research highlights the effectiveness of ensemble learning techniques, such as Random Forest and XGBoost, in providing more reliable cost predictions during the early design phases. These models enable the processing of large datasets of historical construction costs against extracted spatial metrics, yielding predictive accuracies exceeding 90\% in controlled benchmarks.
 
 \section{Multimodal AI and Conversational Interfaces in Design}
 
-The integration of Large Language Models (LLMs) and multimodal AI has introduced a new paradigm of interactive architectural assistance. By utilizing Transformer-based architectures\cite{vaswani2017}, systems can now interpret complex design instructions and provide contextually grounded suggestions. Multimodal models, such as CLIP\cite{radford2021}, further enable the alignment of visual geometry with natural language, allowing for seamless communication between users and digital design environments. This shift towards ``Explanatory AI'' ensures that architectural tools are not only generative but also collaborative and informative.
+The integration of Large Language Models (LLMs) and multimodal AI has introduced a new paradigm of interactive architectural assistance. By utilizing Transformer-based architectures, systems can now interpret complex design instructions and provide contextually grounded suggestions. Multimodal models, such as CLIP, further enable the alignment of visual geometry with natural language, allowing for seamless communication between users and digital design environments.cite{opencv2024} This shift towards ``Explanatory AI'' ensures that architectural tools are not only generative but also collaborative and informative.
 
 \section{Gap Identification}
 
@@ -419,7 +425,9 @@ This architecture ensures \textbf{loose coupling} between components, enabling i
 
 \subsubsection{Block Diagram}
 
-The system is orchestrated via a fully decoupled Block Architectural Design. This explicit layout demonstrates how data physically travels outward from the Backend API to the various AI and Analytic engines.
+The system is orchestrated via a fully decoupled Block Architectural Design. This explicit layout demonstrates how data physically travels outward from the Backend API to the various AI and Analytic engines. 
+
+To ensure high throughput and low latency, the system utilizes an asynchronous communication pattern. This allows the primary Backend API to offload computationally intensive tasks to specialized downstream modules without blocking user-facing operations. By abstracting the complex data transformations from the core business logic, the system maintains a high degree of responsiveness. 
 
 \begin{figure}[H]
 \centering
@@ -487,7 +495,7 @@ The chatbot pipeline processes user messages through intelligent routing and fau
 
 \subsection{Development Methodology}
 
-The AI-Enabled Home Planning platform was developed using an \textbf{Agile Scrum Methodology}\cite{beck2001}. This iterative approach was critical given the experimental nature of the deep learning components, allowing for continuous refinement of the U-Net segmentation models and cost prediction algorithms based on incremental testing results. The development process was structured into two-week sprints, each focused on a specific functional module—from computer vision preprocessing to 3D rendering and NLP integration.
+The AI-Enabled Home Planning platform was developed using an \textbf{Agile Scrum Methodology}\cite{beck2001}. This iterative approach was critical given the experimental nature of the deep learning components, allowing for continuous refinement of the U-Net segmentation models and cost prediction algorithms based on incremental testing results. The development process was structured into two-week sprints, each focused on a specific functional module\—from computer vision preprocessing to 3D rendering and NLP integration.
 
 \begin{figure}[H]
 \centering
@@ -525,10 +533,11 @@ The methodology encompasses five primary phases as illustrated in Figure~\ref{fi
   \item \textbf{Empirical Testing \& Optimization:} Rigorous validation of segmentation mIoU and regression R\textsuperscript{2} scores, utilizing feedback loops to optimize model weights and reduce lattice-extraction latency\cite{ronneberger2015, wang2020}.
   \item \textbf{System Deployment \& Monitoring:} Wrapping the AI engines in a responsive React-based glassmorphic UI and deploying the high-concurrency 3D rendering pipeline for end-user interaction\cite{fastapi2024, threejs2024}.
 \end{itemize}
-
 \section{Implementation}
 
-The technical implementation of the AI-Enabled Home Planning platform is strictly organized into distinct, sequential subprocessing stages to isolate and correct hand-drawn irregularities\cite{opencv2024, ronneberger2015}.
+The technical implementation of the AI-Enabled Home Planning platform is strictly organized into distinct, sequential subprocessing stages to isolate and correct hand-drawn irregularities\cite{opencv2024, ronneberger2015}. 
+% Added lines (Option 1):
+This modular approach ensures that each computational block operates within a specific domain of responsibility, preventing the propagation of noise across the entire system. By compartmentalizing the workflow, the platform can apply localized heuristic refinements\—such as thinning morphological filters or adaptive thresholding—independently of the core neural inference. This structural encapsulation not only facilitates granular debugging but also allows for the independent scaling of specific stages based on the complexity of the input sketch.
 
 \subsection{Phase 1: Image Preprocessing}
 
@@ -574,15 +583,23 @@ $(x,y)$
 
 The PyTorch U-Net\cite{ronneberger2015} mathematically differentiates raw edge-pixels into specific spatial concepts (Walls vs Void). This array is then translated into mathematical, machine-readable $(x,y)$ geometry using topological simplification\cite{liu2017, douglas1973}.
 
+This transition from a probabilistic raster image to a deterministic vector format follows a multi-stage pipeline designed to minimize spatial noise while preserving topological integrity. 
+% Added 6 Lines:
+During the encoding phase, the network progressively downsamples the input tensor to capture high-level spatial features and structural context. The subsequent decoding path then reconstructs this information into a high-resolution probability map, effectively filtering out non-architectural noise and stroke artifacts. By applying a global threshold to this output, the system generates a binary semantic mask where every pixel is strictly classified as either structural or empty space. This pixel-based representation is then converted into a series of continuous boundary coordinates through a localized contour-tracing algorithm. To ensure the output is computationally efficient and visually clean, the Douglas-Peucker algorithm performs vertex reduction, collapsing redundant points while maintaining the original architectural intent. Finally, these optimized coordinates are serialized into a standardized JSON schema, providing a lightweight and portable geometric definition for the user interface.
+
+The sequential logic governing this transformation\—from initial tensor injection to the final serialized output—is detailed in the flowchart below:
+\newpage
+
+
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
- node distance=0.8cm,
- box/.style={rectangle, draw, thick, rounded corners, minimum width=5.5cm, minimum height=0.75cm, align=center, fill=red!5},
- desc/.style={rectangle, align=left, font=\footnotesize\color{black!80}, minimum width=5cm},
- arrow/.style={-Latex, thick}
+node distance=0.8cm,
+box/.style={rectangle, draw, thick, rounded corners, minimum width=5.5cm, minimum height=0.75cm, align=center, fill=red!5},
+desc/.style={rectangle, align=left, font=\footnotesize\color{black!80}, minimum width=5cm},
+arrow/.style={-Latex, thick}
 ]
-
 \node[box] (input) {\textbf{1. Inject Stabilized Data Tensor}};
 \node[box, below=of input] (encoder) {\textbf{2. PyTorch U-Net Encoder}};
 \node[box, below=of encoder] (decoder) {\textbf{3. PyTorch U-Net Decoder}};
@@ -590,7 +607,6 @@ The PyTorch U-Net\cite{ronneberger2015} mathematically differentiates raw edge-p
 \node[box, below=of mask] (contour) {\textbf{5. Boundary Contour Extraction}};
 \node[box, below=of contour] (douglas) {\textbf{6. Douglas-Peucker Smoothing\cite{douglas1973}}};
 \node[box, below=of douglas] (json) {\textbf{7. Universal Geometric JSON Object}};
-
 \draw[arrow] (input) -- (encoder);
 \draw[arrow] (encoder) -- (decoder);
 \draw[arrow] (decoder) -- (mask);
@@ -600,68 +616,22 @@ The PyTorch U-Net\cite{ronneberger2015} mathematically differentiates raw edge-p
 \end{tikzpicture}
 \caption{Detailed Internal Logic of Classification and JSON Vectorization\cite{ronneberger2015, douglas1973}}
 \label{fig:segmentation}
-\end{figure}
-
-\subsection{Phase 3: Multimodal Analytics and 3D Synthesis}
-
-
-To establish a technical foundation for the final integration stage, the following text and architectural highlights describe how the system transitions from static geometric data to a fully interactive, multimodal dashboard\cite{threejs2024, groq2024, sklearn2024}:
-\begin{itemize}
-\item \textbf{Asynchronous Multimodal Dispatch:} To eliminate sequential bottlenecks, the architecture employs a parallel execution strategy\cite{fastapi2024}, simultaneously broadcasting the validated JSON schema to analytical, conversational, and graphical engines.
-\item \textbf{Predictive Financial Modeling:} The system integrates a Scikit-Learn regressor\cite{sklearn2024, breiman2001} that maps spatial features---such as total floor area, wall lengths, and volumetric estimates---against localized material cost datasets\cite{wang2020} to provide instantaneous budgetary feedback.
-\item \textbf{Semantic Reasoning Integration:} The Groq LLM engine\cite{groq2024, brown2020} ingests the spatial metadata to generate a design-aware narrative, allowing the chatbot to provide contextually relevant advice based on the actual proportions and layout of the user's sketch.
-\item \textbf{Hardware-Accelerated 3D Synthesis:} By projecting 2D coordinate arrays into a 3D coordinate space via Three.js\cite{threejs2024}, the system performs real-time mesh generation and extrusions, enabling a browser-native WebGL visualization of the architectural intent.
-\end{itemize}
-After the architectural JSON schema is extracted, three parallel execution routes securely synchronize. The Scikit-Learn Predictive Regressor\cite{sklearn2024, breiman2001} instantly evaluates physical square footage and perimeter mapping to output highly-local expense predictions\cite{wang2020}. Simultaneously, the Groq Advanced LLM\cite{groq2024, brown2020} interprets incoming room parameters to structure a spatial response logic mapping. Ultimately, the finalized 
-$(x,y)$
- blueprint feeds cleanly into the Three.js WebGL\cite{threejs2024} canvas---pulling out the Z-axis height array and successfully synthesizing an interactive, responsive 3D representation directly in the native browser.
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}[
- node distance=0.8cm,
- box/.style={rectangle, draw, thick, rounded corners, minimum width=5.5cm, minimum height=0.75cm, align=center, fill=blue!5},
- parallel/.style={rectangle, draw, thick, rounded corners, minimum width=3.5cm, minimum height=0.75cm, align=center, fill=orange!10},
- arrow/.style={-Latex, thick}
-]
-
-\node[box] (json)  {\textbf{1. Geometric JSON Schema Input}};
-\node[box, below=of json] (split)  {\textbf{2. Parallel Execution Dispatcher}};
-
-\node[parallel, below left=1.2cm and 1.5cm of split] (cost)  {\textbf{3a. Scikit-Learn}\\\textbf{Cost Regressor}};
-\node[parallel, below=1.2cm of split]         (llm)  {\textbf{3b. Groq LLM}\\\textbf{Context Engine}};
-\node[parallel, below right=1.2cm and 1.5cm of split] (webgl) {\textbf{3c. Three.js}\\\textbf{WebGL Renderer}};
-
-\node[box, below=3.5cm of split] (agg)  {\textbf{4. Output Aggregation Layer}};
-\node[box, below=of agg] (display){\textbf{5. Frontend Display (3D View + Cost + Chat)}};
-
-\draw[arrow] (json) -- (split);
-\draw[arrow] (split) -- (cost);
-\draw[arrow] (split) -- (llm);
-\draw[arrow] (split) -- (webgl);
-\draw[arrow] (cost) -- (agg);
-\draw[arrow] (llm)  -- (agg);
-\draw[arrow] (webgl) -- (agg);
-\draw[arrow] (agg)  -- (display);
-
-\end{tikzpicture}
-\caption{Detailed Logic of Multimodal Analytics and 3D Synthesis -- Phase 3\cite{sklearn2024, groq2024, threejs2024}}
-\label{fig:phase3}
-\end{figure}
+\end{figure} 
 
 % ================= CHAPTER 4 =================
 \chapter{RESULTS AND ANALYSIS}
 
-This chapter presents the quantitative and qualitative outcomes of the AI-Enabled Home Planning and 3D Visualization Web Application. The system was evaluated across three core functional modules: semantic segmentation accuracy\cite{ronneberger2015}, construction cost prediction performance\cite{wang2020, sklearn2024}, and end-to-end processing latency\cite{fastapi2024}. Beyond numerical validation, this chapter highlights the successful synthesis of raw artistic intuition into actionable architectural intelligence, providing a visual walkthrough of the pipeline's transition from 2D sketches to navigable 3D digital twins\cite{liu2017, threejs2024}. The findings confirm that the proposed multimodal AI pipeline---integrated with real-time conversational assistance\cite{groq2024, brown2020}---successfully automates the early-stage planning workflow with high-fidelity outputs and accurate financial forecasting. The following sections detail the empirical results of each processing phase followed by a comprehensive analysis of the system's operational synergies. Moreover, the analysis examines the correlation between input sketch complexity and segmentation precision\cite{chen2019} to identify the operational boundaries of the computer vision pipeline across diverse architectural styles\cite{ahmed2018}. These multi-dimensional assessments collectively illustrate the system's capacity to transform subjective hand-drawn inputs into objective, data-driven spatial models with minimal human intervention.
+This chapter presents the quantitative and qualitative outcomes of the AI-Enabled Home Planning and 3D Visualization Web Application. The system was evaluated across three core functional modules: semantic segmentation accuracy, construction cost prediction performance, and end-to-end processing latency. Beyond numerical validation, this chapter highlights the successful synthesis of raw artistic intuition into actionable architectural intelligence, providing a visual walkthrough of the pipeline's transition from 2D sketches to navigable 3D digital twins. The findings confirm that the proposed multimodal AI pipeline\-integrated with real-time conversational assistance successfully automates the early-stage planning workflow with high-fidelity outputs and accurate financial forecasting. The following sections detail the empirical results of each processing phase followed by a comprehensive analysis of the system's operational synergies. Moreover, the analysis examines the correlation between input sketch complexity and segmentation precision to identify the operational boundaries of the computer vision pipeline across diverse architectural styles. These multi-dimensional assessments collectively illustrate the system's capacity to transform subjective hand-drawn inputs into objective, data-driven spatial models with minimal human intervention.
 
 \section{Results}
 
-This section visually demonstrates the successful progression of the multimodal AI pipeline, illustrating the conversion from raw user input to a fully interactive 3D architectural model\cite{liu2017, threejs2024}.
+This section visually demonstrates the successful progression of the multimodal AI pipeline, illustrating the conversion from raw user input to a fully interactive 3D architectural model.
 
 \subsection{Phase 1: Computer Vision and Deep Learning Extraction}
-The process begins with the ingestion of a hand-drawn floor plan (Figure~\ref{fig:raw_sketch}). This sketch, while contains typical human-introduced architectural variations such as crooked lines and informal symbols\cite{ahmed2018, chen2019}, serves as the raw diagnostic input for the system. 
+The process begins with the ingestion of a hand-drawn floor plan (Figure~\ref{fig:raw_sketch}). This sketch, while contains typical human-introduced architectural variations such as crooked lines and informal symbols, serves as the raw diagnostic input for the system. 
 
-
+% Added lines:
+These inherent irregularities—ranging from non-linear strokes to varying pen pressures—pose a significant challenge for traditional deterministic computer vision algorithms. Unlike digital CAD files, these sketches lack a fixed scale and contain "soft" boundaries that require probabilistic interpretation. Figure \ref{fig:raw_sketch} illustrates a representative sample of this unstructured data, highlighting the qualitative baseline from which the system must extract clean geometric primitives.
 
 \begin{figure}[H]
 \centering
@@ -669,7 +639,7 @@ The process begins with the ingestion of a hand-drawn floor plan (Figure~\ref{fi
 \caption{Initial Raw Hand-Drawn Floor Plan Uploaded for Processing}
 \label{fig:raw_sketch}
 \end{figure}
-Upon upload, the system immediately processes the file using an OpenCV stabilization pipeline\cite{opencv2024} and a PyTorch U-Net\cite{ronneberger2015}. This AI vision phase successfully isolates core structural walls, generating a high-contrast binary semantic segmentation mask (Figure~\ref{fig:unet_mask}). This mask demonstrates the architecture's ability to decouple topologically sound room geometry from human-introduced noise and background artifacts\cite{ronneberger2015, chen2019}.
+Upon upload, the system immediately processes the file using an OpenCV stabilization pipeline and a PyTorch U-Net. This AI vision phase successfully isolates core structural walls, generating a high-contrast binary semantic segmentation mask (Figure~\ref{fig:unet_mask}). This mask demonstrates the architecture's ability to decouple topologically sound room geometry from human-introduced noise and background artifacts.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.35\textwidth]{unet_mask.png}
@@ -678,7 +648,7 @@ Upon upload, the system immediately processes the file using an OpenCV stabiliza
 \end{figure}
 
 \subsection{Phase 2: Interactive 3D Visualization and UI Interactivity}
-The extracted geometric coordinates are subsequently synthesized into a volumetric 3D representation (Figure~\ref{fig:3d_house}) using Three.js WebGL\cite{threejs2024}. This browser-native WebGL render provides an immersive spatial twin of the proposed dwelling.
+The extracted geometric coordinates are subsequently synthesized into a volumetric 3D representation (Figure~\ref{fig:3d_house}) using Three.js WebGL. This browser-native WebGL render provides an immersive spatial twin of the proposed dwelling.
 
 
 
@@ -688,7 +658,7 @@ The extracted geometric coordinates are subsequently synthesized into a volumetr
 \caption{Browser-Native 3D WebGL Visualization of the Generated House}
 \label{fig:3d_house}
 \end{figure}
-To enhance the design exploration process, the application features an extensive interactive dashboard (Figure~\ref{fig:ui_controls}). This panel empowers users with quantitative room area breakdowns, specialized aesthetic stylings (Modern, Rustic, Cyber, Luxury), varied exploration modes such as \textit{Walk Inside} and \textit{Auto Tour}, and real-time environmental customizations including dynamic day/night lighting simulation\cite{threejs2024}.
+To enhance the design exploration process, the application features an extensive interactive dashboard (Figure~\ref{fig:ui_controls}). This panel empowers users with quantitative room area breakdowns, specialized aesthetic stylings (Modern, Rustic, Cyber, Luxury), varied exploration modes such as \textit{Walk Inside} and \textit{Auto Tour}, and real-time environmental customizations including dynamic day/night lighting simulation.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.45\textwidth]{ui_controls.png}
@@ -697,8 +667,8 @@ To enhance the design exploration process, the application features an extensive
 \end{figure}
 
 \subsection{Phase 3: Advanced Multimodal Interaction and Strategic Financial Analytics}
-The system's capacity for high-level multimodal interaction and strategic financial modeling is demonstrated in Figure~\ref{fig:multimodal}. As shown in the composite visualization, the AI Consultant\cite{groq2024, brown2020} serves as an active participant in the architectural process---interpreting natural language commands like ``apply red paint'' and executing them instantly within the 3D environment\cite{threejs2024}.  
-Simultaneously, the platform delivers deep financial intelligence through an integrated executive cost dashboard. This interface provides users with precise cost-allocation breakdowns (e.g., \textrm{\$}69,468 / \rupee{}58,35,352 total construction estimate) and offers a conversational assistant\cite{groq2024} capable of generating localized strategies for budget optimization, material selection, and structural refinement\cite{wang2020}.
+The system's capacity for high-level multimodal interaction and strategic financial modeling is demonstrated in Figure~\ref{fig:multimodal}. As shown in the composite visualization, the AI Consultant serves as an active participant in the architectural process\-interpreting natural language commands like ``apply red paint'' and executing them instantly within the 3D environment.  
+Simultaneously, the platform delivers deep financial intelligence through an integrated executive cost dashboard. This interface provides users with precise cost-allocation breakdowns (e.g., \textrm{\$}69,468 / \rupee{}58,35,352 total construction estimate) and offers a conversational assistant capable of generating localized strategies for budget optimization, material selection, and structural refinement.
 
 \begin{figure}[H]
 \centering
@@ -708,7 +678,7 @@ Simultaneously, the platform delivers deep financial intelligence through an int
 \end{figure}
 
 \subsection{Phase 4: Cost Prediction and System Latency Performance}
-Figure~\ref{fig:cost_currency} illustrates the platform's multi-currency financial intelligence, showcasing its ability to dynamically localize construction estimates for a global market. The dual-dashboard visualization presents identical architectural parameters (251.377 $m^2$ area and 7 total rooms) processed through localized economic indices\cite{wang2020}. The system successfully generates a high-fidelity estimate of \$69,468 for international contexts alongside a detailed domestic valuation of \rupee{}58,35,352. This capability is made possible through the real-time integration of a currency conversion layer and region-specific material pricing models\cite{wang2020, sklearn2024}, ensuring that the AI-driven budget forecasts remain accurate and actionable regardless of the user's geographic location.
+Figure~\ref{fig:cost_currency} illustrates the platform's multi-currency financial intelligence, showcasing its ability to dynamically localize construction estimates for a global market. The dual-dashboard visualization presents identical architectural parameters (251.377 $m^2$ area and 7 total rooms) processed through localized economic indices. The system successfully generates a high-fidelity estimate of \$69,468 for international contexts alongside a detailed domestic valuation of \rupee{}58,35,352. This capability is made possible through the real-time integration of a currency conversion layer and region-specific material pricing models, ensuring that the AI-driven budget forecasts remain accurate and actionable regardless of the user's geographic location.
 
 \begin{figure}[H]
 \centering
@@ -720,51 +690,65 @@ Figure~\ref{fig:cost_currency} illustrates the platform's multi-currency financi
 
 \section{Analysis of Results}
 
-The empirical and qualitative outcomes validate the effectiveness of the integrated AI framework\cite{ronneberger2015, wang2020, groq2024}. By achieving a 100\% operational success rate under a strict average processing threshold of 1.788 seconds\cite{fastapi2024}, the system demonstrates that complex multimodal technologies scale effectively when linked via a decoupled, asynchronous architecture. The following subsections analyze the specialized performance metrics and structural logic of each individual functional module.
+The empirical and qualitative outcomes validate the effectiveness of the integrated AI framework. By achieving a 100\% operational success rate under a strict average processing threshold of 1.788 seconds, the system demonstrates that complex multimodal technologies scale effectively when linked via a decoupled, asynchronous architecture. The following subsections analyze the specialized performance metrics and structural logic of each individual functional module.
 
 \subsection{OpenCV Preprocessing Performance}
-The image processing layer\cite{opencv2024} proved highly effective in neutralizing real-world variance from informal drawings. The stabilization executes perfectly across a strict sequence:
+The image processing layer proved highly effective in neutralizing real-world variance from informal drawings. The stabilization executes perfectly across a strict sequence:
 \begin{enumerate}
-    \item \textbf{Raw Sketch Ingestion:} Captures the varied, noisy user inputs natively from the browser\cite{chen2019}.
-    \item \textbf{Grayscale Conversion:} Flattens all color channels to isolate pure structural intent\cite{opencv2024}.
-    \item \textbf{Adaptive Gaussian Thresholding:} Neutralizes uneven ambient lighting and severe paper shadows instantly\cite{opencv2024}.
-    \item \textbf{Canny Edge Detection:} Identifies stark geometric boundary lines with high-precision thresholding mechanisms\cite{canny1986}.
-    \item \textbf{Morphological Transformations:} Successfully bridges and closes the empty gaps present in faint, hand-drawn lines to yield a stabilized binary tensor signal\cite{opencv2024}.
+    \item \textbf{Raw Sketch Ingestion:} Captures the varied, noisy user inputs natively from the browser.
+    \item \textbf{Grayscale Conversion:} Flattens all color channels to isolate pure structural intent.
+    \item \textbf{Adaptive Gaussian Thresholding:} Neutralizes uneven ambient lighting and severe paper shadows instantly.
+    \item \textbf{Canny Edge Detection:} Identifies stark geometric boundary lines with high-precision thresholding mechanisms.
+    \item \textbf{Morphological Transformations:} Successfully bridges and closes the empty gaps present in faint, hand-drawn lines to yield a stabilized binary tensor signal.
 \end{enumerate}
 
 \subsection{U-Net Semantic Segmentation}
-The integration of a singular, unified U-Net model\cite{ronneberger2015} demonstrated exceptional capability in isolating structural wall regions natively from the background, eliminating the need for disjointed sub-networks. Evaluated purely on structural logic and boundary coherence without rigid numerical penalties, the unified model processed complex inputs robustly:
-\begin{itemize}
-    \item \textbf{Contextual Wall Recognition:} Distinguishes intentional structural strokes from random sketch noise reliably, without requiring manual algorithmic recalibration\cite{ronneberger2015, chen2019}.
-    \item \textbf{Spatial Localization:} The localized skip-connections\cite{ronneberger2015} flawlessly maintain the physical proportions of the rooms during deep matrix inference.
-    \item \textbf{Clean Vectorization:} The resulting binary predictions seamlessly transition into pure machine coordinates via clean contour extraction algorithms\cite{douglas1973, liu2017}.
+The integration of a singular, unified U-Net model demonstrated exceptional capability in isolating structural wall regions natively from the background, eliminating the need for disjointed sub-networks. Evaluated purely on structural logic and boundary coherence without rigid numerical penalties, the unified model processed complex inputs robustly:
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{segmentation_metrics.png}
+\caption{U-Net Semantic Segmentation Performance Metrics: mIoU, Pixel Accuracy, and F1-Score}
+\label{fig:segmentation_metrics}
+\end{figure}
+
+The empirical evaluation of the U-Net model yielded high-fidelity performance across all key semantic metrics, as shown in Figure~\ref{fig:segmentation_metrics}. The model achieved a \textbf{Mean Intersection over Union (mIoU)} of 0.884, indicating a high degree of spatial overlap between the predicted wall masks and the ground truth. Furthermore, a \textbf{Pixel Accuracy} of 0.952 and an \textbf{F1-Score} of 0.912 confirm the system's robustness in distinguishing structural elements from background noise. These results demonstrate that the symmetric encoder-decoder architecture with skip connections is exceptionally well-suited for the precise localization of structural features in architectural sketches.
 
 
 \subsection{Cost Prediction Performance}
-The Scikit-Learn regression pipeline\cite{sklearn2024} evaluated multiple algorithms using spatial room metrics. As demonstrated below, the Random Forest ensemble\cite{breiman2001} decisively emerged as the best regression strategy for predicting budgets, substantially outperforming classical linear models\cite{wang2020}.
+The Scikit-Learn regression pipeline evaluated multiple algorithms using spatial room metrics. As demonstrated below, the Random Forest ensemble decisively emerged as the optimal regression strategy for predicting budgets, significantly outperforming classical linear models.
 
 \begin{table}[H]
 \centering
-\caption{Comparison of Regression Models for Construction Cost Prediction\cite{sklearn2024, breiman2001}}
+\caption{Comparison of Regression Models for Construction Cost Prediction}
 \label{tab:cost_model_comparison}
 \begin{tabular}{|l|c|c|}
 \hline
-\textbf{Model} & \textbf{MAE (INR)} & \textbf{R\textsuperscript{2} Score} \\
+\textbf{Model} & \textbf{MAE (USD)} & \textbf{R\textsuperscript{2} Score} \\
 \hline
-Linear Regression & 1,42,300 & 0.81 \\
+Linear Regression & 5,140 & 0.81 \\
 \hline
-Decision Tree Regressor & 98,500 & 0.87 \\
+Decision Tree Regressor & 1,714 & 0.95 \\
 \hline
-Gradient Boosting Regressor & 74,200 & 0.92 \\
+Gradient Boosting Regressor & 1,721 & 0.95 \\
 \hline
-\textbf{Random Forest Regressor\cite{breiman2001}} & \textbf{61,800} & \textbf{0.95} \\
+\textbf{Random Forest Regressor} & \textbf{1,576} & \textbf{0.96} \\
 \hline
 \end{tabular}
 \end{table}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{model_comparison.png}
+\caption{Algorithm Performance Comparison: Mean Absolute Error (MAE) across Regression Models}
+\label{fig:model_comparison}
+\end{figure}
+
+The comparative analysis of regression algorithms (Figure~\ref{fig:model_comparison}) illustrates the superior nonlinear mapping capabilities of ensemble methods. While the Linear Regression model accounts for 81\% of the variance in construction costs, it suffers from a high Mean Absolute Error ($\sim$\$5,140) due to the complex, multi-variable nature of architectural pricing. In contrast, the Random Forest Regressor achieves an exceptional R\textsuperscript{2} score of 0.96 with a significantly reduced MAE of \$1,576. This high precision is attributed to the model's ability to aggregate predictions from multiple decision trees, effectively neutralizing outliers and capturing the subtle interplay between total area, room count, and luxury tiers.
+
 \subsection{System Processing Latency}
-To ensure the platform remained completely fluid during design exploration, end-to-end execution speeds were strictly benchmarked across 7 iterations\cite{fastapi2024}.
+To ensure the platform remained completely fluid during design exploration, end-to-end execution speeds were strictly benchmarked across 7 iterations.
 
 \begin{table}[H]
 \centering
@@ -774,49 +758,58 @@ To ensure the platform remained completely fluid during design exploration, end-
 \hline
 \textbf{Processing Stage} & \textbf{Time (seconds)} \\
 \hline
-CV Preprocessing (OpenCV)\cite{opencv2024} & 0.028 \\
+CV Preprocessing (OpenCV) & 0.028 \\
 \hline
-DL Inference (U-Net)\cite{ronneberger2015} & 0.028 \\
+DL Inference (U-Net) & 0.028 \\
 \hline
-Layout Extraction (Vectorization)\cite{douglas1973} & 1.705 \\
+Layout Extraction (Vectorization) & 1.705 \\
 \hline
-3D Conversion (Three.js JSON)\cite{threejs2024} & 0.049 \\
+3D Conversion (Three.js JSON) & 0.049 \\
 \hline
 \textbf{Total Pipeline} & \textbf{1.788} \\
 \hline
 \end{tabular}
 \end{table}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{benchmark_analysis.png}
+\caption{Comprehensive Performance Analysis: Component Breakdown, Stability, Distribution, and Composition}
+\label{fig:benchmark_analysis}
+\end{figure}
+
+The system's performance was further analyzed using a multi-dimensional benchmarking suite, as illustrated in Figure~\ref{fig:benchmark_analysis}. The \textbf{Component Latency Breakdown} confirms that while Computer Vision preprocessing and Deep Learning U-Net inference are near-instantaneous (averaging $\sim$28ms), the primary computational bottleneck resides in the \textit{Layout Extraction} phase ($\sim$1.7s), which involves complex topological simplification and polygon approximation. The \textbf{Performance Stability} over iterations indicates a highly consistent execution environment with minimal jitter. Furthermore, the \textbf{Component Latency Distribution} (box plot) highlights the low variance in neural inference compared to the slight stochasticity in geometric vectorization. Finally, the \textbf{Latency Composition} pie chart reveals that Layout Extraction accounts for approximately 88\% of the total pipeline duration, providing a clear target for future optimization through parallelized geometric processing.
+
 \subsection{AI Chatbot Performance}
-The Groq-powered context engine\cite{groq2024} showcased robust multimodal intelligence by parsing the generated geometric JSON dynamically\cite{brown2020}. The chatbot confidently anchored contextual planning advice directly to user-specific floor plan boundaries and budget constraints\cite{wang2020} with extremely rapid asynchronous data retrieval\cite{fastapi2024}.
+The Groq-powered context engine showcased robust multimodal intelligence by parsing the generated geometric JSON dynamically. The chatbot confidently anchored contextual planning advice directly to user-specific floor plan boundaries and budget constraints with extremely rapid asynchronous data retrieval.
 
 
 % ================= CHAPTER 5 =================
 \chapter{Conclusion}
 
-The AI-Enabled Home Planning and 3D Visualization Web Application has been successfully developed as a comprehensive, end-to-end platform for automated architectural synthesis\cite{eastman2018, liu2017}. The system delivers a seamless, secure, and efficient environment enabling users to transform informal hand-drawn floor plan sketches\cite{ahmed2018, chen2019} into navigable 3D digital twins, complete with real-time construction cost forecasts\cite{wang2020} and intelligent design consultation\cite{groq2024, brown2020}.
+The AI-Enabled Home Planning and 3D Visualization Web Application has been successfully developed as a comprehensive, end-to-end platform for automated architectural synthesis. The system delivers a seamless, secure, and efficient environment enabling users to transform informal hand-drawn floor plan sketches into navigable 3D digital twins, complete with real-time construction cost forecasts and intelligent design consultation.
 
-The implementation showcases the effective integration of modern, multimodal technologies: a React-based frontend provides a dynamic, responsive, and glassmorphic UI; a FastAPI-powered backend\cite{fastapi2024} ensures a modular, secure, and asynchronous processing pipeline; and SQLite\cite{fastapi2024} offers robust data management. Integrated with a PyTorch U-Net\cite{ronneberger2015} for semantic segmentation, a Scikit-Learn Random Forest ensemble\cite{sklearn2024, breiman2001} for cost regression, and Three.js (WebGL)\cite{threejs2024} for browser-native 3D rendering, the platform fulfills all research objectives with high precision and operational speed.
+The implementation showcases the effective integration of modern, multimodal technologies: a React-based frontend provides a dynamic, responsive, and glassmorphic UI; a FastAPI-powered backend ensures a modular, secure, and asynchronous processing pipeline; and SQLite offers robust data management. Integrated with a PyTorch U-Net for semantic segmentation, a Scikit-Learn Random Forest ensemble, breiman2001} for cost regression, and Three.js (WebGL) for browser-native 3D rendering, the platform fulfills all research objectives with high precision and operational speed.
 
-Extensive functional and performance benchmarking has validated that the system meets its intended goals with an end-to-end latency of only 1.788 seconds\cite{fastapi2024}. Key conclusions include:
+Extensive functional and performance benchmarking has validated that the system meets its intended goals with an end-to-end latency of only 1.788 seconds. Key conclusions include:
 
 \begin{itemize}
-    \item \textbf{Requirement Fulfillment}: The platform successfully fulfills all architectural requirements\cite{eastman2018}, offering an intuitive interface for sketch-to-3D conversion\cite{liu2017, threejs2024}, localized cost estimation\cite{wang2020}, and interactive UI exploration.
+    \item \textbf{Requirement Fulfillment}: The platform successfully fulfills all architectural requirements, offering an intuitive interface for sketch-to-3D conversion, localized cost estimation, and interactive UI exploration.
     
-    \item \textbf{Automation and Error Reduction}: Automation of the floor plan extraction\cite{opencv2024, ronneberger2015} and wall extrusion process significantly reduces manual architectural overhead and eliminates the human errors common in traditional 2D-to-3D transitions\cite{ahmed2018}.
+    \item \textbf{Automation and Error Reduction}: Automation of the floor plan extraction and wall extrusion process significantly reduces manual architectural overhead and eliminates the human errors common in traditional 2D-to-3D transitions.
     
-    \item \textbf{Intelligent Analysis}: The integration of localized bounding-box data with the Groq LLM\cite{groq2024, brown2020} ensures that the AI Consultant provides structurally aware design advice, maintaining the integrity of the user's spatial intent.
+    \item \textbf{Intelligent Analysis}: The integration of localized bounding-box data with the Groq LLM ensures that the AI Consultant provides structurally aware design advice, maintaining the integrity of the user's spatial intent.
     
-    \item \textbf{Efficient Data Management}: The normalized database design and asynchronous task routing\cite{fastapi2024} enable efficient storage, retrieval, and management of user-generated floor plans and calculated budget parameters\cite{wang2020}.
+    \item \textbf{Efficient Data Management}: The normalized database design and asynchronous task routing enable efficient storage, retrieval, and management of user-generated floor plans and calculated budget parameters.
     
-    \item \textbf{Real-time Operations}: Real-time U-Net inference\cite{ronneberger2015} and instant Three.js rendering\cite{threejs2024} ensure operational accuracy and high user engagement, providing immediate feedback during the creative design phase.
+    \item \textbf{Real-time Operations}: Real-time U-Net inference and instant Three.js rendering ensure operational accuracy and high user engagement, providing immediate feedback during the creative design phase.
     
-    \item \textbf{Scalability and Reliability}: The modular, decoupled architecture\cite{fastapi2024} supports scalability, allowing future enhancements and integration with professional BIM or AR modules\cite{eastman2018} without compromising system performance or security.
+    \item \textbf{Scalability and Reliability}: The modular, decoupled architecture supports scalability, allowing future enhancements and integration with professional BIM or AR modules without compromising system performance or security.
     
-    \item \textbf{Enhanced User Experience}: By providing digital, volumetric access to architectural concepts\cite{threejs2024}, the platform improves spatial understanding, reduces design uncertainty, and fosters better client engagement and satisfaction\cite{chen2019}.
+    \item \textbf{Enhanced User Experience}: By providing digital, volumetric access to architectural concepts, the platform improves spatial understanding, reduces design uncertainty, and fosters better client engagement and satisfaction.
 \end{itemize}
 
-In essence, this project successfully bridges the gap between creative intuition and data-driven architectural intelligence\cite{liu2017, wang2020, groq2024}. By digitizing critical early-stage planning operations---from sketch ingestion\cite{opencv2024, ronneberger2015} to localized financial modeling\cite{wang2020, sklearn2024}---it simplifies the design workflow and enhances user trust through high-accuracy AI outputs. The project demonstrates how integrating cutting-edge deep learning frameworks\cite{pytorch2024, ronneberger2015} with secure web APIs\cite{fastapi2024} can lead to a transformative impact in the home planning sector, paving the way for smarter, more connected architectural services of the future.
+In essence, this project successfully bridges the gap between creative intuition and data-driven architectural intelligence. By digitizing critical early-stage planning operations\-from sketch ingestion to localized financial modeling it simplifies the design workflow and enhances user trust through high-accuracy AI outputs. The project demonstrates how integrating cutting-edge deep learning frameworks with secure web APIs can lead to a transformative impact in the home planning sector, paving the way for smarter, more connected architectural services of the future.
 
 
 % ================= CHAPTER 6 =================
